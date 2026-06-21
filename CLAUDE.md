@@ -68,6 +68,8 @@ personnel d'abord (pas l'adoption de masse).
   PR `dev → main` = check **`verify`** (+ build Next.js + tests). On ne merge que si la CI est verte.
 - Commits : messages clairs ; terminer par `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`.
 - Ne jamais forcer un push sur `main`/`dev` ni contourner une CI rouge.
+- *Exception unique : le **push de bootstrap** initial (création de `main`/`dev` sur le remote, avant
+  l'activation de la protection de branches). Après ça, la règle « aucun push direct » s'applique.*
 
 ## Ordre de construction
 
