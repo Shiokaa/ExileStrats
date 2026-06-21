@@ -56,13 +56,18 @@ personnel d'abord (pas l'adoption de masse).
 - Les maquettes `design_handoff/design_files/*.dc.html` sont des **références** (runtime maison
   `support.js` à NE PAS porter) — lire structure/tokens/logique, réimplémenter proprement.
 
-## Workflow Git & CI
+## Git & CI — autorisation & workflow
 
-- Branches longues : **`main`** (stable) et **`dev`** (intégration). Travail sur **`feat/*`** issues de `dev`.
-- Flux de merge : `feat/* → dev`, puis `dev → main`.
-- **CI gates** : PR `feat/* → dev` = **lint + format + typecheck** ; PR `dev → main` = en plus
-  **build Next.js + tests**. On ne merge que si la pipeline est verte. → DECISIONS.md D25
-- Ne pas `add`/`commit`/`push` sans demande explicite.
+> **Autorisation (spécifique à ce projet)** : les commandes `git` et `gh` sont **autorisées** ici.
+> Ceci lève, pour ce projet uniquement, la règle globale « aucune commande git » du CLAUDE.md global.
+> Permission harness correspondante : `.claude/settings.json` (`Bash(git:*)`, `Bash(gh:*)`).
+
+- Branches longues **protégées** : `main` (stable) et `dev` (intégration). **Aucun push direct** dessus.
+- Travail sur des branches **`feat/*`** issues de `dev`. Flux : `feat/* → dev` (PR), puis `dev → main` (PR).
+- **CI gates** (→ DECISIONS.md D25) : PR `feat/* → dev` = check **`quality`** (lint + format + typecheck) ;
+  PR `dev → main` = check **`verify`** (+ build Next.js + tests). On ne merge que si la CI est verte.
+- Commits : messages clairs ; terminer par `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`.
+- Ne jamais forcer un push sur `main`/`dev` ni contourner une CI rouge.
 
 ## Ordre de construction
 
@@ -73,7 +78,7 @@ sans base ni auth — c'est le test produit n°1.
 
 - **Loi du projet** : `.specify/memory/constitution.md` (principes MUST / MUST NOT).
 - **Contexte détaillé** : `graphify-out/` (graphe interrogeable — modèle de données, mécaniques, conformité…).
-- **Décisions & justifications** : `DECISIONS.md` (ADR D1–D26).
+- **Décisions & justifications** : `DECISIONS.md` (ADR D1–D27).
 - **Design** : `design_handoff/README.md` (+ maquettes et screenshots).
 
 ## Règles de travail
