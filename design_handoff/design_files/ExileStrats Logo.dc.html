@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Saira+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+</style>
+</helmet>
+
+<div style="position:relative; min-height:100vh; width:100%; background:{{ pageBg }}; font-family:'Hanken Grotesk',system-ui,sans-serif; color:{{ c.text }};">
+
+  <!-- ambient layers -->
+  <div style="position:fixed; inset:0; z-index:0; pointer-events:none; background:{{ lightField }};"></div>
+  <div style="position:fixed; inset:0; z-index:0; pointer-events:none; background:{{ wash }};"></div>
+  <div style="position:fixed; inset:0; z-index:0; pointer-events:none; opacity:{{ grain }}; mix-blend-mode:overlay; background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22180%22 height=%22180%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%222%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E'); background-size:180px 180px;"></div>
+
+  <div style="position:relative; z-index:1; max-width:1080px; margin:0 auto; padding:48px 40px 96px;">
+
+    <!-- header -->
+    <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:20px; flex-wrap:wrap;">
+      <div>
+        <div style="font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:{{ accent }};">Marque</div>
+        <h1 style="margin:8px 0 0; font-family:'Saira Condensed',sans-serif; font-weight:700; font-size:44px; line-height:1; color:{{ c.text }};">Logo officiel</h1>
+        <p style="margin:12px 0 0; max-width:580px; font-size:15px; line-height:1.6; color:{{ c.text2 }};">Un graphe ramifié : deux branches qui convergent vers un nœud, puis descendent vers un point d'arrivée. Il évoque l'arbre d'atlas et le cheminement d'une stratégie.</p>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px; padding:9px 10px 9px 15px; border-radius:999px; background:{{ subtleBg }}; border:1px solid {{ subtleBorder }};">
+        <span style="font-size:12.5px; font-weight:600; color:{{ c.text2 }};">{{ themeName }}</span>
+        <button onClick="{{ toggle }}" aria-label="Basculer le thème" style="position:relative; width:46px; height:26px; border-radius:99px; border:1px solid {{ subtleBorder }}; background:{{ inputBg }}; cursor:pointer; padding:0;">
+          <span style="position:absolute; top:2px; left:{{ knobLeft }}; width:20px; height:20px; border-radius:50%; background:{{ accent }};"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- hero lockup -->
+    <div style="margin-top:38px; border-radius:24px; background:{{ c.panelBg }}; border:{{ c.panelBorder }}; box-shadow:{{ c.cardShadow }}; backdrop-filter:{{ c.cardBlur }}; -webkit-backdrop-filter:{{ c.cardBlur }}; padding:54px 40px; display:flex; flex-direction:column; align-items:center; gap:26px;">
+      <div style="width:132px; height:132px; border-radius:32px; background:{{ accent }}; box-shadow:inset 0 2px 0 rgba(255,255,255,.3), inset 0 -12px 30px rgba(0,0,0,.18), 0 22px 48px -16px rgba(47,127,224,.6); display:flex; align-items:center; justify-content:center;">
+        <svg width="76" height="76" viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 23.5 V28 Q21 34 26 34"></path><path d="M43 23.5 V28 Q43 34 38 34"></path><path d="M32 40 V44.5"></path><rect x="15.5" y="12.5" width="11" height="11" rx="3"></rect><rect x="37.5" y="12.5" width="11" height="11" rx="3"></rect><circle cx="32" cy="34" r="6"></circle><rect x="26.5" y="44.5" width="11" height="11" rx="3"></rect></svg>
+      </div>
+      <span style="font-family:'Saira Condensed',sans-serif; font-weight:700; font-size:46px; letter-spacing:.015em; color:{{ c.text }};">EXILESTRATS</span>
+    </div>
+
+    <!-- variants -->
+    <h2 style="margin:40px 0 16px; font-family:'Saira Condensed',sans-serif; font-weight:600; font-size:24px; color:{{ c.text }};">Variantes</h2>
+    <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:16px;">
+      <!-- app icon -->
+      <div>
+        <div style="height:140px; border-radius:16px; background:{{ subtleBg }}; border:1px solid {{ subtleBorder }}; display:flex; align-items:center; justify-content:center;">
+          <div style="width:84px; height:84px; border-radius:21px; background:{{ accent }}; box-shadow:inset 0 2px 0 rgba(255,255,255,.28), 0 12px 26px -10px rgba(47,127,224,.6); display:flex; align-items:center; justify-content:center;">
+            <svg width="48" height="48" viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 23.5 V28 Q21 34 26 34"></path><path d="M43 23.5 V28 Q43 34 38 34"></path><path d="M32 40 V44.5"></path><rect x="15.5" y="12.5" width="11" height="11" rx="3"></rect><rect x="37.5" y="12.5" width="11" height="11" rx="3"></rect><circle cx="32" cy="34" r="6"></circle><rect x="26.5" y="44.5" width="11" height="11" rx="3"></rect></svg>
+          </div>
+        </div>
+        <div style="font-size:13px; font-weight:600; color:{{ c.text }}; margin-top:11px;">App-icon</div>
+        <div style="font-size:12px; color:{{ c.text3 }}; margin-top:2px;">Blanc sur bleu, usage principal</div>
+      </div>
+      <!-- glass -->
+      <div>
+        <div style="height:140px; border-radius:16px; background:{{ subtleBg }}; border:1px solid {{ subtleBorder }}; display:flex; align-items:center; justify-content:center;">
+          <div style="width:84px; height:84px; border-radius:21px; background:{{ c.cardBg }}; border:{{ c.cardBorder }}; box-shadow:{{ c.cardShadow }}; backdrop-filter:{{ c.cardBlur }}; -webkit-backdrop-filter:{{ c.cardBlur }}; display:flex; align-items:center; justify-content:center;">
+            <svg width="48" height="48" viewBox="0 0 64 64" fill="none" stroke="{{ accent }}" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 23.5 V28 Q21 34 26 34"></path><path d="M43 23.5 V28 Q43 34 38 34"></path><path d="M32 40 V44.5"></path><rect x="15.5" y="12.5" width="11" height="11" rx="3"></rect><rect x="37.5" y="12.5" width="11" height="11" rx="3"></rect><circle cx="32" cy="34" r="6"></circle><rect x="26.5" y="44.5" width="11" height="11" rx="3"></rect></svg>
+          </div>
+        </div>
+        <div style="font-size:13px; font-weight:600; color:{{ c.text }}; margin-top:11px;">Verre</div>
+        <div style="font-size:12px; color:{{ c.text3 }}; margin-top:2px;">Sur surface, contexte UI</div>
+      </div>
+      <!-- monochrome -->
+      <div>
+        <div style="height:140px; border-radius:16px; background:{{ subtleBg }}; border:1px solid {{ subtleBorder }}; display:flex; align-items:center; justify-content:center; color:{{ c.text }};">
+          <svg width="60" height="60" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 23.5 V28 Q21 34 26 34"></path><path d="M43 23.5 V28 Q43 34 38 34"></path><path d="M32 40 V44.5"></path><rect x="15.5" y="12.5" width="11" height="11" rx="3"></rect><rect x="37.5" y="12.5" width="11" height="11" rx="3"></rect><circle cx="32" cy="34" r="6"></circle><rect x="26.5" y="44.5" width="11" height="11" rx="3"></rect></svg>
+        </div>
+        <div style="font-size:13px; font-weight:600; color:{{ c.text }}; margin-top:11px;">Monochrome</div>
+        <div style="font-size:12px; color:{{ c.text3 }}; margin-top:2px;">Une seule couleur, gravure</div>
+      </div>
+      <!-- reversed -->
+      <div>
+        <div style="height:140px; border-radius:16px; background:#0B0D14; border:1px solid {{ subtleBorder }}; display:flex; align-items:center; justify-content:center;">
+          <svg width="60" height="60" viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 23.5 V28 Q21 34 26 34"></path><path d="M43 23.5 V28 Q43 34 38 34"></path><path d="M32 40 V44.5"></path><rect x="15.5" y="12.5" width="11" height="11" rx="3"></rect><rect x="37.5" y="12.5" width="11" height="11" rx="3"></rect><circle cx="32" cy="34" r="6"></circle><rect x="26.5" y="44.5" width="11" height="11" rx="3"></rect></svg>
+        </div>
+        <div style="font-size:13px; font-weight:600; color:{{ c.text }}; margin-top:11px;">Réversion</div>
+        <div style="font-size:12px; color:{{ c.text3 }}; margin-top:2px;">Blanc sur fond sombre</div>
+      </div>
+    </div>
+
+    <!-- sizes + clear space -->
+    <div style="margin-top:34px; display:grid; grid-template-columns:1fr 1fr; gap:18px;">
+      <!-- favicon sizes -->
+      <div style="border-radius:18px; background:{{ c.panelBg }}; border:{{ c.panelBorder }}; box-shadow:{{ c.cardShadow }}; padding:24px;">
+        <h3 style="margin:0 0 18px; font-family:'Saira Condensed',sans-serif; font-weight:600; font-size:18px; color:{{ c.text }};">Tailles favicon</h3>
+        <div style="display:flex; align-items:flex-end; gap:22px;">
+          <div style="display:flex; flex-direction:column; align-items:center; gap:9px;">
+            <div style="width:64px; height:64px; border-radius:15px; background:{{ accent }}; display:flex; align-items:center; justify-content:center;"><svg width="38" height="38" viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 23.5 V28 Q21 34 26 34"></path><path d="M43 23.5 V28 Q43 34 38 34"></path><path d="M32 40 V44.5"></path><rect x="15.5" y="12.5" width="11" height="11" rx="3"></rect><rect x="37.5" y="12.5" width="11" height="11" rx="3"></rect><circle cx="32" cy="34" r="6"></circle><rect x="26.5" y="44.5" width="11" height="11" rx="3"></rect></svg></div>
+            <span style="font-size:11px; color:{{ c.text3 }};">64</span>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:9px;">
+            <div style="width:32px; height:32px; border-radius:9px; background:{{ accent }}; display:flex; align-items:center; justify-content:center;"><svg width="20" height="20" viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 23.5 V28 Q21 34 26 34"></path><path d="M43 23.5 V28 Q43 34 38 34"></path><path d="M32 40 V44.5"></path><rect x="15.5" y="12.5" width="11" height="11" rx="3"></rect><rect x="37.5" y="12.5" width="11" height="11" rx="3"></rect><circle cx="32" cy="34" r="6"></circle><rect x="26.5" y="44.5" width="11" height="11" rx="3"></rect></svg></div>
+            <span style="font-size:11px; color:{{ c.text3 }};">32</span>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:9px;">
+            <div style="width:20px; height:20px; border-radius:6px; background:{{ accent }}; display:flex; align-items:center; justify-content:center;"><svg width="14" height="14" viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 24 V28 Q21 34 26 34"></path><path d="M43 24 V28 Q43 34 38 34"></path><path d="M32 40 V44"></path><rect x="16" y="13" width="10" height="10" rx="3"></rect><rect x="38" y="13" width="10" height="10" rx="3"></rect><circle cx="32" cy="34" r="6"></circle><rect x="27" y="45" width="10" height="10" rx="3"></rect></svg></div>
+            <span style="font-size:11px; color:{{ c.text3 }};">20</span>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:9px;">
+            <div style="width:16px; height:16px; border-radius:5px; background:{{ accent }}; display:flex; align-items:center; justify-content:center;"><svg width="12" height="12" viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"><rect x="16" y="14" width="10" height="10" rx="3"></rect><rect x="38" y="14" width="10" height="10" rx="3"></rect><circle cx="32" cy="34" r="6.5"></circle><rect x="27" y="44" width="10" height="10" rx="3"></rect></svg></div>
+            <span style="font-size:11px; color:{{ c.text3 }};">16</span>
+          </div>
+        </div>
+        <p style="margin:18px 0 0; font-size:12.5px; line-height:1.55; color:{{ c.text3 }};">Sous 20 px, on épure : on retire les liaisons et on garde les nœuds — la silhouette reste reconnaissable.</p>
+      </div>
+
+      <!-- clear space -->
+      <div style="border-radius:18px; background:{{ c.panelBg }}; border:{{ c.panelBorder }}; box-shadow:{{ c.cardShadow }}; padding:24px;">
+        <h3 style="margin:0 0 18px; font-family:'Saira Condensed',sans-serif; font-weight:600; font-size:18px; color:{{ c.text }};">Zone de protection</h3>
+        <div style="display:flex; align-items:center; justify-content:center; padding:18px;">
+          <div style="position:relative; padding:24px; border:1px dashed {{ dashBorder }}; border-radius:14px;">
+            <div style="position:absolute; inset:0; border-radius:14px; pointer-events:none;"></div>
+            <div style="width:72px; height:72px; border-radius:18px; background:{{ accent }}; display:flex; align-items:center; justify-content:center;"><svg width="42" height="42" viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 23.5 V28 Q21 34 26 34"></path><path d="M43 23.5 V28 Q43 34 38 34"></path><path d="M32 40 V44.5"></path><rect x="15.5" y="12.5" width="11" height="11" rx="3"></rect><rect x="37.5" y="12.5" width="11" height="11" rx="3"></rect><circle cx="32" cy="34" r="6"></circle><rect x="26.5" y="44.5" width="11" height="11" rx="3"></rect></svg></div>
+          </div>
+        </div>
+        <p style="margin:14px 0 0; font-size:12.5px; line-height:1.55; color:{{ c.text3 }};">Garde une marge libre d'au moins la moitié de la hauteur de la tuile autour du logo. Ne le pose jamais sur un fond chargé sans la tuile.</p>
+      </div>
+    </div>
+
+    <p style="margin:24px 2px 0; font-size:13px; line-height:1.6; color:{{ c.text3 }};">Source vectorielle : <span style="font-family:monospace; color:{{ accent }};">favicon.svg</span> · raster <span style="font-family:monospace; color:{{ accent }};">favicon.png</span> (512px). Le glyphe est déjà en place dans la nav, le footer et la sidebar de tout le site.</p>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1080, &quot;height&quot;: 900 },
+  &quot;defaultTheme&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;dark&quot;, &quot;options&quot;: [&quot;light&quot;, &quot;dark&quot;], &quot;tsType&quot;: &quot;string&quot; }
+}">
+class Component extends DCLogic {
+  state = { theme: null };
+
+  componentDidMount() {
+    let t = null;
+    try { t = localStorage.getItem('mapstrat-theme'); } catch (e) {}
+    if (t !== 'light' && t !== 'dark') {
+      t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    this.setState({ theme: t });
+  }
+
+  toggleTheme() {
+    const next = (this.state.theme || this.props.defaultTheme || 'light') === 'dark' ? 'light' : 'dark';
+    this.setState({ theme: next });
+    try { localStorage.setItem('mapstrat-theme', next); } catch (e) {}
+  }
+
+  renderVals() {
+    const theme = this.state.theme || this.props.defaultTheme || 'light';
+    const dark = theme === 'dark';
+
+    const c = dark ? {
+      grain: 0.06,
+      text: '#EEF0F5', text2: '#A8ACB8', text3: '#71757F',
+      cardBg: 'rgba(255,255,255,0.065)', cardBorder: '1px solid rgba(255,255,255,0.11)', cardBlur: 'blur(28px) saturate(150%)', cardShadow: 'inset 0 1px 0 rgba(255,255,255,0.13), 0 26px 66px -32px rgba(0,0,0,0.7)',
+      panelBg: 'rgba(255,255,255,0.045)', panelBorder: '1px solid rgba(255,255,255,0.085)',
+    } : {
+      grain: 0.05,
+      text: '#15161B', text2: '#5A5D69', text3: '#9396A2',
+      cardBg: 'rgba(255,255,255,0.58)', cardBorder: '1px solid rgba(255,255,255,0.72)', cardBlur: 'blur(26px) saturate(150%)', cardShadow: 'inset 0 1px 0 rgba(255,255,255,0.85), 0 22px 60px -30px rgba(20,24,45,0.4)',
+      panelBg: 'rgba(255,255,255,0.5)', panelBorder: '1px solid rgba(255,255,255,0.62)',
+    };
+    const subtleBg = dark ? 'rgba(255,255,255,0.08)' : 'rgba(20,24,40,0.05)';
+    const subtleBorder = dark ? 'rgba(255,255,255,0.12)' : 'rgba(20,24,40,0.08)';
+    const inputBg = dark ? 'rgba(0,0,0,0.22)' : 'rgba(255,255,255,0.7)';
+    const dashBorder = dark ? 'rgba(255,255,255,0.22)' : 'rgba(20,24,40,0.2)';
+
+    const pageBg = dark ? '#0B0D14' : '#E4E8F0';
+    const lightField = dark
+      ? 'radial-gradient(1400px 820px at 50% -24%, rgba(150,180,235,0.10), transparent 60%)'
+      : 'radial-gradient(1400px 820px at 50% -24%, rgba(255,255,255,0.95), transparent 60%)';
+    const wash = dark
+      ? 'linear-gradient(155deg, rgba(64,92,150,0.22) 0%, rgba(40,52,84,0.10) 38%, transparent 66%)'
+      : 'linear-gradient(155deg, rgba(120,148,205,0.20) 0%, rgba(150,168,210,0.08) 40%, transparent 66%)';
+
+    const accent = '#2F7FE0';
+
+    return {
+      c, accent, subtleBg, subtleBorder, inputBg, dashBorder,
+      grain: c.grain, pageBg, lightField, wash,
+      toggle: () => this.toggleTheme(),
+      themeName: dark ? 'Thème sombre' : 'Thème clair',
+      knobLeft: dark ? '23px' : '2px',
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Saira+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  input::placeholder { color: inherit; opacity: .6; }
+</style>
+</helmet>
+
+<div style="position:relative; min-height:100vh; width:100%; background:{{ pageBg }}; font-family:'Hanken Grotesk',system-ui,sans-serif; color:{{ c.text }}; overflow-x:hidden;">
+
+  <!-- ambient monochrome light -->
+  <div style="position:fixed; inset:0; z-index:0; pointer-events:none; background:{{ lightField }};"></div>
+  <!-- cool tone sweep -->
+  <div style="position:fixed; inset:0; z-index:0; pointer-events:none; background:{{ wash }};"></div>
+  <!-- depth vignette -->
+  <div style="position:fixed; inset:0; z-index:0; pointer-events:none; background:{{ vignette }};"></div>
+  <!-- fine grain (premium glass texture) -->
+  <div style="position:fixed; inset:0; z-index:0; pointer-events:none; opacity:{{ grain }}; mix-blend-mode:overlay; background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22180%22 height=%22180%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%222%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E'); background-size:180px 180px;"></div>
+
+  <div style="position:relative; z-index:1;">
+
+  <!-- ===== floating glass nav ===== -->
+  <nav style="position:sticky; top:0; z-index:20; background:transparent; padding:16px 24px;">
+    <div style="max-width:1180px; margin:0 auto; height:60px; padding:0 12px 0 22px; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; border-radius:999px; background:{{ c.navBg }}; border:{{ c.navBorder }}; box-shadow:{{ c.cardShadow }}; backdrop-filter:{{ c.navBlur }}; -webkit-backdrop-filter:{{ c.navBlur }};">
+
+      <!-- left: logo -->
+      <a href="#" style="display:flex; align-items:center; gap:10px; text-decoration:none; justify-self:start;">
+        <span style="width:28px; height:28px; border-radius:8px; background:{{ accent }}; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:inset 0 1px 0 rgba(255,255,255,.32);"><svg width="17" height="17" viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 23.5 V28 Q21 34 26 34"></path><path d="M43 23.5 V28 Q43 34 38 34"></path><path d="M32 40 V44.5"></path><rect x="15.5" y="12.5" width="11" height="11" rx="3"></rect><rect x="37.5" y="12.5" width="11" height="11" rx="3"></rect><circle cx="32" cy="34" r="6"></circle><rect x="26.5" y="44.5" width="11" height="11" rx="3"></rect></svg></span>
+        <span style="font-family:'Saira Condensed',sans-serif; font-weight:700; font-size:21px; letter-spacing:.01em; color:{{ c.text }};">EXILESTRATS</span>
+      </a>
+
+      <!-- center: links -->
+      <div style="display:flex; align-items:center; gap:2px; justify-self:center;">
+        <sc-for list="{{ navLinks }}" as="n" hint-placeholder-count="4">
+          <a href="#" style="padding:8px 14px; border-radius:999px; font-size:14px; font-weight:500; text-decoration:none; color:{{ n.color }}; background:{{ n.bg }};">{{ n.label }}</a>
+        </sc-for>
+      </div>
+
+      <!-- right: icons + gap + connexion -->
+      <div style="display:flex; align-items:center; gap:8px; justify-self:end;">
+        <button aria-label="Rechercher" style="width:40px; height:40px; display:flex; align-items:center; justify-content:center; border:1px solid {{ subtleBorder }}; border-radius:50%; background:{{ subtleBg }}; color:{{ c.text2 }}; cursor:pointer; padding:0;">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>
+        </button>
+        <button onClick="{{ toggle }}" aria-label="{{ toggleLabel }}" style="width:40px; height:40px; display:flex; align-items:center; justify-content:center; border:1px solid {{ subtleBorder }}; border-radius:50%; background:{{ subtleBg }}; color:{{ c.text2 }}; cursor:pointer; padding:0;">
+          <sc-if value="{{ isDark }}" hint-placeholder-val="{{ true }}">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.5"></circle><line x1="12" y1="2.5" x2="12" y2="5"></line><line x1="12" y1="19" x2="12" y2="21.5"></line><line x1="2.5" y1="12" x2="5" y2="12"></line><line x1="19" y1="12" x2="21.5" y2="12"></line><line x1="5.3" y1="5.3" x2="7" y2="7"></line><line x1="17" y1="17" x2="18.7" y2="18.7"></line><line x1="5.3" y1="18.7" x2="7" y2="17"></line><line x1="17" y1="7" x2="18.7" y2="5.3"></line></svg>
+          </sc-if>
+          <sc-if value="{{ isLight }}" hint-placeholder-val="{{ false }}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.2A8.3 8.3 0 1 1 10 3.6a6.6 6.6 0 0 0 10.5 10.6z"></path></svg>
+          </sc-if>
+        </button>
+        <div style="width:10px;"></div>
+        <button style="padding:0 18px; height:40px; border:1px solid {{ subtleBorder }}; border-radius:999px; background:{{ subtleBg }}; color:{{ c.text }}; font-size:13px; font-weight:600; cursor:pointer; line-height:1; font-family:inherit;">Connexion</button>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- ===== page body ===== -->
+  <div style="max-width:1180px; margin:0 auto; padding:24px 24px 96px;">
+
+    <div style="display:flex; align-items:center; gap:8px; font-size:13px; color:{{ c.text3 }}; margin-bottom:22px;">
+      <a href="#" style="color:{{ c.text2 }}; text-decoration:none;">Stratégies</a>
+      <span>/</span>
+      <a href="#" style="color:{{ c.text2 }}; text-decoration:none;">Harvest</a>
+      <span>/</span>
+      <span style="color:{{ c.text }};">{{ title }}</span>
+    </div>
+
+    <div style="display:grid; grid-template-columns:230px 1fr; gap:30px; align-items:start;">
+
+      <!-- sidebar -->
+      <aside style="position:sticky; top:84px; display:flex; flex-direction:column; gap:22px;">
+        <div>
+          <div style="font-size:12px; font-weight:600; color:{{ c.text3 }}; margin-bottom:10px; padding:0 4px;">Sur cette page</div>
+          <div style="display:flex; flex-direction:column; gap:2px;">
+            <sc-for list="{{ toc }}" as="item" hint-placeholder-count="5">
+              <a href="{{ item.href }}" style="display:flex; align-items:center; gap:11px; padding:8px 10px; border-radius:9px; text-decoration:none; font-size:14px; font-weight:500; color:{{ item.txt }}; background:{{ item.bg }};">
+                <span style="width:18px; font-family:'Saira Condensed',sans-serif; font-weight:600; font-size:13px; color:{{ c.text3 }}; flex-shrink:0;">{{ item.n }}</span>
+                {{ item.label }}
+              </a>
+            </sc-for>
+          </div>
+        </div>
+        <div style="background:{{ c.panelBg }}; border:{{ c.panelBorder }}; backdrop-filter:{{ c.cardBlur }}; -webkit-backdrop-filter:{{ c.cardBlur }}; border-radius:14px; padding:15px 16px;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="width:7px; height:7px; border-radius:50%; background:{{ c.profit }};"></span>
+            <span style="font-family:'Saira Condensed',sans-serif; font-weight:600; font-size:15px; color:{{ c.text }};">Ligue active</span>
+          </div>
+          <div style="font-size:13px; color:{{ c.text2 }}; margin-top:7px;">Settlers · mis à jour il y a 2 j</div>
+          <div style="font-size:13px; color:{{ c.text2 }}; margin-top:5px;">3 480 vues cette semaine</div>
+        </div>
+      </aside>
+
+      <!-- main column -->
+      <main style="display:flex; flex-direction:column; gap:30px; min-width:0;">
+
+        <!-- ===== strat card ===== -->
+        <article style="position:relative; background:{{ c.cardBg }}; border:{{ c.cardBorder }}; backdrop-filter:{{ c.cardBlur }}; -webkit-backdrop-filter:{{ c.cardBlur }}; border-radius:22px; box-shadow:{{ c.cardShadow }}; overflow:hidden;">
+          <div style="display:flex; flex-wrap:wrap; gap:18px; justify-content:space-between; align-items:flex-start; padding:24px 26px 18px;">
+            <div style="min-width:0;">
+              <h1 style="margin:0; font-family:'Saira Condensed',sans-serif; font-weight:700; font-size:30px; line-height:1.05; letter-spacing:-.01em; color:{{ c.text }};">{{ title }}</h1>
+              <div style="margin-top:6px; font-size:13px; color:{{ c.text2 }};">{{ author }}</div>
+              <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-top:13px;">
+                <sc-for list="{{ tags }}" as="t" hint-placeholder-count="3">
+                  <span style="display:inline-flex; align-items:center; padding:5px 11px; border-radius:999px; font-size:12px; font-weight:600; line-height:1; background:{{ t.bg }}; color:{{ t.text }};">{{ t.label }}</span>
+                </sc-for>
+                <span style="display:inline-flex; align-items:center; padding:5px 11px; border-radius:999px; font-size:12px; font-weight:500; line-height:1; background:{{ subtleBg }}; border:1px solid {{ subtleBorder }}; color:{{ c.text2 }};">Ligue {{ league }}</span>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:flex-end; gap:12px; flex-shrink:0;">
+              <button style="display:inline-flex; align-items:center; gap:7px; padding:10px 15px; border:none; border-radius:11px; background:#5865F2; color:#fff; font-size:13px; font-weight:600; cursor:pointer; line-height:1; font-family:inherit;">
+                <span style="display:inline-block; width:9px; height:9px; border-radius:2px; background:#fff;"></span>
+                Copier pour Discord
+              </button>
+
+              <sc-if value="{{ hasVideo }}" hint-placeholder-val="{{ false }}">
+                <div style="width:260px;">
+                  <sc-if value="{{ videoPlaying }}" hint-placeholder-val="{{ false }}">
+                    <div style="position:relative; width:100%; aspect-ratio:16/9; border-radius:11px; overflow:hidden; background:#000; border:{{ c.tileBorder }};">
+                      <iframe src="{{ embedUrl }}" title="Vidéo de la stratégie" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="true" style="position:absolute; inset:0; width:100%; height:100%; border:0;"></iframe>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ videoIdle }}" hint-placeholder-val="{{ true }}">
+                    <button onClick="{{ playVideo }}" aria-label="Lire la vidéo" style="position:relative; display:block; width:100%; aspect-ratio:16/9; border-radius:11px; overflow:hidden; padding:0; cursor:pointer; border:{{ c.tileBorder }}; background-color:#000; background-image:url('{{ thumbUrl }}'); background-size:cover; background-position:center;">
+                      <span style="position:absolute; inset:0; background:rgba(0,0,0,0.28);"></span>
+                      <span style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:42px; height:42px; border-radius:50%; background:#E11D2A; display:flex; align-items:center; justify-content:center;">
+                        <span style="display:inline-block; width:0; height:0; border-style:solid; border-width:7px 0 7px 12px; border-color:transparent transparent transparent #fff; margin-left:2px;"></span>
+                      </span>
+                      <span style="position:absolute; left:8px; bottom:7px; display:inline-flex; align-items:center; gap:5px; padding:3px 8px; border-radius:6px; background:rgba(0,0,0,0.6); font-size:10px; font-weight:600; color:#fff; line-height:1;">
+                        <span style="display:inline-block; width:5px; height:7px; border-style:solid; border-width:3.5px 0 3.5px 6px; border-color:transparent transparent transparent #E11D2A;"></span>
+                        YouTube
+                      </span>
+                    </button>
+                  </sc-if>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+
+          <div style="height:1px; background:{{ subtleBorder }};"></div>
+
+          <div style="display:flex; flex-direction:column; gap:24px; padding:22px 26px 26px;">
+
+            <section id="tldr" style="scroll-margin-top:104px;">
+              <div style="font-size:12px; font-weight:600; color:{{ c.text3 }}; margin-bottom:10px;">TL;DR</div>
+              <div style="display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:12px;">
+                <div style="border-radius:13px; padding:15px 16px; background:{{ farm.bg }}; color:{{ farm.text }};">
+                  <div style="font-size:12px; font-weight:600; opacity:.82;">ce qu'on farme</div>
+                  <div style="font-family:'Saira Condensed',sans-serif; font-weight:600; font-size:21px; line-height:1.1; margin-top:7px;">{{ farmValue }}</div>
+                </div>
+                <div style="border-radius:13px; padding:15px 16px; background:{{ c.tile }}; border:{{ c.tileBorder }};">
+                  <div style="font-size:12px; font-weight:500; color:{{ c.text3 }};">Mise / map</div>
+                  <div style="font-family:'Saira Condensed',sans-serif; font-weight:600; font-size:24px; line-height:1; letter-spacing:-.01em; margin-top:7px; color:{{ c.text }};">{{ invest }}</div>
+                </div>
+                <div style="border-radius:13px; padding:15px 16px; background:{{ c.tile }}; border:{{ c.tileBorder }};">
+                  <div style="font-size:12px; font-weight:500; color:{{ c.text3 }};">Rendement estimé</div>
+                  <div style="font-family:'Saira Condensed',sans-serif; font-weight:600; font-size:24px; line-height:1; letter-spacing:-.01em; margin-top:7px; color:{{ c.text }};">{{ profit }}</div>
+                </div>
+                <div style="border-radius:13px; padding:15px 16px; background:{{ c.tile }}; border:{{ c.tileBorder }};">
+                  <div style="font-size:12px; font-weight:500; color:{{ c.text3 }};">Difficulté</div>
+                  <div style="display:flex; align-items:center; gap:4px; margin-top:11px;">
+                    <sc-for list="{{ diffBars }}" as="b" hint-placeholder-count="3">
+                      <span style="width:22px; height:6px; border-radius:3px; background:{{ b.color }};"></span>
+                    </sc-for>
+                  </div>
+                  <div style="font-family:'Saira Condensed',sans-serif; font-weight:600; font-size:16px; line-height:1; margin-top:9px; color:{{ diffColor }};">{{ diffLabel }}</div>
+                </div>
+              </div>
+              <div style="font-size:11px; color:{{ c.text3 }}; margin-top:8px;">snapshot estimé en {{ league }}</div>
+            </section>
+
+            <section id="coffre" style="scroll-margin-top:104px;">
+              <div style="font-size:12px; font-weight:600; color:{{ c.text3 }}; margin-bottom:10px;">Coffre de carte</div>
+              <div style="display:grid; grid-template-columns:repeat(5, 1fr); gap:12px;">
+                <sc-for list="{{ scarabs }}" as="s" hint-placeholder-count="5">
+                  <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+                    <div style="width:100%; aspect-ratio:1; border-radius:13px; background:{{ c.slot }}; border:{{ c.slotBorder }}; display:flex; align-items:center; justify-content:center;">
+                      <span style="width:44px; height:44px; border-radius:50%; background:{{ s.color }}; box-shadow:inset 0 0 0 1px rgba(0,0,0,.14), inset 0 6px 10px rgba(255,255,255,.2);"></span>
+                    </div>
+                    <span style="font-size:11px; line-height:1.2; text-align:center; color:{{ c.text2 }};">{{ s.name }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </section>
+
+            <section id="atlas" style="scroll-margin-top:104px; background:{{ c.panelBg }}; border:{{ c.panelBorder }}; border-radius:15px; padding:18px;">
+              <div style="font-size:14px; font-weight:600; color:{{ c.text }}; font-family:'Saira Condensed',sans-serif; letter-spacing:.01em; margin-bottom:12px;">Arbre d'Atlas</div>
+              <div style="min-height:300px; border-radius:12px; background:{{ c.slot }}; border:1.5px dashed {{ subtleBorder }}; display:flex; align-items:center; justify-content:center; text-align:center; padding:24px;">
+                <span style="font-family:ui-monospace,'SF Mono',Menlo,monospace; font-size:13px; color:{{ c.text3 }};">dépose ta capture de l'arbre d'atlas</span>
+              </div>
+            </section>
+
+            <section id="jouer" style="scroll-margin-top:104px; background:{{ c.panelBg }}; border:{{ c.panelBorder }}; border-radius:15px; padding:18px;">
+              <div style="font-size:14px; font-weight:600; color:{{ c.text }}; font-family:'Saira Condensed',sans-serif; letter-spacing:.01em; margin-bottom:14px;">Comment la jouer</div>
+              <div style="display:flex; flex-direction:column; gap:12px;">
+                <sc-for list="{{ tips }}" as="tip" hint-placeholder-count="4">
+                  <div style="display:flex; align-items:flex-start; gap:12px;">
+                    <span style="flex-shrink:0; width:25px; height:25px; border-radius:50%; background:{{ subtleBg }}; border:1px solid {{ subtleBorder }}; color:{{ c.text2 }}; font-size:13px; font-weight:600; display:flex; align-items:center; justify-content:center; font-family:'Saira Condensed',sans-serif;">{{ tip.n }}</span>
+                    <span style="font-size:14px; line-height:1.5; color:{{ c.text }}; text-wrap:pretty;">{{ tip.text }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </section>
+
+            <section id="maps" style="scroll-margin-top:104px; display:grid; grid-template-columns:1fr 1fr; gap:18px;">
+              <div>
+                <div style="font-size:12px; font-weight:600; color:{{ c.text3 }}; margin-bottom:10px;">Maps recommandées</div>
+                <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                  <sc-for list="{{ maps }}" as="m" hint-placeholder-count="5">
+                    <span style="display:inline-flex; align-items:center; padding:6px 12px; border-radius:999px; font-size:13px; background:{{ subtleBg }}; border:1px solid {{ subtleBorder }}; color:{{ c.text }};">{{ m }}</span>
+                  </sc-for>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:12px; font-weight:600; color:{{ c.text3 }}; margin-bottom:10px;">Notes</div>
+                <p style="margin:0; font-size:14px; line-height:1.55; color:{{ c.text2 }}; text-wrap:pretty;">{{ notes }}</p>
+              </div>
+            </section>
+
+          </div>
+        </article>
+
+        <!-- similar -->
+        <section>
+          <div style="font-family:'Saira Condensed',sans-serif; font-weight:600; font-size:19px; letter-spacing:.01em; color:{{ c.text }}; margin-bottom:14px;">Stratégies similaires</div>
+          <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:16px;">
+            <sc-for list="{{ similar }}" as="sim" hint-placeholder-count="3">
+              <a href="#" style="display:block; text-decoration:none; background:{{ c.cardBg }}; border:{{ c.cardBorder }}; backdrop-filter:{{ c.cardBlur }}; -webkit-backdrop-filter:{{ c.cardBlur }}; border-radius:15px; box-shadow:{{ c.cardShadow }}; overflow:hidden;">
+                <div style="padding:15px 16px;">
+                  <span style="display:inline-flex; align-items:center; padding:4px 10px; border-radius:999px; font-size:11px; font-weight:600; line-height:1; background:{{ sim.tagBg }}; color:{{ sim.tagText }};">{{ sim.mech }}</span>
+                  <div style="font-family:'Saira Condensed',sans-serif; font-weight:600; font-size:17px; color:{{ c.text }}; margin-top:11px; line-height:1.15;">{{ sim.title }}</div>
+                  <div style="display:flex; align-items:center; justify-content:space-between; margin-top:13px;">
+                    <span style="font-size:12px; color:{{ c.text3 }};">{{ sim.author }}</span>
+                    <span style="font-family:'Saira Condensed',sans-serif; font-weight:600; font-size:16px; color:{{ c.text2 }};">{{ sim.profit }}</span>
+                  </div>
+                </div>
+              </a>
+            </sc-for>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- footer -->
+  <footer style="background:{{ c.navBg }}; border-top:{{ c.navBorder }}; backdrop-filter:{{ c.navBlur }}; -webkit-backdrop-filter:{{ c.navBlur }};">
+    <div style="max-width:1180px; margin:0 auto; padding:26px 24px; display:flex; flex-wrap:wrap; gap:22px; justify-content:space-between; align-items:center;">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span style="width:22px; height:22px; border-radius:6px; background:{{ accent }}; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;"><svg width="13" height="13" viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 23.5 V28 Q21 34 26 34"></path><path d="M43 23.5 V28 Q43 34 38 34"></path><path d="M32 40 V44.5"></path><rect x="15.5" y="12.5" width="11" height="11" rx="3"></rect><rect x="37.5" y="12.5" width="11" height="11" rx="3"></rect><circle cx="32" cy="34" r="6"></circle><rect x="26.5" y="44.5" width="11" height="11" rx="3"></rect></svg></span>
+        <span style="font-family:'Saira Condensed',sans-serif; font-weight:700; font-size:16px; color:{{ c.text }};">EXILESTRATS</span>
+      </div>
+      <div style="display:flex; flex-wrap:wrap; gap:18px;">
+        <a href="#" style="font-size:13px; color:{{ c.text2 }}; text-decoration:none;">Stratégies</a>
+        <a href="#" style="font-size:13px; color:{{ c.text2 }}; text-decoration:none;">Mécaniques</a>
+        <a href="#" style="font-size:13px; color:{{ c.text2 }}; text-decoration:none;">Tier list</a>
+        <a href="#" style="font-size:13px; color:{{ c.text2 }}; text-decoration:none;">Guides</a>
+      </div>
+      <div style="font-size:11px; color:{{ c.text3 }};">Non affilié à Grinding Gear Games.</div>
+    </div>
+  </footer>
+
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1320, &quot;height&quot;: 1240 },
+  &quot;defaultTheme&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;light&quot;, &quot;options&quot;: [&quot;light&quot;, &quot;dark&quot;], &quot;tsType&quot;: &quot;string&quot; },
+  &quot;accent&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#2F7FE0&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;title&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Harvest Lifeforce Juicing&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;profit&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;≈ 2.4 div / h&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;videoUrl&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;https://www.youtube.com/watch?v=dQw4w9WgXcQ&quot;, &quot;tsType&quot;: &quot;string&quot; }
+}">
+class Component extends DCLogic {
+  state = { theme: null, playing: false };
+
+  componentDidMount() {
+    let t = null;
+    try { t = localStorage.getItem('mapstrat-theme'); } catch (e) {}
+    if (t !== 'light' && t !== 'dark') {
+      t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    this.setState({ theme: t });
+  }
+
+  parseYouTube(url) {
+    if (!url) return '';
+    url = url.trim();
+    const patterns = [
+      /(?:youtube\.com\/watch\?(?:.*&)?v=)([\w-]{11})/,
+      /(?:youtu\.be\/)([\w-]{11})/,
+      /(?:youtube\.com\/embed\/)([\w-]{11})/,
+      /(?:youtube\.com\/shorts\/)([\w-]{11})/,
+      /(?:youtube\.com\/live\/)([\w-]{11})/,
+    ];
+    for (let i = 0; i < patterns.length; i++) {
+      const m = url.match(patterns[i]);
+      if (m) return m[1];
+    }
+    if (/^[\w-]{11}$/.test(url)) return url;
+    return '';
+  }
+
+  toggleTheme() {
+    const next = (this.state.theme || this.props.defaultTheme || 'light') === 'dark' ? 'light' : 'dark';
+    this.setState({ theme: next });
+    try { localStorage.setItem('mapstrat-theme', next); } catch (e) {}
+  }
+
+  hx(n) {
+    n = Math.round(Math.max(0, Math.min(255, n))).toString(16);
+    return n.length < 2 ? '0' + n : n;
+  }
+  rgb(h) { h = h.replace('#', ''); return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)]; }
+  mix(a, b, t) { const A = this.rgb(a), B = this.rgb(b); return '#' + [0, 1, 2].map(i => this.hx(A[i] * (1 - t) + B[i] * t)).join(''); }
+
+  renderVals() {
+    const theme = this.state.theme || this.props.defaultTheme || 'light';
+    const dark = theme === 'dark';
+
+    const videoId = this.parseYouTube(this.props.videoUrl ?? 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+
+    const c = dark ? {
+      dark: true, pageBg: '#0D0F15',
+      grain: 0.06,
+      text: '#EEF0F5', text2: '#A8ACB8', text3: '#71757F', profit: '#34D399',
+      cardBg: 'rgba(255,255,255,0.065)', cardBorder: '1px solid rgba(255,255,255,0.11)', cardBlur: 'blur(28px) saturate(150%)', cardShadow: 'inset 0 1px 0 rgba(255,255,255,0.13), 0 26px 66px -32px rgba(0,0,0,0.7)',
+      panelBg: 'rgba(255,255,255,0.045)', panelBorder: '1px solid rgba(255,255,255,0.085)',
+      tile: 'rgba(255,255,255,0.05)', tileBorder: '1px solid rgba(255,255,255,0.08)',
+      slot: 'rgba(255,255,255,0.035)', slotBorder: '1px solid rgba(255,255,255,0.07)',
+      navBg: 'rgba(15,17,24,0.5)', navBorder: '1px solid rgba(255,255,255,0.09)', navBlur: 'blur(24px) saturate(150%)',
+    } : {
+      dark: false, pageBg: '#EAEDF3',
+      grain: 0.05,
+      text: '#15161B', text2: '#5A5D69', text3: '#9396A2', profit: '#0F9D58',
+      cardBg: 'rgba(255,255,255,0.58)', cardBorder: '1px solid rgba(255,255,255,0.72)', cardBlur: 'blur(26px) saturate(150%)', cardShadow: 'inset 0 1px 0 rgba(255,255,255,0.85), 0 22px 60px -30px rgba(20,24,45,0.4)',
+      panelBg: 'rgba(255,255,255,0.5)', panelBorder: '1px solid rgba(255,255,255,0.62)',
+      tile: 'rgba(255,255,255,0.84)', tileBorder: '1px solid rgba(20,24,45,0.06)',
+      slot: 'rgba(255,255,255,0.72)', slotBorder: '1px solid rgba(20,24,45,0.06)',
+      navBg: 'rgba(255,255,255,0.55)', navBorder: '1px solid rgba(255,255,255,0.6)', navBlur: 'blur(22px) saturate(150%)',
+    };
+    const subtleBg = dark ? 'rgba(255,255,255,0.08)' : 'rgba(20,24,40,0.05)';
+    const subtleBorder = dark ? 'rgba(255,255,255,0.12)' : 'rgba(20,24,40,0.08)';
+
+    // ===== refined tinted background =====
+    // Cool-tinted base; gives the glass real tone to refract without concentrated halos.
+    const pageBg = dark ? '#0B0D14' : '#E4E8F0';
+
+    // 1) directional light from top — monochrome highlight that the glass catches
+    const lightField = dark
+      ? 'radial-gradient(1400px 820px at 50% -24%, rgba(150,180,235,0.10), transparent 60%)'
+      : 'radial-gradient(1400px 820px at 50% -24%, rgba(255,255,255,0.95), transparent 60%)';
+
+    // 2) broad cool tone sweep — soft cross-screen gradient, very low saturation
+    const wash = dark
+      ? 'linear-gradient(155deg, rgba(64,92,150,0.22) 0%, rgba(40,52,84,0.10) 38%, transparent 66%), linear-gradient(0deg, rgba(48,60,96,0.20), transparent 34%)'
+      : 'linear-gradient(155deg, rgba(120,148,205,0.20) 0%, rgba(150,168,210,0.08) 40%, transparent 66%), linear-gradient(0deg, rgba(110,130,180,0.16), transparent 32%)';
+
+    // 3) vignette — edges fall into depth so the content floats
+    const vignette = dark
+      ? 'radial-gradient(1300px 1000px at 50% 42%, transparent 52%, rgba(0,0,0,0.4) 100%)'
+      : 'radial-gradient(1300px 1000px at 50% 42%, transparent 54%, rgba(40,56,92,0.16) 100%)';
+
+    const gridLayer = 'none';
+
+    const tint = (base) => dark
+      ? { bg: this.mix(base, '#101218', 0.82), text: this.mix(base, '#FFFFFF', 0.52) }
+      : { bg: this.mix(base, '#FFFFFF', 0.86), text: this.mix(base, '#000000', 0.46) };
+
+    const accent = this.props.accent || '#2F7FE0';
+    const M = {
+      harvest: '#2F7FE0', breach: '#7C5AE0', legion: '#C9972B', essence: '#1F9E9A',
+      blight: '#3E9E4F', ritual: '#C0392B', expedition: '#B07B3E', ambush: '#8A5A3C',
+      divination: '#6AA6E0', delirium: '#9AA0A8'
+    };
+
+    const farm = tint(accent);
+    const tags = [
+      Object.assign({ label: 'Harvest' }, tint(accent)),
+      Object.assign({ label: 'Expedition' }, tint(M.expedition)),
+      Object.assign({ label: 'Strongbox' }, tint(M.ambush)),
+    ];
+    const scarabs = [
+      { name: 'Scarabée de Forcevie', color: accent },
+      { name: 'Scarabée horticole', color: accent },
+      { name: "Scarabée d'Expédition", color: M.expedition },
+      { name: 'Scarabée de coffres', color: M.ambush },
+      { name: 'Scarabée cartophile', color: M.delirium },
+    ];
+    const tips = [
+      { n: 1, text: "Lance l'Expédition en premier ; place les détonateurs à l'écart des bancs Harvest." },
+      { n: 2, text: "Récolte les bancs jaunes (forcevie sacrée) en priorité, puis les bleus." },
+      { n: 3, text: "Ouvre tous les coffres avant de prendre le portail de sortie." },
+      { n: 4, text: "Garde la forcevie pour reroll tes reliques au banc en fin de session." },
+    ];
+    const maps = ['Cité engloutie', 'Bassin', 'Toundra', 'Jungle', 'Promontoire'];
+
+    const navRaw = [
+      { label: 'Stratégies', active: true }, { label: 'Mécaniques', active: false },
+      { label: 'Tier list', active: false }, { label: 'Guides', active: false },
+    ];
+    const navLinks = navRaw.map(n => ({ label: n.label, color: n.active ? c.text : c.text2, bg: n.active ? subtleBg : 'transparent' }));
+
+    const tocRaw = [
+      { n: '01', label: 'TL;DR', href: '#tldr', active: true },
+      { n: '02', label: 'Coffre de carte', href: '#coffre' },
+      { n: '03', label: "Arbre d'Atlas", href: '#atlas' },
+      { n: '04', label: 'Comment la jouer', href: '#jouer' },
+      { n: '05', label: 'Maps & notes', href: '#maps' },
+    ];
+    const toc = tocRaw.map(t => ({ n: t.n, label: t.label, href: t.href, txt: t.active ? c.text : c.text2, bg: t.active ? subtleBg : 'transparent' }));
+
+    const simRaw = [
+      { title: 'Breach Splinters Rush', mech: 'Breach', color: M.breach, author: 'par Voidborn', profit: '≈ 3.1 div / h' },
+      { title: 'Legion Generals Farm', mech: 'Legion', color: M.legion, author: 'par Karui', profit: '≈ 1.9 div / h' },
+      { title: 'Essence Hoarder', mech: 'Essence', color: M.essence, author: 'par Niko', profit: '≈ 2.2 div / h' },
+    ];
+    const similar = simRaw.map(s => { const t = tint(s.color); return Object.assign({}, s, { tagBg: t.bg, tagText: t.text }); });
+
+    // difficulty (1 = accessible, 2 = intermédiaire, 3 = exigeante)
+    const diffLevel = 2;
+    const diffMeta = [
+      { label: 'Accessible', color: c.profit },
+      { label: 'Intermédiaire', color: dark ? '#E0B341' : '#B7860B' },
+      { label: 'Exigeante', color: dark ? '#E0734F' : '#C05A36' },
+    ][diffLevel - 1];
+    const diffBars = [0, 1, 2].map(i => ({ color: i < diffLevel ? diffMeta.color : subtleBorder }));
+
+    return {
+      c, accent, farm, tags, scarabs, tips, maps, navLinks, toc, similar,
+      diffBars, diffLabel: diffMeta.label, diffColor: diffMeta.color,
+      grain: c.grain, subtleBg, subtleBorder,
+      pageBg, lightField, wash, vignette,
+      toggleLabel: dark ? 'Mode clair' : 'Mode sombre',
+      isDark: dark, isLight: !dark,
+      toggle: () => this.toggleTheme(),
+      hasVideo: !!videoId,
+      videoPlaying: !!videoId && this.state.playing,
+      videoIdle: !!videoId && !this.state.playing,
+      embedUrl: videoId ? ('https://www.youtube-nocookie.com/embed/' + videoId + '?autoplay=1') : '',
+      thumbUrl: videoId ? ('https://img.youtube.com/vi/' + videoId + '/mqdefault.jpg') : '',
+      playVideo: () => this.setState({ playing: true }),
+      title: this.props.title || 'Harvest Lifeforce Juicing',
+      author: 'par Exileph', league: 'Settlers',
+      profit: this.props.profit || '≈ 2.4 div / h',
+      invest: '≈ 12 c / map', farmValue: 'Forcevie sacrée + reliques',
+      notes: "Swap le Scarabée cartophile pour un Scarabée de monstres errants si tu manques de quantité. Vise les maps ouvertes pour l'Expédition.",
+    };
+  }
+}
+</script>
+</body>
+</html>
