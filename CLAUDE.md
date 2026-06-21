@@ -58,15 +58,14 @@ personnel d'abord (pas l'adoption de masse).
 
 ## Git & CI — autorisation & workflow
 
-> **Autorisation (spécifique à ce projet)** : les commandes `git` et `gh` sont **autorisées** ici.
-> Ceci lève, pour ce projet uniquement, la règle globale « aucune commande git » du CLAUDE.md global.
-> Permission harness correspondante : `.claude/settings.json` (`Bash(git:*)`, `Bash(gh:*)`).
+> **Autorisation** : commandes `git` / `gh` autorisées (globalement, cf. CLAUDE.md global).
+> Permission harness explicite : `.claude/settings.json` (`Bash(git:*)`, `Bash(gh:*)`).
 
 - Branches longues **protégées** : `main` (stable) et `dev` (intégration). **Aucun push direct** dessus.
 - Travail sur des branches **`feat/*`** issues de `dev`. Flux : `feat/* → dev` (PR), puis `dev → main` (PR).
 - **CI gates** (→ DECISIONS.md D25) : PR `feat/* → dev` = check **`quality`** (lint + format + typecheck) ;
   PR `dev → main` = check **`verify`** (+ build Next.js + tests). On ne merge que si la CI est verte.
-- Commits : messages clairs ; terminer par `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`.
+- Commits : messages clairs, **sans** trailer `Co-Authored-By` (cf. CLAUDE.md global).
 - Ne jamais forcer un push sur `main`/`dev` ni contourner une CI rouge.
 - *Exception unique : le **push de bootstrap** initial (création de `main`/`dev` sur le remote, avant
   l'activation de la protection de branches). Après ça, la règle « aucun push direct » s'applique.*
