@@ -6,7 +6,11 @@ import { getStrategyDetail } from '@/features/strategy/detail-data';
 
 const DAY = 86_400_000;
 
-const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+// Prefer the direct (non-pooled) connection for the seed script — more reliable than
+// the transaction pooler for a batch of writes.
+const adapter = new PrismaPg({
+  connectionString: process.env.DIRECT_URL ?? process.env.DATABASE_URL,
+});
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
