@@ -43,7 +43,7 @@ export default async function CreatePage() {
           <p className="max-w-[420px] text-[15px] leading-[1.55] text-fg-2">
             Sign in to compose and publish a strategy.
           </p>
-          <Link href="/login" className="btn btn-primary">
+          <Link href="/auth" className="btn btn-primary">
             Sign in
           </Link>
         </div>

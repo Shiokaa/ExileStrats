@@ -77,7 +77,7 @@ function Field({
   );
 }
 
-export function LoginForm() {
+export function AuthForm() {
   const [tab, setTab] = useState<'signin' | 'signup'>('signin');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -205,6 +205,11 @@ export function LoginForm() {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
         />
+        {tab === 'signup' && (
+          <p className="text-[12px] leading-[1.4] text-fg-3">
+            At least 6 characters, with an uppercase letter, a lowercase letter and a digit.
+          </p>
+        )}
 
         <button type="submit" disabled={busy} className="btn btn-primary mt-1 h-12 justify-center">
           {busy ? '…' : tab === 'signin' ? 'SIGN IN' : 'SIGN UP'}

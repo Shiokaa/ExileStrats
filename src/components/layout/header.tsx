@@ -53,7 +53,7 @@ export async function Header() {
             </form>
           </>
         ) : (
-          <Link href="/login" className="btn btn-ghost">
+          <Link href="/auth" className="btn btn-ghost">
             Sign in
           </Link>
         )}
