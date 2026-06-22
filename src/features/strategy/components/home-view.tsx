@@ -9,6 +9,8 @@ import { cx } from '@/lib/utils';
 
 const cssVars = (vars: Record<string, string>): CSSProperties => vars as CSSProperties;
 
+const PAGE_SIZE = 6;
+
 type MechanicFilter = MechanicKey | 'all';
 type LeagueFilter = League | 'all';
 type Sort = 'return' | 'invest' | 'recent';
@@ -30,6 +32,25 @@ export function HomeView({ strategies }: { strategies: StrategySummary[] }) {
   const [mechanic, setMechanic] = useState<MechanicFilter>('all');
   const [league, setLeague] = useState<LeagueFilter>('all');
   const [sort, setSort] = useState<Sort>('return');
+  const [page, setPage] = useState(1);
+
+  // Any filter/search/sort change sends the user back to the first page.
+  const changeQuery = (v: string) => {
+    setQuery(v);
+    setPage(1);
+  };
+  const changeMechanic = (v: MechanicFilter) => {
+    setMechanic(v);
+    setPage(1);
+  };
+  const changeLeague = (v: LeagueFilter) => {
+    setLeague(v);
+    setPage(1);
+  };
+  const changeSort = (v: Sort) => {
+    setSort(v);
+    setPage(1);
+  };
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -50,10 +71,16 @@ export function HomeView({ strategies }: { strategies: StrategySummary[] }) {
     });
   }, [strategies, query, mechanic, league, sort]);
 
+  // Clamp the page during render (no effect, no setState-in-effect).
+  const totalPages = Math.max(1, Math.ceil(results.length / PAGE_SIZE));
+  const safePage = Math.min(page, totalPages);
+  const pageItems = results.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE);
+
   const reset = () => {
     setQuery('');
     setMechanic('all');
     setLeague('all');
+    setPage(1);
   };
 
   return (
@@ -87,7 +114,7 @@ export function HomeView({ strategies }: { strategies: StrategySummary[] }) {
           <input
             type="search"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => changeQuery(e.target.value)}
             placeholder="Search by title, mechanic or author…"
             className="flex-1 border-none bg-transparent text-[15px] text-fg outline-none placeholder:text-fg-3"
             aria-label="Search strategies"
@@ -103,7 +130,7 @@ export function HomeView({ strategies }: { strategies: StrategySummary[] }) {
             'cursor-pointer rounded-pill border border-border px-[15px] py-2 text-[13px] font-semibold transition-colors hover:bg-subtle hover:text-fg',
             mechanic === 'all' ? 'border-transparent bg-subtle text-fg' : 'text-fg-2',
           )}
-          onClick={() => setMechanic('all')}
+          onClick={() => changeMechanic('all')}
         >
           All
         </button>
@@ -121,7 +148,7 @@ export function HomeView({ strategies }: { strategies: StrategySummary[] }) {
                   : 'border-border text-fg-2 hover:bg-subtle hover:text-fg',
               )}
               style={cssVars({ '--mech': m.color })}
-              onClick={() => setMechanic(key)}
+              onClick={() => changeMechanic(key)}
             >
               <span className="h-[9px] w-[9px] rounded-full bg-[var(--mech)]" />
               {m.name}
@@ -144,7 +171,7 @@ export function HomeView({ strategies }: { strategies: StrategySummary[] }) {
             <button
               type="button"
               className={segment(league === 'all')}
-              onClick={() => setLeague('all')}
+              onClick={() => changeLeague('all')}
             >
               All
             </button>
@@ -153,7 +180,7 @@ export function HomeView({ strategies }: { strategies: StrategySummary[] }) {
                 key={l}
                 type="button"
                 className={segment(league === l)}
-                onClick={() => setLeague(l)}
+                onClick={() => changeLeague(l)}
               >
                 {l}
               </button>
@@ -169,7 +196,7 @@ export function HomeView({ strategies }: { strategies: StrategySummary[] }) {
                 key={s.key}
                 type="button"
                 className={segment(sort === s.key)}
-                onClick={() => setSort(s.key)}
+                onClick={() => changeSort(s.key)}
               >
                 {s.label}
               </button>
@@ -179,12 +206,63 @@ export function HomeView({ strategies }: { strategies: StrategySummary[] }) {
       </div>
 
       {/* Grid / empty state */}
-      {results.length > 0 ? (
-        <div className="grid grid-cols-1 gap-[18px] sm:grid-cols-2 lg:grid-cols-3">
-          {results.map((s) => (
-            <StrategyCard key={s.id} strategy={s} />
-          ))}
-        </div>
+      {pageItems.length > 0 ? (
+        <>
+          <div className="grid grid-cols-1 gap-[18px] sm:grid-cols-2 lg:grid-cols-3">
+            {pageItems.map((s) => (
+              <StrategyCard key={s.id} strategy={s} />
+            ))}
+          </div>
+
+          {totalPages > 1 && (
+            <nav className="flex items-center justify-center gap-2 pt-2" aria-label="Pagination">
+              <button
+                type="button"
+                className={cx(
+                  'rounded-pill border border-border px-[14px] py-[7px] text-[13px] font-semibold transition-colors',
+                  safePage === 1
+                    ? 'cursor-not-allowed text-fg-3'
+                    : 'cursor-pointer text-fg-2 hover:bg-subtle hover:text-fg',
+                )}
+                onClick={() => setPage(safePage - 1)}
+                disabled={safePage === 1}
+              >
+                Prev
+              </button>
+
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+                <button
+                  key={p}
+                  type="button"
+                  className={cx(
+                    'min-w-9 cursor-pointer rounded-pill px-3 py-[7px] text-[13px] font-semibold transition-colors',
+                    p === safePage
+                      ? 'glass-card text-fg'
+                      : 'text-fg-2 hover:bg-subtle hover:text-fg',
+                  )}
+                  onClick={() => setPage(p)}
+                  aria-current={p === safePage ? 'page' : undefined}
+                >
+                  {p}
+                </button>
+              ))}
+
+              <button
+                type="button"
+                className={cx(
+                  'rounded-pill border border-border px-[14px] py-[7px] text-[13px] font-semibold transition-colors',
+                  safePage === totalPages
+                    ? 'cursor-not-allowed text-fg-3'
+                    : 'cursor-pointer text-fg-2 hover:bg-subtle hover:text-fg',
+                )}
+                onClick={() => setPage(safePage + 1)}
+                disabled={safePage === totalPages}
+              >
+                Next
+              </button>
+            </nav>
+          )}
+        </>
       ) : (
         <div className="flex flex-col items-center gap-[14px] py-14 text-fg-2">
           <p>No strategy matches your filters.</p>
