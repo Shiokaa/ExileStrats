@@ -30,6 +30,21 @@ mécanique (à la place — ou en complément — de la pastille de couleur unie
 - Source d'icônes : self-héberger un set curé (cf. conformité GGG, Principe VI) ; keyer par mécanique.
 - S'intègre proprement quand le **pipeline d'ingestion** fournira les assets (Principe V).
 
+## Login « Sign in with Path of Exile »
+
+Permettre de se connecter avec son **compte Path of Exile** (en plus / à la place de Discord), pour
+le côté thématique « outil PoE ».
+
+- Statut : **addition future** (`DECISIONS.md` D34) ; l'auth V1 reste **Discord** (Supabase).
+- **Prérequis bloquant** : faire approuver une app OAuth par GGG — demande **manuelle** par mail à
+  `oauth@grindinggear.com`, **à leur discrétion**, et ils **rejettent les demandes générées par IA**
+  (→ à rédiger soi-même). Client **confidentiel**, scope minimal **`account:profile`** (renvoie
+  `username` + `sub`), **PKCE**, redirect **HTTPS sur domaine possédé** (pas de localhost, même en dev →
+  tunnel/preview pour développer).
+- Technique : PoE n'est **pas** un provider Supabase (OAuth 2.1, pas OIDC) → **implémentation OAuth
+  custom** (route handlers + échange de token + session). À cadrer le jour où l'app est approuvée.
+- Réf. : https://www.pathofexile.com/developer/docs/index · https://www.pathofexile.com/developer/docs/authorization
+
 ## Vérification des données (avant toute mise en avant publique)
 
 **Vérifier toutes les données saisies dans le projet**, en particulier les **détails de mécaniques**

@@ -1,13 +1,17 @@
 import Link from 'next/link';
 import { Logo } from './logo';
 import { ThemeToggle } from './theme-toggle';
+import { getCurrentUser } from '@/lib/supabase/server';
+import { SignInButton } from '@/components/auth/sign-in-button';
+import { UserMenu } from '@/components/auth/user-menu';
 
 const NAV_LINKS = [
   { href: '/', label: 'Strategies' },
   { href: '/mechanics', label: 'Mechanics' },
 ];
 
-export function Header() {
+export async function Header() {
+  const user = await getCurrentUser();
   return (
     <header className="glass-nav sticky top-[14px] z-20 mt-[14px] grid grid-cols-[1fr_auto] items-center rounded-pill py-[9px] pl-[14px] pr-3 md:grid-cols-[1fr_auto_1fr]">
       <Logo />
@@ -26,9 +30,7 @@ export function Header() {
 
       <div className="flex items-center gap-[10px] justify-self-end">
         <ThemeToggle />
-        <button type="button" className="btn btn-ghost">
-          Sign in
-        </button>
+        {user ? <UserMenu user={user} /> : <SignInButton />}
       </div>
     </header>
   );
