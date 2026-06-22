@@ -3,7 +3,6 @@ import { Logo } from './logo';
 import { ThemeToggle } from './theme-toggle';
 import { getCurrentUser } from '@/lib/supabase/server';
 import { SignInButton } from '@/components/auth/sign-in-button';
-import { UserMenu } from '@/components/auth/user-menu';
 
 const NAV_LINKS = [
   { href: '/', label: 'Strategies' },
@@ -30,7 +29,26 @@ export async function Header() {
 
       <div className="flex items-center gap-[10px] justify-self-end">
         <ThemeToggle />
-        {user ? <UserMenu user={user} /> : <SignInButton />}
+        {user ? (
+          <Link href="/profile" className="icon-btn" aria-label="Profile">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="8" r="4" />
+              <path d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7" />
+            </svg>
+          </Link>
+        ) : (
+          <SignInButton />
+        )}
       </div>
     </header>
   );
