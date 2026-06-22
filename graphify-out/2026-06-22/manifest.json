@@ -1,0 +1,92 @@
+{
+  "/home/shioka/Documents/git/ExileStrats/docs/extract-mechanic-colors.mjs": {
+    "mtime": 1781611295.7502816,
+    "ast_hash": "73f0fd574d6ddbe1aa091c2d493fb36c",
+    "semantic_hash": "73f0fd574d6ddbe1aa091c2d493fb36c"
+  },
+  "/home/shioka/Documents/git/ExileStrats/DECISIONS.md": {
+    "mtime": 1782050055.1194303,
+    "ast_hash": "9a25efa495a1b4af1906593daf5b339d",
+    "semantic_hash": "9a25efa495a1b4af1906593daf5b339d"
+  },
+  "/home/shioka/Documents/git/ExileStrats/CLAUDE.md": {
+    "mtime": 1782050371.2275,
+    "ast_hash": "65376d734a13d9d42fcebbb2b98308ba",
+    "semantic_hash": "65376d734a13d9d42fcebbb2b98308ba"
+  },
+  "/home/shioka/Documents/git/ExileStrats/docs/07-roadmap-and-risks.md": {
+    "mtime": 1781611273.7421823,
+    "ast_hash": "b574c7cdb9de204b2f2da7cc241603bc",
+    "semantic_hash": "b574c7cdb9de204b2f2da7cc241603bc"
+  },
+  "/home/shioka/Documents/git/ExileStrats/docs/03-data-model.md": {
+    "mtime": 1781611298.6153195,
+    "ast_hash": "0b24e5308e3cd85acde96d7fe7611454",
+    "semantic_hash": "0b24e5308e3cd85acde96d7fe7611454"
+  },
+  "/home/shioka/Documents/git/ExileStrats/docs/02-scope-and-personas.md": {
+    "mtime": 1781611256.3271785,
+    "ast_hash": "924e56bcad578096e412947e87984e96",
+    "semantic_hash": "924e56bcad578096e412947e87984e96"
+  },
+  "/home/shioka/Documents/git/ExileStrats/docs/08-decisions.md": {
+    "mtime": 1781611774.9884803,
+    "ast_hash": "d4b070f2b524d7577e0a6992ebf03758",
+    "semantic_hash": "d4b070f2b524d7577e0a6992ebf03758"
+  },
+  "/home/shioka/Documents/git/ExileStrats/docs/04-fiche-anatomy.md": {
+    "mtime": 1781611261.5507457,
+    "ast_hash": "341f8d1a08cdbd2b9e65e64233b06dd3",
+    "semantic_hash": "341f8d1a08cdbd2b9e65e64233b06dd3"
+  },
+  "/home/shioka/Documents/git/ExileStrats/docs/09-glossary.md": {
+    "mtime": 1781611277.3311832,
+    "ast_hash": "7f3cbbe32c2226764a5de00b45f5d3f3",
+    "semantic_hash": "7f3cbbe32c2226764a5de00b45f5d3f3"
+  },
+  "/home/shioka/Documents/git/ExileStrats/docs/10-design-system.md": {
+    "mtime": 1781611770.0753827,
+    "ast_hash": "f3823f65ff6130e603e2d2c681520454",
+    "semantic_hash": "f3823f65ff6130e603e2d2c681520454"
+  },
+  "/home/shioka/Documents/git/ExileStrats/docs/01-vision-and-positioning.md": {
+    "mtime": 1781611249.876177,
+    "ast_hash": "99e564f93a39e803b4b7456d7535389d",
+    "semantic_hash": "99e564f93a39e803b4b7456d7535389d"
+  },
+  "/home/shioka/Documents/git/ExileStrats/docs/brief-claude-design.md": {
+    "mtime": 1781611764.4412708,
+    "ast_hash": "a3146c0c3cb5e77b81510d8020339709",
+    "semantic_hash": "a3146c0c3cb5e77b81510d8020339709"
+  },
+  "/home/shioka/Documents/git/ExileStrats/docs/README.md": {
+    "mtime": 1781611315.529543,
+    "ast_hash": "9aeef75e0b6cdc5f2f9d6476ca6d8054",
+    "semantic_hash": "9aeef75e0b6cdc5f2f9d6476ca6d8054"
+  },
+  "/home/shioka/Documents/git/ExileStrats/docs/06-dependencies-and-compliance.md": {
+    "mtime": 1781611268.715181,
+    "ast_hash": "cfcf2c29ed6cb26d272779f2e35dcef2",
+    "semantic_hash": "cfcf2c29ed6cb26d272779f2e35dcef2"
+  },
+  "/home/shioka/Documents/git/ExileStrats/docs/AGENTS.md": {
+    "mtime": 1781611780.0065799,
+    "ast_hash": "149daeaab953618e80070c625a77d2e5",
+    "semantic_hash": "149daeaab953618e80070c625a77d2e5"
+  },
+  "/home/shioka/Documents/git/ExileStrats/docs/05-architecture.md": {
+    "mtime": 1781611304.2503939,
+    "ast_hash": "21d8ec76063813897cde0a37d08a56ac",
+    "semantic_hash": "21d8ec76063813897cde0a37d08a56ac"
+  },
+  "/home/shioka/Documents/git/ExileStrats/design_handoff/README.md": {
+    "mtime": 1782049724.0,
+    "ast_hash": "c1ac8d945ca79fc9666a4c26ed5ca4ac",
+    "semantic_hash": "c1ac8d945ca79fc9666a4c26ed5ca4ac"
+  },
+  "/home/shioka/Documents/git/ExileStrats/.specify/memory/constitution.md": {
+    "mtime": 1782050118.4484444,
+    "ast_hash": "10c7c38305912006e1767a911650d34c",
+    "semantic_hash": "10c7c38305912006e1767a911650d34c"
+  }
+}
