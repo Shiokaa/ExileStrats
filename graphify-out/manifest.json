@@ -1,83 +1,13 @@
 {
-  "/home/shioka/Documents/git/ExileStrats/docs/extract-mechanic-colors.mjs": {
-    "mtime": 1781611295.7502816,
-    "ast_hash": "73f0fd574d6ddbe1aa091c2d493fb36c",
-    "semantic_hash": "73f0fd574d6ddbe1aa091c2d493fb36c"
-  },
   "/home/shioka/Documents/git/ExileStrats/DECISIONS.md": {
-    "mtime": 1782050055.1194303,
-    "ast_hash": "9a25efa495a1b4af1906593daf5b339d",
-    "semantic_hash": "9a25efa495a1b4af1906593daf5b339d"
+    "mtime": 1782092173.2574177,
+    "ast_hash": "b4daa76f3a47f90ead3f5628719a13f1",
+    "semantic_hash": ""
   },
   "/home/shioka/Documents/git/ExileStrats/CLAUDE.md": {
-    "mtime": 1782050371.2275,
-    "ast_hash": "65376d734a13d9d42fcebbb2b98308ba",
-    "semantic_hash": "65376d734a13d9d42fcebbb2b98308ba"
-  },
-  "/home/shioka/Documents/git/ExileStrats/docs/07-roadmap-and-risks.md": {
-    "mtime": 1781611273.7421823,
-    "ast_hash": "b574c7cdb9de204b2f2da7cc241603bc",
-    "semantic_hash": "b574c7cdb9de204b2f2da7cc241603bc"
-  },
-  "/home/shioka/Documents/git/ExileStrats/docs/03-data-model.md": {
-    "mtime": 1781611298.6153195,
-    "ast_hash": "0b24e5308e3cd85acde96d7fe7611454",
-    "semantic_hash": "0b24e5308e3cd85acde96d7fe7611454"
-  },
-  "/home/shioka/Documents/git/ExileStrats/docs/02-scope-and-personas.md": {
-    "mtime": 1781611256.3271785,
-    "ast_hash": "924e56bcad578096e412947e87984e96",
-    "semantic_hash": "924e56bcad578096e412947e87984e96"
-  },
-  "/home/shioka/Documents/git/ExileStrats/docs/08-decisions.md": {
-    "mtime": 1781611774.9884803,
-    "ast_hash": "d4b070f2b524d7577e0a6992ebf03758",
-    "semantic_hash": "d4b070f2b524d7577e0a6992ebf03758"
-  },
-  "/home/shioka/Documents/git/ExileStrats/docs/04-fiche-anatomy.md": {
-    "mtime": 1781611261.5507457,
-    "ast_hash": "341f8d1a08cdbd2b9e65e64233b06dd3",
-    "semantic_hash": "341f8d1a08cdbd2b9e65e64233b06dd3"
-  },
-  "/home/shioka/Documents/git/ExileStrats/docs/09-glossary.md": {
-    "mtime": 1781611277.3311832,
-    "ast_hash": "7f3cbbe32c2226764a5de00b45f5d3f3",
-    "semantic_hash": "7f3cbbe32c2226764a5de00b45f5d3f3"
-  },
-  "/home/shioka/Documents/git/ExileStrats/docs/10-design-system.md": {
-    "mtime": 1781611770.0753827,
-    "ast_hash": "f3823f65ff6130e603e2d2c681520454",
-    "semantic_hash": "f3823f65ff6130e603e2d2c681520454"
-  },
-  "/home/shioka/Documents/git/ExileStrats/docs/01-vision-and-positioning.md": {
-    "mtime": 1781611249.876177,
-    "ast_hash": "99e564f93a39e803b4b7456d7535389d",
-    "semantic_hash": "99e564f93a39e803b4b7456d7535389d"
-  },
-  "/home/shioka/Documents/git/ExileStrats/docs/brief-claude-design.md": {
-    "mtime": 1781611764.4412708,
-    "ast_hash": "a3146c0c3cb5e77b81510d8020339709",
-    "semantic_hash": "a3146c0c3cb5e77b81510d8020339709"
-  },
-  "/home/shioka/Documents/git/ExileStrats/docs/README.md": {
-    "mtime": 1781611315.529543,
-    "ast_hash": "9aeef75e0b6cdc5f2f9d6476ca6d8054",
-    "semantic_hash": "9aeef75e0b6cdc5f2f9d6476ca6d8054"
-  },
-  "/home/shioka/Documents/git/ExileStrats/docs/06-dependencies-and-compliance.md": {
-    "mtime": 1781611268.715181,
-    "ast_hash": "cfcf2c29ed6cb26d272779f2e35dcef2",
-    "semantic_hash": "cfcf2c29ed6cb26d272779f2e35dcef2"
-  },
-  "/home/shioka/Documents/git/ExileStrats/docs/AGENTS.md": {
-    "mtime": 1781611780.0065799,
-    "ast_hash": "149daeaab953618e80070c625a77d2e5",
-    "semantic_hash": "149daeaab953618e80070c625a77d2e5"
-  },
-  "/home/shioka/Documents/git/ExileStrats/docs/05-architecture.md": {
-    "mtime": 1781611304.2503939,
-    "ast_hash": "21d8ec76063813897cde0a37d08a56ac",
-    "semantic_hash": "21d8ec76063813897cde0a37d08a56ac"
+    "mtime": 1782092173.2564178,
+    "ast_hash": "4c85870614296db8c5e3d8f79ba30743",
+    "semantic_hash": ""
   },
   "/home/shioka/Documents/git/ExileStrats/design_handoff/README.md": {
     "mtime": 1782049724.0,
@@ -88,5 +18,470 @@
     "mtime": 1782050118.4484444,
     "ast_hash": "10c7c38305912006e1767a911650d34c",
     "semantic_hash": "10c7c38305912006e1767a911650d34c"
+  },
+  "/home/shioka/Documents/git/ExileStrats/eslint.config.mjs": {
+    "mtime": 1782071871.719653,
+    "ast_hash": "0bca5f5cdbb6dbec73d22e3070056487",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/vitest.config.ts": {
+    "mtime": 1782071777.9996235,
+    "ast_hash": "055f1f040e0b411dbbb0230037f4358b",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/postcss.config.mjs": {
+    "mtime": 1782071628.2218847,
+    "ast_hash": "239f3ebf717465dc636818a1a619398d",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/package.json": {
+    "mtime": 1782092173.259489,
+    "ast_hash": "19dfe2b1a840490c87cb670c2bea63b7",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/tsconfig.json": {
+    "mtime": 1782071628.2219322,
+    "ast_hash": "ee17fd1c97c735e9f3564e3f5251f125",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.prettierrc.json": {
+    "mtime": 1782071777.0766232,
+    "ast_hash": "2a5ea2388f2295653964d14736add604",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/next.config.ts": {
+    "mtime": 1782071628.221859,
+    "ast_hash": "9b77af189a21a7a64e4bd7a426f64176",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/src/data/game/leagues.ts": {
+    "mtime": 1782092173.260384,
+    "ast_hash": "3db1e46da3bbefca9ce908c28d570469",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/src/data/game/mechanics.ts": {
+    "mtime": 1782092173.2604501,
+    "ast_hash": "78ce7ecf46bd56dc6893040d797cd082",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/src/components/layout/theme-provider.tsx": {
+    "mtime": 1782092173.260119,
+    "ast_hash": "fb87d000828e0255f56b629c22b98525",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/src/components/layout/header.tsx": {
+    "mtime": 1782092173.260119,
+    "ast_hash": "d6d143c4ffc93bb14be2f4b0b63350de",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/src/components/layout/theme-toggle.tsx": {
+    "mtime": 1782092173.260119,
+    "ast_hash": "1339b2fd07161c27b43223354952fc34",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/src/components/layout/logo.tsx": {
+    "mtime": 1782092173.260119,
+    "ast_hash": "01142fa9fdc42282155e07e0dcfb7a31",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/src/components/layout/ambient-background.tsx": {
+    "mtime": 1782092173.260053,
+    "ast_hash": "7ab949edbecf208190eb9fa9fcd5df67",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/src/components/layout/logo-mark.tsx": {
+    "mtime": 1782092173.260119,
+    "ast_hash": "cae9b8afd450e26c428fbe0ce898c4a1",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/src/components/layout/footer.tsx": {
+    "mtime": 1782092173.260119,
+    "ast_hash": "e9263b4e5f664261be0ad23560a05430",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/src/app/not-found.tsx": {
+    "mtime": 1782092173.2597961,
+    "ast_hash": "40508a5c7e7052de09009e78c3b437a5",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/src/app/layout.tsx": {
+    "mtime": 1782092173.2597961,
+    "ast_hash": "3849e95f538183351de7356e405f8eb5",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/src/app/page.tsx": {
+    "mtime": 1782092173.2597961,
+    "ast_hash": "e315ef8cb2aabad228e5f0b5f8664f9f",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/src/app/error.tsx": {
+    "mtime": 1782092173.259489,
+    "ast_hash": "747b9cb174896ffc46041eaffb766840",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/src/lib/app.ts": {
+    "mtime": 1782071779.9466243,
+    "ast_hash": "e6c71e7d53d4f62bd6b02ac4fc4f5f84",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/src/lib/app.test.ts": {
+    "mtime": 1782071781.3896246,
+    "ast_hash": "8ea81e110f0b2bd2b888d3bf4a2367c2",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/src/lib/utils.ts": {
+    "mtime": 1782092173.2606416,
+    "ast_hash": "5e030b7b0d8bf2173ca86ec82d13cc30",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/src/lib/env.ts": {
+    "mtime": 1782092173.2606416,
+    "ast_hash": "5927c22b5ee9471f4886fd1c67d04e5a",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/src/features/strategy/schema.ts": {
+    "mtime": 1782092173.2606416,
+    "ast_hash": "51bfe5aff753427ccd7f76073d4f7c40",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/src/features/strategy/labels.ts": {
+    "mtime": 1782092173.2606416,
+    "ast_hash": "6a84b225d3dc806ea8dc9f0a850d8e5e",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/src/features/strategy/data.ts": {
+    "mtime": 1782092173.2606416,
+    "ast_hash": "d6417fc72a02797c16f33623b9575f0a",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/src/features/strategy/types.ts": {
+    "mtime": 1782092173.2606416,
+    "ast_hash": "918d73b8404bc584d66ff9e776f511ff",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/src/features/strategy/components/home-view.tsx": {
+    "mtime": 1782092173.2605677,
+    "ast_hash": "3c886a94312e49be84281a4d209a4ff1",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/src/features/strategy/components/strategy-card.tsx": {
+    "mtime": 1782092173.2606416,
+    "ast_hash": "f3820e4ceea1cb455465193fef241740",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.claude/settings.json": {
+    "mtime": 1782072335.8447978,
+    "ast_hash": "9ff9cba2f6b38a0c7b2c5f9fda6870bb",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/design_handoff/design_files/support.js": {
+    "mtime": 1782049724.0,
+    "ast_hash": "dcf7a0c76052ff1397a61940905a3a3a",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.specify/init-options.json": {
+    "mtime": 1781788581.597875,
+    "ast_hash": "8431727eae7fbff563576e3c0a27c2d1",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.specify/integration.json": {
+    "mtime": 1781788581.5676866,
+    "ast_hash": "72802d52f91a2f2ed07c9280f02de404",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.specify/extensions/agent-context/scripts/bash/update-agent-context.sh": {
+    "mtime": 1781788498.5827425,
+    "ast_hash": "b1168bb9cffc02061aa72530000b76ef",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.specify/extensions/agent-context/scripts/powershell/update-agent-context.ps1": {
+    "mtime": 1781788498.5830228,
+    "ast_hash": "490a5c678c46baf04f36b571861a1045",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.specify/scripts/bash/create-new-feature.sh": {
+    "mtime": 1781788581.5711567,
+    "ast_hash": "bd8113454bc3ae734fd6d6d13ceaf3f7",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.specify/scripts/bash/setup-plan.sh": {
+    "mtime": 1781788581.5717576,
+    "ast_hash": "39835c6d789d2e385e7e71461dfc9340",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.specify/scripts/bash/setup-tasks.sh": {
+    "mtime": 1781788581.5722942,
+    "ast_hash": "f658662656684d96aaabfa13bb73f5fb",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.specify/scripts/bash/check-prerequisites.sh": {
+    "mtime": 1781788581.5728395,
+    "ast_hash": "b91b66599d9e9e3b1713674bc42d0524",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.specify/scripts/bash/common.sh": {
+    "mtime": 1781788581.5733962,
+    "ast_hash": "dc48b03641edc6a3ada3c9552e2c94c9",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.specify/workflows/workflow-registry.json": {
+    "mtime": 1781788581.5975082,
+    "ast_hash": "83a7e677d43c4699b3cf75a41497f134",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.specify/integrations/speckit.manifest.json": {
+    "mtime": 1781788581.575569,
+    "ast_hash": "1c247feeb9a1eb99941fc722c3206e32",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.specify/integrations/claude.manifest.json": {
+    "mtime": 1781788581.5672078,
+    "ast_hash": "3cccca57afd3fc4903bb7ad61ec69ea8",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/ARCHITECTURE.md": {
+    "mtime": 1782092173.2564178,
+    "ast_hash": "2c6e6cb122cda79ed3e0a8f55f8f2e3b",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.github/workflows/ci-dev.yml": {
+    "mtime": 1782071784.7926257,
+    "ast_hash": "13c5da0514c14ad2d35ef234e9de4db3",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.github/workflows/ci-main.yml": {
+    "mtime": 1782071787.2106264,
+    "ast_hash": "ecc3e14f85aa79a5ee32573da245f53c",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.claude/skills/speckit-plan/SKILL.md": {
+    "mtime": 1781788581.565367,
+    "ast_hash": "95984771833637d49f5e998727b51bce",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.claude/skills/speckit-specify/SKILL.md": {
+    "mtime": 1781788581.5659945,
+    "ast_hash": "5a3dead5f9ccc88a026fdb02763ead79",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.claude/skills/speckit-checklist/SKILL.md": {
+    "mtime": 1781788581.5656865,
+    "ast_hash": "2d3535f2f15a5500e7354f923860de4e",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.claude/skills/speckit-taskstoissues/SKILL.md": {
+    "mtime": 1781788581.566495,
+    "ast_hash": "1cd8ea6220a20445285ff68ad6370117",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.claude/skills/speckit-agent-context-update/SKILL.md": {
+    "mtime": 1781788581.6011157,
+    "ast_hash": "72928dcbb13ab3fe26730bcc282a6383",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.claude/skills/speckit-constitution/SKILL.md": {
+    "mtime": 1781788581.5648353,
+    "ast_hash": "c9a285e099a64fea9cd80a9b937dffae",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.claude/skills/speckit-implement/SKILL.md": {
+    "mtime": 1781788581.5651093,
+    "ast_hash": "9f845a9f433d184cf3f5cfc37dca5516",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.claude/skills/speckit-clarify/SKILL.md": {
+    "mtime": 1781788581.5645452,
+    "ast_hash": "34b0b61eb75c833628cfc351d3bb9086",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.claude/skills/speckit-analyze/SKILL.md": {
+    "mtime": 1781788581.564221,
+    "ast_hash": "0ad01bd773353ba12705a1602349a830",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.claude/skills/speckit-tasks/SKILL.md": {
+    "mtime": 1781788581.5662596,
+    "ast_hash": "94bef053488a48b3238c592ad2a1969e",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/design_handoff/design_files/ExileStrats Design System.dc.html": {
+    "mtime": 1782049724.0,
+    "ast_hash": "88b7937fd21625700995b07570a87050",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/design_handoff/design_files/ExileStrats Mecanique.dc.html": {
+    "mtime": 1782049724.0,
+    "ast_hash": "0b6edc41be45deb1f7d53cad384bd834",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/design_handoff/design_files/ExileStrats.dc.html": {
+    "mtime": 1782049724.0,
+    "ast_hash": "a0a5fc54da7faf3dc7e126aa3afa6854",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/design_handoff/design_files/ExileStrats Creer.dc.html": {
+    "mtime": 1782049724.0,
+    "ast_hash": "1b939c21c881f7e87575db48f7ce3fcf",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/design_handoff/design_files/ExileStrats Tier List.dc.html": {
+    "mtime": 1782049724.0,
+    "ast_hash": "e48559f7e2161a2a21092196c614d3d9",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/design_handoff/design_files/ExileStrats Auteur.dc.html": {
+    "mtime": 1782049724.0,
+    "ast_hash": "3519c94192e84d69fc19876daca49967",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/design_handoff/design_files/ExileStrats Accueil.dc.html": {
+    "mtime": 1782049724.0,
+    "ast_hash": "d17ca2df5240a16e0e7cdd53aca33dd1",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/design_handoff/design_files/ExileStrats Logo.dc.html": {
+    "mtime": 1782049724.0,
+    "ast_hash": "a5afb45c185eff2c1bcaf13bfa408965",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.specify/extensions.yml": {
+    "mtime": 1781788581.602621,
+    "ast_hash": "41da053e53301452b823a35e2ff15dd1",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.specify/extensions/agent-context/agent-context-config.yml": {
+    "mtime": 1781788581.6033697,
+    "ast_hash": "1bcd2cd4858ba88295f40310ff13cd60",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.specify/extensions/agent-context/README.md": {
+    "mtime": 1781788498.5787199,
+    "ast_hash": "1aa8a439be548ec0da2e3387a4925e4f",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.specify/extensions/agent-context/extension.yml": {
+    "mtime": 1781788498.5813282,
+    "ast_hash": "c09cdcdf8b86381d5955182b5eac0caf",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.specify/extensions/agent-context/commands/speckit.agent-context.update.md": {
+    "mtime": 1781788498.582253,
+    "ast_hash": "7eecbfbef236c6af3e4003b32c6ffd2a",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.specify/workflows/speckit/workflow.yml": {
+    "mtime": 1781788498.582253,
+    "ast_hash": "eba6943b2a2f6407162ae12e0218bdac",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.specify/templates/constitution-template.md": {
+    "mtime": 1781788581.573824,
+    "ast_hash": "dcefb6b60e7cb3db2e966977b6f02f18",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.specify/templates/spec-template.md": {
+    "mtime": 1781788581.5741522,
+    "ast_hash": "45ac8538bc1220324c9f0d610145b53f",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.specify/templates/checklist-template.md": {
+    "mtime": 1781788581.5744894,
+    "ast_hash": "af4274efb13cbb2263029402deb14f6b",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.specify/templates/plan-template.md": {
+    "mtime": 1781788581.5748317,
+    "ast_hash": "fea2e21a1d9cf3470186abc1dfb6e9fb",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/.specify/templates/tasks-template.md": {
+    "mtime": 1781788581.5751677,
+    "ast_hash": "f8b4f62d384defa0a559bdbbaacb0540",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/design_handoff/screenshots/logo-dark.png": {
+    "mtime": 1782049724.0,
+    "ast_hash": "984f8c13977ff0a7995ce059f1a5c9a1",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/design_handoff/screenshots/accueil-dark.png": {
+    "mtime": 1782049724.0,
+    "ast_hash": "345f67b3b11c1f4dbe72214155ffe349",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/design_handoff/screenshots/auteur-dark.png": {
+    "mtime": 1782049724.0,
+    "ast_hash": "63335c127f0f8b5a5aa7b1973bf8324b",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/design_handoff/screenshots/fiche-strategie-dark.png": {
+    "mtime": 1782049724.0,
+    "ast_hash": "2702fe156d8b055ce72a0d436220d33a",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/design_handoff/screenshots/creer-dark.png": {
+    "mtime": 1782049724.0,
+    "ast_hash": "81d866b2a288da00677eacb3d37e0aef",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/design_handoff/screenshots/mecanique-dark.png": {
+    "mtime": 1782049724.0,
+    "ast_hash": "1234915f5aa7f6ac89af55db571b1c53",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/design_handoff/screenshots/tier-list-dark.png": {
+    "mtime": 1782049724.0,
+    "ast_hash": "afcf35ccabfe760b4844bfbd845ee309",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/design_handoff/screenshots/design-system-components-dark.png": {
+    "mtime": 1782049724.0,
+    "ast_hash": "0e62b16a2bbcf3c9682c74e1b23d1f6f",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/design_handoff/screenshots/accueil-light.png": {
+    "mtime": 1782049724.0,
+    "ast_hash": "37c3410395c0993a8247f5d31c897701",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/design_handoff/screenshots/design-system-colors-dark.png": {
+    "mtime": 1782049724.0,
+    "ast_hash": "8edc00c1d6a3b63bcf61eb48a9c48d24",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/design_handoff/design_files/favicon.png": {
+    "mtime": 1782049724.0,
+    "ast_hash": "21241fb021631bdda922e0a6ab80a98d",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/design_handoff/design_files/favicon.svg": {
+    "mtime": 1782049724.0,
+    "ast_hash": "0603b67c077a814ba9bc58dd2e4939fd",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/public/vercel.svg": {
+    "mtime": 1782071628.2219322,
+    "ast_hash": "c0af2f507b369b085b35ef4bbe3bcf1e",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/public/file.svg": {
+    "mtime": 1782071628.2218251,
+    "ast_hash": "d09f95206c3fa0bb9bd9fefabfd0ea71",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/public/window.svg": {
+    "mtime": 1782071628.2219322,
+    "ast_hash": "a2760511c65806022ad20adf74370ff3",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/public/next.svg": {
+    "mtime": 1782071628.2219262,
+    "ast_hash": "8e061864f388b47f33a1c3780831193e",
+    "semantic_hash": ""
+  },
+  "/home/shioka/Documents/git/ExileStrats/public/globe.svg": {
+    "mtime": 1782071628.2219112,
+    "ast_hash": "2aaafa6a49b6563925fe440891e32717",
+    "semantic_hash": ""
   }
 }
