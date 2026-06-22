@@ -57,6 +57,7 @@ function defaultContent(summary: StrategySummary): StrategyContent {
       'Batch your loot and sell in bulk rather than per map.',
     ],
     maps: { names: ['Strand', 'Cemetery', 'City Square'], note: 'Open, fast layouts.' },
+    media: { youtube: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' },
   };
 }
 

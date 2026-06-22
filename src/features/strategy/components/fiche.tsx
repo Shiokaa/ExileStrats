@@ -113,48 +113,52 @@ export function Fiche({ detail }: { detail: StrategyDetail }) {
               {/* 1 — TL;DR */}
               <section id="tldr" className="scroll-mt-[100px]">
                 <div className="mb-[10px] text-xs font-semibold text-fg-3">TL;DR</div>
-                <div className="grid grid-cols-2 gap-3 sm:grid-cols-[1.4fr_1fr_1fr_1fr]">
+                <div className="flex flex-col gap-3">
+                  {/* What you farm — full-width headline, tinted with the main mechanic */}
                   <div
-                    className="mech-tint rounded-[13px] p-[15px_16px]"
+                    className="mech-tint rounded-[13px] p-[15px_18px]"
                     style={cssVars({ '--mech': mechanic.color })}
                   >
                     <div className="text-xs font-semibold opacity-80">What you farm</div>
-                    <div className="mt-[7px] font-display text-[21px] font-semibold leading-[1.1]">
+                    <div className="mt-1.5 font-display text-[22px] font-semibold leading-[1.1]">
                       {content.summary.farms}
                     </div>
                   </div>
-                  <div className="glass-panel rounded-[13px] p-[15px_16px]">
-                    <div className="text-xs font-medium text-fg-3">Invest / map</div>
-                    <div className="mt-[7px] font-display text-[24px] font-semibold leading-none text-fg">
-                      {formatInvest(summary.investPerMap)}
+                  {/* 3 equal metrics */}
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                    <div className="glass-panel rounded-[13px] p-[15px_16px]">
+                      <div className="text-xs font-medium text-fg-3">Invest / map</div>
+                      <div className="mt-[7px] font-display text-[24px] font-semibold leading-none text-fg">
+                        {formatInvest(summary.investPerMap)}
+                      </div>
                     </div>
-                  </div>
-                  {/* Neutral colour — never green (anti-hype, Principe IX). */}
-                  <div className="glass-panel rounded-[13px] p-[15px_16px]">
-                    <div className="text-xs font-medium text-fg-3">Est. return</div>
-                    <div className="mt-[7px] font-display text-[24px] font-semibold leading-none text-fg">
-                      {formatReturn(summary.returnPerHour)}
+                    {/* Neutral colour — never green (anti-hype, Principe IX). */}
+                    <div className="glass-panel rounded-[13px] p-[15px_16px]">
+                      <div className="text-xs font-medium text-fg-3">Est. return</div>
+                      <div className="mt-[7px] font-display text-[24px] font-semibold leading-none text-fg">
+                        {formatReturn(summary.returnPerHour)}
+                      </div>
                     </div>
-                  </div>
-                  <div
-                    className="glass-panel rounded-[13px] p-[15px_16px]"
-                    style={cssVars({ '--diff-c': `var(--diff-${summary.difficulty})` })}
-                  >
-                    <div className="text-xs font-medium text-fg-3">Difficulty</div>
-                    <div className="mt-[11px] flex items-center gap-1">
-                      {[1, 2, 3].map((i) => (
-                        <span
-                          key={i}
-                          className="h-1.5 w-[22px] rounded-[3px]"
-                          style={{
-                            background:
-                              i <= summary.difficulty ? 'var(--diff-c)' : 'var(--subtle-border)',
-                          }}
-                        />
-                      ))}
-                    </div>
-                    <div className="mt-[9px] font-display text-[16px] font-semibold leading-none text-[var(--diff-c)]">
-                      {DIFFICULTY[summary.difficulty]}
+                    <div
+                      className="glass-panel rounded-[13px] p-[15px_16px]"
+                      style={cssVars({ '--diff-c': `var(--diff-${summary.difficulty})` })}
+                    >
+                      <div className="text-xs font-medium text-fg-3">Difficulty</div>
+                      <div className="mt-[11px] flex items-center gap-1">
+                        {[1, 2, 3].map((i) => (
+                          <span
+                            key={i}
+                            className="h-1.5 w-[22px] rounded-[3px]"
+                            style={{
+                              background:
+                                i <= summary.difficulty ? 'var(--diff-c)' : 'var(--subtle-border)',
+                            }}
+                          />
+                        ))}
+                      </div>
+                      <div className="mt-[9px] font-display text-[16px] font-semibold leading-none text-[var(--diff-c)]">
+                        {DIFFICULTY[summary.difficulty]}
+                      </div>
                     </div>
                   </div>
                 </div>
