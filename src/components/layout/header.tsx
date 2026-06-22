@@ -5,8 +5,6 @@ import { ThemeToggle } from './theme-toggle';
 const NAV_LINKS = [
   { href: '/', label: 'Strategies' },
   { href: '/mechanics', label: 'Mechanics' },
-  { href: '/tier-list', label: 'Tier list' },
-  { href: '/guides', label: 'Guides' },
 ];
 
 export function Header() {

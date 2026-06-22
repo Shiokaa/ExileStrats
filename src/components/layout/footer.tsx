@@ -4,8 +4,6 @@ import { Logo } from './logo';
 const FOOTER_LINKS = [
   { href: '/', label: 'Strategies' },
   { href: '/mechanics', label: 'Mechanics' },
-  { href: '/tier-list', label: 'Tier list' },
-  { href: '/guides', label: 'Guides' },
 ];
 
 export function Footer() {
