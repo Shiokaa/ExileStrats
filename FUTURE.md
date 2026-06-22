@@ -22,6 +22,14 @@ Classement **S/A/B/C** des stratégies (vue agrégée), avec filtres mécanique 
 - Réactivable sans coût : c'est une **vue pure** sur les stratégies existantes (`tier` et
   `mechanicTags` sont déjà au modèle). Penser à remettre le lien dans la nav (header + footer).
 
+## Page `/mechanics` — illustrations
+
+Enrichir l'index et les hubs des mécaniques avec de **petites images / icônes** illustrant chaque
+mécanique (à la place — ou en complément — de la pastille de couleur unie actuelle).
+
+- Source d'icônes : self-héberger un set curé (cf. conformité GGG, Principe VI) ; keyer par mécanique.
+- S'intègre proprement quand le **pipeline d'ingestion** fournira les assets (Principe V).
+
 ## Vérification des données (avant toute mise en avant publique)
 
 **Vérifier toutes les données saisies dans le projet**, en particulier les **détails de mécaniques**
