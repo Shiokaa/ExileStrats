@@ -1,7 +1,6 @@
 'use client';
 
 import { useMemo, useState, type CSSProperties } from 'react';
-import styles from './home-view.module.css';
 import { StrategyCard } from './strategy-card';
 import { MECHANICS, MECHANIC_KEYS, type MechanicKey } from '@/data/game/mechanics';
 import { LEAGUES, type League } from '@/data/game/leagues';
@@ -19,6 +18,12 @@ const SORTS: { key: Sort; label: string }[] = [
   { key: 'invest', label: 'Invest' },
   { key: 'recent', label: 'Recent' },
 ];
+
+const segment = (active: boolean) =>
+  cx(
+    'cursor-pointer rounded-pill px-[14px] py-[7px] text-[13px] font-semibold transition-colors',
+    active ? 'glass-card text-fg' : 'text-fg-2',
+  );
 
 export function HomeView({ strategies }: { strategies: StrategySummary[] }) {
   const [query, setQuery] = useState('');
@@ -52,15 +57,19 @@ export function HomeView({ strategies }: { strategies: StrategySummary[] }) {
   };
 
   return (
-    <div className={styles.page}>
+    <div className="flex flex-col gap-[26px]">
       {/* Hero + search */}
-      <section className={styles.hero}>
-        <span className={styles.leagueBadge}>{LEAGUES[0]} league</span>
-        <h1 className={styles.title}>Path of Exile mapping strategies</h1>
-        <p className={styles.subtitle}>
+      <section className="flex flex-col items-center gap-[14px] pt-12 pb-2 text-center">
+        <span className="rounded-pill bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] px-[14px] py-1.5 text-xs font-semibold text-accent">
+          {LEAGUES[0]} league
+        </span>
+        <h1 className="text-[clamp(34px,5vw,50px)] font-bold leading-[1.02] text-fg">
+          Path of Exile mapping strategies
+        </h1>
+        <p className="m-0 max-w-[540px] text-base leading-[1.6] text-fg-2">
           Compose a juicing strategy into a clean, scannable fiche — and share it.
         </p>
-        <div className={styles.search}>
+        <div className="glass-card mt-2 flex h-14 w-full max-w-[560px] items-center gap-3 rounded-pill px-5 text-fg-3">
           <svg
             width="18"
             height="18"
@@ -80,17 +89,20 @@ export function HomeView({ strategies }: { strategies: StrategySummary[] }) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search by title, mechanic or author…"
-            className={styles.searchInput}
+            className="flex-1 border-none bg-transparent text-[15px] text-fg outline-none placeholder:text-fg-3"
             aria-label="Search strategies"
           />
         </div>
       </section>
 
       {/* Mechanic filter rail */}
-      <div className={styles.rail}>
+      <div className="flex flex-wrap justify-center gap-2">
         <button
           type="button"
-          className={cx(styles.pill, mechanic === 'all' && styles.pillActive)}
+          className={cx(
+            'cursor-pointer rounded-pill border border-border px-[15px] py-2 text-[13px] font-semibold transition-colors hover:bg-subtle hover:text-fg',
+            mechanic === 'all' ? 'border-transparent bg-subtle text-fg' : 'text-fg-2',
+          )}
           onClick={() => setMechanic('all')}
         >
           All
@@ -102,12 +114,16 @@ export function HomeView({ strategies }: { strategies: StrategySummary[] }) {
             <button
               key={key}
               type="button"
-              className={cx(styles.pill, active && styles.pillActive)}
+              className={cx(
+                'inline-flex cursor-pointer items-center gap-2 rounded-pill border px-[15px] py-2 text-[13px] font-semibold transition-colors',
+                active
+                  ? 'mech-tint border-transparent'
+                  : 'border-border text-fg-2 hover:bg-subtle hover:text-fg',
+              )}
               style={cssVars({ '--mech': m.color })}
               onClick={() => setMechanic(key)}
-              data-mech-active={active}
             >
-              <span className={styles.pillDot} />
+              <span className="h-[9px] w-[9px] rounded-full bg-[var(--mech)]" />
               {m.name}
             </button>
           );
@@ -115,15 +131,19 @@ export function HomeView({ strategies }: { strategies: StrategySummary[] }) {
       </div>
 
       {/* Toolbar */}
-      <div className={styles.toolbar}>
-        <span className={styles.count}>
+      <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
+        <span className="text-[13px] font-semibold text-fg-2">
           {results.length} {results.length === 1 ? 'strategy' : 'strategies'}
         </span>
-        <div className={styles.controls}>
-          <div className={styles.segmented} role="group" aria-label="League">
+        <div className="flex flex-wrap gap-[10px]">
+          <div
+            className="inline-flex rounded-pill border border-border bg-subtle-2 p-[3px]"
+            role="group"
+            aria-label="League"
+          >
             <button
               type="button"
-              className={cx(styles.segment, league === 'all' && styles.segmentActive)}
+              className={segment(league === 'all')}
               onClick={() => setLeague('all')}
             >
               All
@@ -132,19 +152,23 @@ export function HomeView({ strategies }: { strategies: StrategySummary[] }) {
               <button
                 key={l}
                 type="button"
-                className={cx(styles.segment, league === l && styles.segmentActive)}
+                className={segment(league === l)}
                 onClick={() => setLeague(l)}
               >
                 {l}
               </button>
             ))}
           </div>
-          <div className={styles.segmented} role="group" aria-label="Sort by">
+          <div
+            className="inline-flex rounded-pill border border-border bg-subtle-2 p-[3px]"
+            role="group"
+            aria-label="Sort by"
+          >
             {SORTS.map((s) => (
               <button
                 key={s.key}
                 type="button"
-                className={cx(styles.segment, sort === s.key && styles.segmentActive)}
+                className={segment(sort === s.key)}
                 onClick={() => setSort(s.key)}
               >
                 {s.label}
@@ -156,15 +180,15 @@ export function HomeView({ strategies }: { strategies: StrategySummary[] }) {
 
       {/* Grid / empty state */}
       {results.length > 0 ? (
-        <div className={styles.grid}>
+        <div className="grid grid-cols-1 gap-[18px] sm:grid-cols-2 lg:grid-cols-3">
           {results.map((s) => (
             <StrategyCard key={s.id} strategy={s} />
           ))}
         </div>
       ) : (
-        <div className={styles.empty}>
+        <div className="flex flex-col items-center gap-[14px] py-14 text-fg-2">
           <p>No strategy matches your filters.</p>
-          <button type="button" className="btn btn--ghost" onClick={reset}>
+          <button type="button" className="btn btn-ghost" onClick={reset}>
             Reset filters
           </button>
         </div>

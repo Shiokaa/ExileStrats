@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import type { CSSProperties } from 'react';
-import styles from './strategy-card.module.css';
 import { MECHANICS } from '@/data/game/mechanics';
 import { DIFFICULTY } from '@/features/strategy/labels';
 import type { StrategySummary } from '@/features/strategy/types';
@@ -14,50 +13,62 @@ export function StrategyCard({ strategy }: { strategy: StrategySummary }) {
   return (
     <Link
       href={`/strategy/${strategy.slug}`}
-      className={styles.card}
+      className="glass-card relative flex flex-col overflow-hidden rounded-card no-underline transition-transform hover:-translate-y-[3px]"
       style={cssVars({ '--mech': mechanic.color })}
     >
-      <span className={styles.accent} aria-hidden="true" />
-      <div className={styles.body}>
-        <div className={styles.row}>
-          <span className={styles.tag}>
-            <span className={styles.tagDot} />
+      <span className="absolute inset-x-0 top-0 h-1 bg-[var(--mech)]" aria-hidden="true" />
+      <div className="flex flex-col gap-[13px] p-[18px]">
+        <div className="flex items-center justify-between">
+          <span className="mech-tint inline-flex items-center gap-[7px] rounded-pill px-[11px] py-[5px] text-xs font-semibold">
+            <span className="h-1.5 w-1.5 rounded-full bg-[var(--mech)]" />
             {mechanic.name}
           </span>
-          <span className={styles.updated}>{formatUpdated(strategy.updatedDaysAgo)}</span>
+          <span className="text-[11px] text-fg-3">{formatUpdated(strategy.updatedDaysAgo)}</span>
         </div>
 
         <div>
-          <h3 className={styles.title}>{strategy.title}</h3>
-          <p className={styles.byline}>
+          <h3 className="text-[21px] font-semibold leading-[1.1] text-fg">{strategy.title}</h3>
+          <p className="mt-1 text-xs text-fg-3">
             by {strategy.author} · {strategy.league} · {strategy.scarabCount} scarabs
           </p>
         </div>
 
-        <div className={styles.diffRow}>
-          <span className={styles.diffLabelMuted}>Difficulty</span>
-          <span
-            className={styles.diff}
-            style={cssVars({ '--diff-c': `var(--diff-${strategy.difficulty})` })}
-          >
-            <span className={styles.diffBars}>
+        <div
+          className="flex items-center justify-between"
+          style={cssVars({ '--diff-c': `var(--diff-${strategy.difficulty})` })}
+        >
+          <span className="text-[11px] text-fg-3">Difficulty</span>
+          <span className="inline-flex items-center gap-2">
+            <span className="inline-flex gap-1">
               {[1, 2, 3].map((i) => (
-                <span key={i} className={styles.diffBar} data-on={i <= strategy.difficulty} />
+                <span
+                  key={i}
+                  className="h-[5px] w-5 rounded-[3px]"
+                  style={{
+                    background: i <= strategy.difficulty ? 'var(--diff-c)' : 'var(--subtle-border)',
+                  }}
+                />
               ))}
             </span>
-            <span className={styles.diffLabel}>{DIFFICULTY[strategy.difficulty]}</span>
+            <span className="text-xs font-semibold text-[var(--diff-c)]">
+              {DIFFICULTY[strategy.difficulty]}
+            </span>
           </span>
         </div>
 
-        <div className={styles.footer}>
+        <div className="flex items-end justify-between border-t border-border pt-[13px]">
           <div>
-            <span className={styles.footLabel}>Est. return</span>
+            <span className="block text-[11px] text-fg-3">Est. return</span>
             {/* Neutral colour — never green (anti-hype, Principe IX). */}
-            <span className={styles.footValue}>{formatReturn(strategy.returnPerHour)}</span>
+            <span className="mt-1 block font-display text-[18px] font-semibold text-fg">
+              {formatReturn(strategy.returnPerHour)}
+            </span>
           </div>
-          <div className={styles.footRight}>
-            <span className={styles.footLabel}>Invest / map</span>
-            <span className={styles.footValueMuted}>{formatInvest(strategy.investPerMap)}</span>
+          <div className="text-right">
+            <span className="block text-[11px] text-fg-3">Invest / map</span>
+            <span className="mt-1 block font-display text-[18px] font-semibold text-fg-2">
+              {formatInvest(strategy.investPerMap)}
+            </span>
           </div>
         </div>
       </div>

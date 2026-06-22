@@ -82,8 +82,11 @@ src/
 - **Alias d'import** : `@/*` → `src/*`. Jamais de `../../../`.
 - **Client/serveur** : un fichier `'use client'` est une feuille ; il reçoit les données déjà résolues
   en props depuis un Server Component parent.
-- **Styles** : CSS Modules (`*.module.css`) colocalisés au composant + variables CSS globales
-  (design tokens) dans `globals.css`. Source de vérité des tokens : `design_handoff/`.
+- **Styles** : **Tailwind v4** (DECISIONS.md D29). Tokens du design system = variables CSS par thème
+  dans `globals.css`, exposées via `@theme inline` → utilities thème-aware (`text-fg`, `bg-page`,
+  `rounded-card`, `font-display`…). Primitives multi-propriétés (glass, `tint()` via `mech-tint`,
+  ambient, `.btn`) = `@utility`/`@layer components`. Pas de CSS Modules. Source de vérité des tokens :
+  `design_handoff/`.
 - **Tests** : Vitest, colocalisés (`*.test.ts(x)` à côté du fichier testé).
 - **Env** : tout accès à `process.env` passe par `lib/env.ts` (validé Zod, séparation client/serveur).
 - **Erreurs** : `notFound()` pour les 404 ; `error.tsx` par segment pour les erreurs runtime.
