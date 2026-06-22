@@ -3,7 +3,13 @@
 import { useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 
-export function SignInButton({ className = 'btn btn-ghost' }: { className?: string }) {
+export function SignInButton({
+  className = 'btn btn-ghost',
+  label = 'Sign in',
+}: {
+  className?: string;
+  label?: string;
+}) {
   const [loading, setLoading] = useState(false);
 
   async function signIn() {
@@ -18,7 +24,7 @@ export function SignInButton({ className = 'btn btn-ghost' }: { className?: stri
 
   return (
     <button type="button" className={className} onClick={signIn} disabled={loading}>
-      {loading ? 'Redirecting…' : 'Sign in'}
+      {loading ? 'Redirecting…' : label}
     </button>
   );
 }

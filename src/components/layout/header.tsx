@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { Logo } from './logo';
 import { ThemeToggle } from './theme-toggle';
 import { getCurrentUser } from '@/lib/supabase/server';
-import { SignInButton } from '@/components/auth/sign-in-button';
 
 const NAV_LINKS = [
   { href: '/', label: 'Strategies' },
@@ -47,7 +46,9 @@ export async function Header() {
             </svg>
           </Link>
         ) : (
-          <SignInButton />
+          <Link href="/login" className="btn btn-ghost">
+            Sign in
+          </Link>
         )}
       </div>
     </header>

@@ -2,7 +2,6 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { CreateForm } from '@/features/strategy/components/create-form';
 import { getCurrentUser } from '@/lib/supabase/server';
-import { SignInButton } from '@/components/auth/sign-in-button';
 
 export const metadata: Metadata = {
   title: 'Create a strategy — ExileStrats',
@@ -44,7 +43,9 @@ export default async function CreatePage() {
           <p className="max-w-[420px] text-[15px] leading-[1.55] text-fg-2">
             Sign in to compose and publish a strategy.
           </p>
-          <SignInButton className="btn btn-primary" />
+          <Link href="/login" className="btn btn-primary">
+            Sign in
+          </Link>
         </div>
       )}
     </div>
