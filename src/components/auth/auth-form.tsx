@@ -116,14 +116,21 @@ export function AuthForm() {
 
     setBusy(true);
     if (tab === 'signup') {
-      const { error } = await supabase().auth.signUp({
+      const { data, error } = await supabase().auth.signUp({
         email,
         password,
         options: { data: { user_name: name }, emailRedirectTo: redirect() },
       });
-      setBusy(false);
-      if (error) setError(error.message);
-      else setInfo('Check your email to confirm your account, then sign in.');
+      if (error) {
+        setBusy(false);
+        setError(error.message);
+      } else if (data.session) {
+        // Email confirmation disabled — the user is signed in immediately.
+        window.location.assign('/');
+      } else {
+        setBusy(false);
+        setInfo('Check your email to confirm your account, then sign in.');
+      }
     } else {
       const { error } = await supabase().auth.signInWithPassword({ email, password });
       if (error) {
