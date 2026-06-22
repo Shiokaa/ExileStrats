@@ -3,8 +3,7 @@ import type { CSSProperties } from 'react';
 import { MECHANICS } from '@/data/game/mechanics';
 import { DIFFICULTY } from '@/features/strategy/labels';
 import { buildDiscordSummary } from '@/features/strategy/discord';
-import { getSimilarStrategies } from '@/features/strategy/detail-data';
-import type { StrategyDetail } from '@/features/strategy/types';
+import type { StrategyDetail, StrategySummary } from '@/features/strategy/types';
 import { formatInvest, formatReturn, formatUpdated } from '@/lib/utils';
 import { CopyForDiscord } from './copy-for-discord';
 import { YoutubeEmbed } from './youtube-embed';
@@ -22,10 +21,9 @@ const TOC = [
 
 const sectionTitle = 'font-display text-[14px] font-semibold tracking-[0.01em] text-fg';
 
-export function Fiche({ detail }: { detail: StrategyDetail }) {
+export function Fiche({ detail, similar }: { detail: StrategyDetail; similar: StrategySummary[] }) {
   const { summary, content } = detail;
   const mechanic = MECHANICS[summary.mechanic];
-  const similar = getSimilarStrategies(summary.slug);
   const discord = buildDiscordSummary(detail);
 
   return (

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { MECHANICS, MECHANIC_KEYS, type MechanicKey } from '@/data/game/mechanics';
-import { sampleStrategies } from '@/features/strategy/data';
+import { getStrategiesByMechanic } from '@/features/strategy/queries';
 import { MechanicHub } from '@/features/mechanic/components/mechanic-hub';
 
 type Params = { params: Promise<{ mechanic: string }> };
@@ -21,6 +21,6 @@ export default async function MechanicPage({ params }: Params) {
     notFound();
   }
   const key = mechanic as MechanicKey;
-  const strategies = sampleStrategies.filter((s) => s.mechanic === key);
+  const strategies = await getStrategiesByMechanic(key);
   return <MechanicHub mechanicKey={key} strategies={strategies} />;
 }
