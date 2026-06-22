@@ -5,32 +5,11 @@ import { useState, type ReactNode } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { cx } from '@/lib/utils';
 
-type Provider = 'discord' | 'google' | 'twitch';
-
-// ponytail: approximate brand marks — swap for official assets if needed.
-const PROVIDER_ICON: Record<Provider, ReactNode> = {
-  discord: (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M19.3 5.3A17 17 0 0 0 15 4l-.2.4a16 16 0 0 1 3.7 1.2 15 15 0 0 0-12.9 0A16 16 0 0 1 9.3 4.4L9 4a17 17 0 0 0-4.3 1.3C2 9 1.4 13.6 1.7 18a17 17 0 0 0 5 2.5l.6-.9a11 11 0 0 1-1.7-.8l.4-.3a11 11 0 0 0 9.9 0l.4.3a11 11 0 0 1-1.7.8l.6.9a17 17 0 0 0 5-2.5c.4-5.2-.6-9.7-3.9-12.7ZM8.9 15.3c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm6.2 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Z" />
-    </svg>
-  ),
-  google: (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M12 11v2.6h3.7c-.2 1-1.4 2.9-3.7 2.9-2.2 0-4-1.8-4-4.1S9.8 8.3 12 8.3c1.2 0 2.1.5 2.6 1l1.8-1.7C15.3 6.5 13.8 6 12 6 8.3 6 5.4 9 5.4 12.4 5.4 15.9 8.3 19 12 19c3.8 0 6.3-2.7 6.3-6.5 0-.5 0-.8-.1-1.2H12Z" />
-    </svg>
-  ),
-  twitch: (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M4.3 3 3 6.3V18h3.8v2.5h2.1L11.4 18h3.1l4.2-4.2V3H4.3Zm13.3 10-2.4 2.4h-3.8l-2.1 2.1v-2.1H6.1V4.6h11.5V13Zm-2.4-5.6h-1.6v4.7h1.6V7.4Zm-4.2 0H9.2v4.7h1.6V7.4Z" />
-    </svg>
-  ),
-};
-
-const PROVIDERS: { id: Provider; label: string; bg: string }[] = [
-  { id: 'discord', label: 'Discord', bg: '#5865F2' },
-  { id: 'google', label: 'Google', bg: '#DB4437' },
-  { id: 'twitch', label: 'Twitch', bg: '#9146FF' },
-];
+const DiscordIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M19.3 5.3A17 17 0 0 0 15 4l-.2.4a16 16 0 0 1 3.7 1.2 15 15 0 0 0-12.9 0A16 16 0 0 1 9.3 4.4L9 4a17 17 0 0 0-4.3 1.3C2 9 1.4 13.6 1.7 18a17 17 0 0 0 5 2.5l.6-.9a11 11 0 0 1-1.7-.8l.4-.3a11 11 0 0 0 9.9 0l.4.3a11 11 0 0 1-1.7.8l.6.9a17 17 0 0 0 5-2.5c.4-5.2-.6-9.7-3.9-12.7ZM8.9 15.3c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm6.2 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Z" />
+  </svg>
+);
 
 const MailIcon = () => (
   <svg
@@ -112,16 +91,16 @@ export function LoginForm() {
   const redirect = () =>
     typeof window !== 'undefined' ? `${window.location.origin}/auth/callback` : undefined;
 
-  async function oauth(provider: Provider) {
+  async function signInWithDiscord() {
     setError(null);
     setBusy(true);
     const { error } = await supabase().auth.signInWithOAuth({
-      provider,
+      provider: 'discord',
       options: { redirectTo: redirect() },
     });
     if (error) {
       setBusy(false);
-      setError(`${provider} sign-in isn't enabled yet.`);
+      setError(error.message);
     }
   }
 
@@ -179,22 +158,17 @@ export function LoginForm() {
         ))}
       </div>
 
-      {/* OAuth providers */}
-      <div className="grid grid-cols-3 gap-3">
-        {PROVIDERS.map((p) => (
-          <button
-            key={p.id}
-            type="button"
-            aria-label={`Continue with ${p.label}`}
-            onClick={() => oauth(p.id)}
-            disabled={busy}
-            className="flex h-12 items-center justify-center rounded-input text-white transition-[transform,filter] hover:-translate-y-px hover:brightness-110 disabled:opacity-60"
-            style={{ background: p.bg }}
-          >
-            {PROVIDER_ICON[p.id]}
-          </button>
-        ))}
-      </div>
+      {/* Discord */}
+      <button
+        type="button"
+        onClick={signInWithDiscord}
+        disabled={busy}
+        className="flex h-12 w-full items-center justify-center gap-2.5 rounded-input text-[14px] font-semibold text-white transition-[transform,filter] hover:-translate-y-px hover:brightness-110 disabled:opacity-60"
+        style={{ background: '#5865F2' }}
+      >
+        <DiscordIcon />
+        Continue with Discord
+      </button>
 
       {/* Divider */}
       <div className="my-5 flex items-center gap-3">
