@@ -79,9 +79,10 @@ sans base ni auth — c'est le test produit n°1.
 
 - **Loi du projet** : `.specify/memory/constitution.md` (principes MUST / MUST NOT).
 - **Contexte détaillé** : `graphify-out/` (graphe interrogeable — modèle de données, mécaniques, conformité…).
-- **Décisions & justifications** : `DECISIONS.md` (ADR D1–D28).
+- **Décisions & justifications** : `DECISIONS.md` (ADR D1–D30).
 - **Architecture** : `ARCHITECTURE.md` (structure cible + conventions).
 - **Design** : `design_handoff/README.md` (+ maquettes et screenshots).
+- **Idées / chantiers reportés** : `FUTURE.md` (non-goals V1, à promouvoir via ADR).
 
 ## Règles de travail
 
