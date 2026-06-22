@@ -79,11 +79,16 @@ sans base ni auth — c'est le test produit n°1.
 
 - **Loi du projet** : `.specify/memory/constitution.md` (principes MUST / MUST NOT).
 - **Contexte détaillé** : `graphify-out/` (graphe interrogeable — modèle de données, mécaniques, conformité…).
-- **Décisions & justifications** : `DECISIONS.md` (ADR D1–D27).
+- **Décisions & justifications** : `DECISIONS.md` (ADR D1–D28).
+- **Architecture** : `ARCHITECTURE.md` (structure cible + conventions).
 - **Design** : `design_handoff/README.md` (+ maquettes et screenshots).
 
 ## Règles de travail
 
+- **Revue visuelle / lancement de l'app = par l'utilisateur.** C'est lui qui démarre le serveur web
+  (`npm run dev`) et juge le rendu de son côté. Ne PAS tenter de lancer le dev server ni d'installer
+  un navigateur/Playwright pour screenshoter ; vérifier le code via lint/typecheck/build/tests, puis
+  laisser la revue visuelle à l'utilisateur.
 - Toute décision structurante → l'ajouter à `DECISIONS.md`.
 - Respecter les non-goals V1 ; tout ajout de périmètre se justifie contre le Principe I.
 - L'éditeur d'arbre d'Atlas interactif est maquetté (écran « Créer ») mais **reste un non-goal V1**
