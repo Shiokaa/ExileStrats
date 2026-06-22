@@ -1,0 +1,5 @@
+# Generated / non-source
+src/generated/
+.next/
+node_modules/
+graphify-out/

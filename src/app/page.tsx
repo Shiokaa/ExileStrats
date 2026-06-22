@@ -1,7 +1,10 @@
 import { HomeView } from '@/features/strategy/components/home-view';
-import { sampleStrategies } from '@/features/strategy/data';
+import { getStrategies } from '@/features/strategy/queries';
 
-export default function Home() {
-  // Slice ordering: hardcoded data for now — the data-access layer lands with persistence.
-  return <HomeView strategies={sampleStrategies} />;
+// Reads from the database at request time (no DB at build).
+export const dynamic = 'force-dynamic';
+
+export default async function Home() {
+  const strategies = await getStrategies();
+  return <HomeView strategies={strategies} />;
 }

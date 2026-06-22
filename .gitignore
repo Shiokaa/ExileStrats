@@ -8,6 +8,9 @@
 !.yarn/releases
 !.yarn/versions
 
+# ----- Prisma generated client (régénéré via postinstall `prisma generate`) -----
+/src/generated/
+
 # ----- build / output Next.js (régénérable, lourd) -----
 /.next/
 /out/

@@ -1,0 +1,40 @@
+// Prisma 7 — new `prisma-client` generator + pg driver adapter (see server/db/prisma.ts).
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Relational layer = stable + filterable only. The strategy body is a single versioned
+// JSON blob (`content`), validated by Zod on every write/read (Principe III/IV). Game data
+// (scarabs/mechanics/atlas) stays out of the DB, referenced by id + leagueVersion (Principe V).
+//
+// NOTE: `author` is a plain string until Discord auth lands (then → Profile relation).
+// Profile / Favorite tables are reserved for later — not created yet (no speculative schema).
+model Strategy {
+  id            String   @id @default(cuid())
+  slug          String   @unique
+  title         String
+  author        String
+  league        String
+  leagueVersion String
+  mechanic      String
+  mechanicTags  String[]
+  tier          String?
+  difficulty    Int
+  returnPerHour Float
+  investPerMap  Float
+  scarabCount   Int
+  visibility    String   @default("public")
+  schemaVersion Int      @default(1)
+  content       Json
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([mechanic])
+  @@index([league])
+  @@index([visibility])
+}

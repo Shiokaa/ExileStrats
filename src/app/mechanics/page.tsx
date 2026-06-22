@@ -2,15 +2,18 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import type { CSSProperties } from 'react';
 import { MECHANICS, MECHANIC_KEYS } from '@/data/game/mechanics';
-import { sampleStrategies } from '@/features/strategy/data';
+import { getStrategyCountsByMechanic } from '@/features/strategy/queries';
 
 export const metadata: Metadata = {
   title: 'Mechanics · ExileStrats',
 };
 
+export const dynamic = 'force-dynamic';
+
 const cssVars = (vars: Record<string, string>): CSSProperties => vars as CSSProperties;
 
-export default function MechanicsIndexPage() {
+export default async function MechanicsIndexPage() {
+  const counts = await getStrategyCountsByMechanic();
   return (
     <div className="pt-12">
       <section className="mb-8 flex flex-col items-center gap-[14px] text-center">
@@ -23,7 +26,7 @@ export default function MechanicsIndexPage() {
       <div className="grid grid-cols-1 gap-[18px] sm:grid-cols-2 lg:grid-cols-3">
         {MECHANIC_KEYS.map((key) => {
           const m = MECHANICS[key];
-          const count = sampleStrategies.filter((s) => s.mechanic === key).length;
+          const count = counts[key] ?? 0;
           return (
             <Link
               key={key}

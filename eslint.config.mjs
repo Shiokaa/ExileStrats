@@ -17,6 +17,8 @@ const eslintConfig = defineConfig([
     "graphify-out/**",
     ".specify/**",
     ".claude/**",
+    // Prisma generated client (regenerated via postinstall).
+    "src/generated/**",
   ]),
 ]);
 
