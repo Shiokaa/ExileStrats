@@ -76,12 +76,16 @@ export function CreateForm() {
   const [summary, setSummary] = useState('');
   const [steps, setSteps] = useState<string[]>(['', '', '']);
 
-  // §4 Atlas tree
+  // §4 Map device — up to 5 scarabs (no fragments in V1)
+  const [scarabs, setScarabs] = useState<string[]>(['', '', '']);
+
+  // §5 Atlas tree
   const [atlasLink, setAtlasLink] = useState('');
 
   // Derive preview during render — no useEffect, no setState-in-effect.
   const returnPerHour = Math.max(0, parseFloat(returnRaw) || 0);
   const investPerMap = Math.max(0, parseFloat(investRaw) || 0);
+  const scarabCount = scarabs.filter((s) => s.trim()).length;
 
   const preview: StrategySummary = {
     id: 'preview',
@@ -94,7 +98,7 @@ export function CreateForm() {
     difficulty,
     returnPerHour,
     investPerMap,
-    scarabCount: 0,
+    scarabCount,
     updatedDaysAgo: 0,
   };
 
@@ -114,6 +118,24 @@ export function CreateForm() {
   const addStep = () => {
     if (steps.length >= 8) return;
     setSteps((prev) => [...prev, '']);
+  };
+
+  // Scarab handlers (map device — max 5)
+  const updateScarab = (index: number, value: string) => {
+    setScarabs((prev) => {
+      const next = [...prev];
+      next[index] = value;
+      return next;
+    });
+  };
+
+  const removeScarab = (index: number) => {
+    setScarabs((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const addScarab = () => {
+    if (scarabs.length >= 5) return;
+    setScarabs((prev) => [...prev, '']);
   };
 
   const segmentActive = 'glass-card text-fg';
@@ -347,9 +369,78 @@ export function CreateForm() {
           </div>
         </Section>
 
-        {/* §4 Atlas tree — level-0: link or image URL only (no interactive editor, non-goal V1) */}
+        {/* §4 Map device — up to 5 scarabs */}
         <Section>
-          <SectionHeader n={4} title="Atlas tree" />
+          <SectionHeader n={4} title="Map device" />
+          <p className="mb-[16px] text-[13px] leading-[1.5] text-fg-3">
+            Up to 5 scarabs. No fragments in V1.
+          </p>
+          <div className="flex flex-col gap-[10px]">
+            {scarabs.map((scarab, i) => (
+              <div key={i} className="flex items-center gap-[10px]">
+                <span
+                  className="h-[10px] w-[10px] flex-shrink-0 rounded-full"
+                  style={{ background: MECHANICS[mechanic].color }}
+                />
+                <input
+                  type="text"
+                  value={scarab}
+                  onChange={(e) => updateScarab(i, e.target.value)}
+                  placeholder={`Scarab ${i + 1}`}
+                  className="h-[44px] min-w-0 flex-1 rounded-[11px] border border-border bg-[var(--input-bg)] px-[14px] text-[14px] text-fg outline-none placeholder:text-fg-3"
+                />
+                {scarabs.length > 1 && (
+                  <button
+                    type="button"
+                    aria-label="Remove scarab"
+                    onClick={() => removeScarab(i)}
+                    className="icon-btn flex-shrink-0"
+                  >
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                      aria-hidden="true"
+                    >
+                      <line x1="6" y1="6" x2="18" y2="18" />
+                      <line x1="18" y1="6" x2="6" y2="18" />
+                    </svg>
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
+          {scarabs.length < 5 && (
+            <button
+              type="button"
+              onClick={addScarab}
+              className="mt-[12px] inline-flex cursor-pointer items-center gap-[7px] rounded-[11px] border border-dashed border-border bg-transparent px-[15px] py-[9px] text-[13px] font-semibold text-fg-2 hover:text-fg"
+            >
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                aria-hidden="true"
+              >
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
+              Add a scarab
+            </button>
+          )}
+        </Section>
+
+        {/* §5 Atlas tree — level-0: link or image URL only (no interactive editor, non-goal V1) */}
+        <Section>
+          <SectionHeader n={5} title="Atlas tree" />
           <p className="mb-[16px] text-[13px] leading-[1.5] text-fg-3">
             Paste a planner link (e.g. PoE planner URL) or an image URL. The interactive atlas
             editor is not available in V1.
