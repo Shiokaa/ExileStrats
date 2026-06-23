@@ -22,11 +22,17 @@ export type CreateFormInitial = {
   difficulty: Difficulty;
   returnRaw: string;
   investRaw: string;
+  snapshotLabel: string;
   farms: string;
   summary: string;
   steps: string[];
   scarabs: string[];
+  extras: string[];
+  atlasKind: 'link' | 'image';
   atlasLink: string;
+  maps: string[];
+  mapNote: string;
+  youtube: string;
 };
 
 type CreateFormProps =
@@ -81,6 +87,88 @@ function TextInput({
   );
 }
 
+/** Optional add/remove list of plain text inputs (map-device extras, recommended maps). */
+function SimpleListField({
+  items,
+  setItems,
+  placeholder,
+  addLabel,
+  max,
+}: {
+  items: string[];
+  setItems: React.Dispatch<React.SetStateAction<string[]>>;
+  placeholder: (i: number) => string;
+  addLabel: string;
+  max?: number;
+}) {
+  const update = (i: number, v: string) =>
+    setItems((prev) => prev.map((x, idx) => (idx === i ? v : x)));
+  const remove = (i: number) => setItems((prev) => prev.filter((_, idx) => idx !== i));
+  const add = () => setItems((prev) => (max && prev.length >= max ? prev : [...prev, '']));
+
+  return (
+    <div>
+      {items.length > 0 && (
+        <div className="mb-[12px] flex flex-col gap-[10px]">
+          {items.map((item, i) => (
+            <div key={i} className="flex items-center gap-[10px]">
+              <input
+                type="text"
+                value={item}
+                onChange={(e) => update(i, e.target.value)}
+                placeholder={placeholder(i)}
+                className="h-[44px] min-w-0 flex-1 rounded-[11px] border border-border bg-[var(--input-bg)] px-[14px] text-[14px] text-fg outline-none placeholder:text-fg-3"
+              />
+              <button
+                type="button"
+                aria-label="Remove"
+                onClick={() => remove(i)}
+                className="icon-btn flex-shrink-0"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  aria-hidden="true"
+                >
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                </svg>
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+      {(!max || items.length < max) && (
+        <button
+          type="button"
+          onClick={add}
+          className="inline-flex cursor-pointer items-center gap-[7px] rounded-[11px] border border-dashed border-border bg-transparent px-[15px] py-[9px] text-[13px] font-semibold text-fg-2 hover:text-fg"
+        >
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            aria-hidden="true"
+          >
+            <line x1="12" y1="5" x2="12" y2="19" />
+            <line x1="5" y1="12" x2="19" y2="12" />
+          </svg>
+          {addLabel}
+        </button>
+      )}
+    </div>
+  );
+}
+
 export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
   const isEdit = props.mode === 'edit';
   const initial = props.mode === 'edit' ? props.initial : undefined;
@@ -94,6 +182,7 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
   // §2 Numbers
   const [returnRaw, setReturnRaw] = useState(initial?.returnRaw ?? '');
   const [investRaw, setInvestRaw] = useState(initial?.investRaw ?? '');
+  const [snapshotLabel, setSnapshotLabel] = useState(initial?.snapshotLabel ?? '');
 
   // §3 Method
   const [farms, setFarms] = useState(initial?.farms ?? '');
@@ -102,13 +191,20 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
     initial?.steps?.length ? initial.steps : ['', '', ''],
   );
 
-  // §4 Map device — up to 5 scarabs (no fragments in V1)
+  // §4 Map device — up to 5 scarabs (no fragments in V1) + free modifiers
   const [scarabs, setScarabs] = useState<string[]>(
     initial?.scarabs?.length ? initial.scarabs : ['', '', ''],
   );
+  const [extras, setExtras] = useState<string[]>(initial?.extras ?? []);
 
-  // §5 Atlas tree
+  // §5 Atlas tree (link or image)
+  const [atlasKind, setAtlasKind] = useState<'link' | 'image'>(initial?.atlasKind ?? 'link');
   const [atlasLink, setAtlasLink] = useState(initial?.atlasLink ?? '');
+
+  // §6 Recommended maps + §7 video
+  const [maps, setMaps] = useState<string[]>(initial?.maps ?? []);
+  const [mapNote, setMapNote] = useState(initial?.mapNote ?? '');
+  const [youtube, setYoutube] = useState(initial?.youtube ?? '');
 
   // Submit
   const router = useRouter();
@@ -186,11 +282,17 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
       difficulty,
       returnPerHour,
       investPerMap,
+      snapshotLabel,
       farms,
       summary,
       steps,
       scarabs,
+      extras,
+      atlasKind,
       atlasLink,
+      maps,
+      mapNote,
+      youtube,
     };
     const result =
       props.mode === 'edit'
@@ -321,6 +423,15 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
                 inputMode="numeric"
               />
             </div>
+          </div>
+
+          <div className="mt-[18px]">
+            <Label>Snapshot label (optional)</Label>
+            <TextInput
+              value={snapshotLabel}
+              onChange={setSnapshotLabel}
+              placeholder="e.g. est. 3.25 — defaults to the league"
+            />
           </div>
 
           {/* Anti-hype note (hard requirement per Principle IX) */}
@@ -502,20 +613,84 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
               Add a scarab
             </button>
           )}
+
+          <div className="mt-[20px]">
+            <Label>Extra modifiers (optional)</Label>
+            <p className="mb-[12px] text-[13px] leading-[1.5] text-fg-3">
+              Free map-device modifiers — sextants, Kirac mods, etc.
+            </p>
+            <SimpleListField
+              items={extras}
+              setItems={setExtras}
+              placeholder={(i) => `Modifier ${i + 1}`}
+              addLabel="Add a modifier"
+            />
+          </div>
         </Section>
 
-        {/* §5 Atlas tree — level-0: link or image URL only (no interactive editor, non-goal V1) */}
+        {/* §5 Atlas tree — level-0: planner link or image URL (no interactive editor, non-goal V1) */}
         <Section>
           <SectionHeader n={5} title="Atlas tree" />
           <p className="mb-[16px] text-[13px] leading-[1.5] text-fg-3">
-            Paste a planner link (e.g. PoE planner URL) or an image URL. The interactive atlas
-            editor is not available in V1.
+            Link a planner or an image of the tree. The interactive atlas editor is not available in
+            V1.
           </p>
-          <Label>Planner link or image URL</Label>
+
+          <div className="mb-[14px] inline-flex rounded-pill border border-border bg-subtle-2 p-[3px]">
+            {(['link', 'image'] as const).map((k) => (
+              <button
+                key={k}
+                type="button"
+                className={cx(segmentBtn(atlasKind === k), 'px-[18px] capitalize')}
+                onClick={() => setAtlasKind(k)}
+              >
+                {k}
+              </button>
+            ))}
+          </div>
+
+          <Label>{atlasKind === 'image' ? 'Image URL' : 'Planner link'}</Label>
           <TextInput
             value={atlasLink}
             onChange={setAtlasLink}
-            placeholder="https://poeplanner.com/… or https://i.imgur.com/…"
+            placeholder={
+              atlasKind === 'image' ? 'https://i.imgur.com/…' : 'https://poeplanner.com/…'
+            }
+          />
+        </Section>
+
+        {/* §6 Recommended maps */}
+        <Section>
+          <SectionHeader n={6} title="Recommended maps" />
+          <p className="mb-[12px] text-[13px] leading-[1.5] text-fg-3">
+            Maps that suit this strategy (optional).
+          </p>
+          <SimpleListField
+            items={maps}
+            setItems={setMaps}
+            placeholder={(i) => `Map ${i + 1}`}
+            addLabel="Add a map"
+          />
+          <div className="mt-[18px]">
+            <Label>Map note (optional)</Label>
+            <textarea
+              value={mapNote}
+              onChange={(e) => setMapNote(e.target.value)}
+              rows={2}
+              placeholder="Anything to know about map choice, sustain, etc."
+              className="w-full resize-y rounded-input border border-border bg-[var(--input-bg)] px-[15px] py-[13px] text-[14px] leading-[1.5] text-fg outline-none placeholder:text-fg-3"
+            />
+          </div>
+        </Section>
+
+        {/* §7 Video */}
+        <Section>
+          <SectionHeader n={7} title="Video" />
+          <Label>YouTube link (optional)</Label>
+          <TextInput
+            value={youtube}
+            onChange={setYoutube}
+            placeholder="https://www.youtube.com/watch?v=…"
           />
         </Section>
 
