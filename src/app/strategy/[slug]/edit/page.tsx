@@ -30,11 +30,16 @@ export default async function EditStrategyPage({ params }: Params) {
     difficulty: summary.difficulty,
     returnRaw: summary.returnPerHour ? String(summary.returnPerHour) : '',
     investRaw: summary.investPerMap ? String(summary.investPerMap) : '',
+    snapshotLabel: content.summary.snapshotLeague,
     farms: content.summary.farms,
     summary: content.notes ?? '',
     steps: content.steps,
     scarabs: content.mapDevice.scarabs.map((s) => s.name),
+    atlasKind: content.atlasTree.kind,
     atlasLink: content.atlasTree.url,
+    maps: content.maps.names,
+    mapNote: content.maps.note ?? '',
+    youtube: content.media?.youtube ?? '',
   };
 
   return (

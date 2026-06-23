@@ -18,11 +18,19 @@ const createInputSchema = z.object({
   difficulty: difficultySchema,
   returnPerHour: z.number().nonnegative(),
   investPerMap: z.number().nonnegative(),
+  snapshotLabel: z.string().trim().optional(),
   farms: z.string().trim(),
   summary: z.string().trim(),
   steps: z.array(z.string()),
   scarabs: z.array(z.string()),
+  atlasKind: z.enum(['link', 'image']),
   atlasLink: z.string().trim().url('Add a valid planner link or image URL.'),
+  maps: z.array(z.string()),
+  mapNote: z.string().trim().optional(),
+  youtube: z.preprocess(
+    (v) => (v === '' ? undefined : v),
+    z.string().url('Enter a valid YouTube URL.').optional(),
+  ),
 });
 
 export type CreateStrategyInput = z.input<typeof createInputSchema>;
@@ -54,17 +62,22 @@ async function uniqueSlug(root: string): Promise<string> {
 function buildStrategyData(data: Validated) {
   const scarabs = data.scarabs.map((s) => s.trim()).filter(Boolean);
   const steps = data.steps.map((s) => s.trim()).filter(Boolean);
+  const mapNames = data.maps.map((s) => s.trim()).filter(Boolean);
 
   // Zod validates the JSON blob before it ever reaches the DB (Principe III/IV).
   const content = strategyContentSchema.parse({
     schemaVersion: 1,
-    summary: { farms: data.farms, snapshotLeague: data.league },
+    summary: {
+      farms: data.farms,
+      snapshotLeague: data.snapshotLabel || data.league,
+    },
     mapDevice: {
       scarabs: scarabs.map((name) => ({ id: slugify(name), name, mechanic: data.mechanic })),
     },
-    atlasTree: { kind: 'link', url: data.atlasLink },
+    atlasTree: { kind: data.atlasKind, url: data.atlasLink },
     steps,
-    maps: { names: [] },
+    maps: { names: mapNames, note: data.mapNote || undefined },
+    media: data.youtube ? { youtube: data.youtube } : undefined,
     notes: data.summary || undefined,
   });
 
