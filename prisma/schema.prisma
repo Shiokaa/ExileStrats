@@ -12,13 +12,15 @@ datasource db {
 // JSON blob (`content`), validated by Zod on every write/read (Principe III/IV). Game data
 // (scarabs/mechanics/atlas) stays out of the DB, referenced by id + leagueVersion (Principe V).
 //
-// NOTE: `author` is a plain string until Discord auth lands (then → Profile relation).
-// Profile / Favorite tables are reserved for later — not created yet (no speculative schema).
+// NOTE: `author` is a plain display string; `authorId` is the Supabase user UUID (auth lives
+// in Supabase, not Prisma). `authorId` is nullable: seeded rows predate auth. Profile / Favorite
+// tables are reserved for later — not created yet (no speculative schema).
 model Strategy {
   id            String   @id @default(cuid())
   slug          String   @unique
   title         String
   author        String
+  authorId      String?
   league        String
   leagueVersion String
   mechanic      String
@@ -37,4 +39,5 @@ model Strategy {
   @@index([mechanic])
   @@index([league])
   @@index([visibility])
+  @@index([authorId])
 }

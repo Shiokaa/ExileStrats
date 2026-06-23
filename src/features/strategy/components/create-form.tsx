@@ -1,10 +1,12 @@
 'use client';
 
 import { useState, type CSSProperties } from 'react';
+import { useRouter } from 'next/navigation';
 import { MECHANICS, MECHANIC_KEYS, type MechanicKey } from '@/data/game/mechanics';
 import { LEAGUES, type League } from '@/data/game/leagues';
 import { DIFFICULTY } from '@/features/strategy/labels';
 import type { Difficulty, StrategySummary } from '@/features/strategy/types';
+import { createStrategyAction } from '@/features/strategy/actions';
 import { cx } from '@/lib/utils';
 import { StrategyCard } from './strategy-card';
 
@@ -82,6 +84,11 @@ export function CreateForm() {
   // §5 Atlas tree
   const [atlasLink, setAtlasLink] = useState('');
 
+  // Publish
+  const router = useRouter();
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   // Derive preview during render — no useEffect, no setState-in-effect.
   const returnPerHour = Math.max(0, parseFloat(returnRaw) || 0);
   const investPerMap = Math.max(0, parseFloat(investRaw) || 0);
@@ -136,6 +143,34 @@ export function CreateForm() {
   const addScarab = () => {
     if (scarabs.length >= 5) return;
     setScarabs((prev) => [...prev, '']);
+  };
+
+  const publish = async () => {
+    setError(null);
+    if (title.trim().length < 3) {
+      setError('Title must be at least 3 characters.');
+      return;
+    }
+    setBusy(true);
+    const result = await createStrategyAction({
+      title,
+      mechanic,
+      league,
+      difficulty,
+      returnPerHour,
+      investPerMap,
+      farms,
+      summary,
+      steps,
+      scarabs,
+      atlasLink,
+    });
+    if (result.ok) {
+      router.push(`/strategy/${result.slug}`);
+    } else {
+      setBusy(false);
+      setError(result.error);
+    }
   };
 
   const segmentActive = 'glass-card text-fg';
@@ -455,19 +490,9 @@ export function CreateForm() {
 
         {/* Action bar */}
         <div className="flex flex-wrap items-center justify-end gap-[12px]">
-          <button
-            type="button"
-            className="btn btn-ghost"
-            onClick={() => console.log('Save draft', { title, mechanic, league, difficulty })}
-          >
-            Save draft
-          </button>
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={() => console.log('Publish', { title, mechanic, league, difficulty })}
-          >
-            Publish
+          {error && <p className="mr-auto text-[13px] text-[#C0392B]">{error}</p>}
+          <button type="button" className="btn btn-primary" onClick={publish} disabled={busy}>
+            {busy ? 'Publishing…' : 'Publish'}
           </button>
         </div>
       </div>
