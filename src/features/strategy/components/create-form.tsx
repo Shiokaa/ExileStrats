@@ -6,13 +6,32 @@ import { MECHANICS, MECHANIC_KEYS, type MechanicKey } from '@/data/game/mechanic
 import { LEAGUES, type League } from '@/data/game/leagues';
 import { DIFFICULTY } from '@/features/strategy/labels';
 import type { Difficulty, StrategySummary } from '@/features/strategy/types';
-import { createStrategyAction } from '@/features/strategy/actions';
+import { createStrategyAction, updateStrategyAction } from '@/features/strategy/actions';
 import { cx } from '@/lib/utils';
 import { StrategyCard } from './strategy-card';
 
 const cssVars = (vars: Record<string, string>): CSSProperties => vars as CSSProperties;
 
 const DIFFICULTY_KEYS: Difficulty[] = [1, 2, 3];
+
+/** Pre-filled values when editing an existing strategy (see CreateForm `initial`). */
+export type CreateFormInitial = {
+  title: string;
+  mechanic: MechanicKey;
+  league: League;
+  difficulty: Difficulty;
+  returnRaw: string;
+  investRaw: string;
+  farms: string;
+  summary: string;
+  steps: string[];
+  scarabs: string[];
+  atlasLink: string;
+};
+
+type CreateFormProps =
+  | { mode?: 'create' }
+  | { mode: 'edit'; slug: string; initial: CreateFormInitial };
 
 /** Numbered section header (circle badge + title). */
 function SectionHeader({ n, title }: { n: number; title: string }) {
@@ -62,29 +81,36 @@ function TextInput({
   );
 }
 
-export function CreateForm() {
+export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
+  const isEdit = props.mode === 'edit';
+  const initial = props.mode === 'edit' ? props.initial : undefined;
+
   // §1 Essentials
-  const [title, setTitle] = useState('');
-  const [mechanic, setMechanic] = useState<MechanicKey>('harvest');
-  const [league, setLeague] = useState<League>(LEAGUES[0]);
-  const [difficulty, setDifficulty] = useState<Difficulty>(2);
+  const [title, setTitle] = useState(initial?.title ?? '');
+  const [mechanic, setMechanic] = useState<MechanicKey>(initial?.mechanic ?? 'harvest');
+  const [league, setLeague] = useState<League>(initial?.league ?? LEAGUES[0]);
+  const [difficulty, setDifficulty] = useState<Difficulty>(initial?.difficulty ?? 2);
 
   // §2 Numbers
-  const [returnRaw, setReturnRaw] = useState('');
-  const [investRaw, setInvestRaw] = useState('');
+  const [returnRaw, setReturnRaw] = useState(initial?.returnRaw ?? '');
+  const [investRaw, setInvestRaw] = useState(initial?.investRaw ?? '');
 
   // §3 Method
-  const [farms, setFarms] = useState('');
-  const [summary, setSummary] = useState('');
-  const [steps, setSteps] = useState<string[]>(['', '', '']);
+  const [farms, setFarms] = useState(initial?.farms ?? '');
+  const [summary, setSummary] = useState(initial?.summary ?? '');
+  const [steps, setSteps] = useState<string[]>(
+    initial?.steps?.length ? initial.steps : ['', '', ''],
+  );
 
   // §4 Map device — up to 5 scarabs (no fragments in V1)
-  const [scarabs, setScarabs] = useState<string[]>(['', '', '']);
+  const [scarabs, setScarabs] = useState<string[]>(
+    initial?.scarabs?.length ? initial.scarabs : ['', '', ''],
+  );
 
   // §5 Atlas tree
-  const [atlasLink, setAtlasLink] = useState('');
+  const [atlasLink, setAtlasLink] = useState(initial?.atlasLink ?? '');
 
-  // Publish
+  // Submit
   const router = useRouter();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -99,6 +125,7 @@ export function CreateForm() {
     slug: 'preview',
     title: title.trim() || 'Your strategy title',
     author: 'You',
+    authorAvatar: null,
     league,
     mechanic,
     mechanicTags: [mechanic],
@@ -145,14 +172,14 @@ export function CreateForm() {
     setScarabs((prev) => [...prev, '']);
   };
 
-  const publish = async () => {
+  const submit = async () => {
     setError(null);
     if (title.trim().length < 3) {
       setError('Title must be at least 3 characters.');
       return;
     }
     setBusy(true);
-    const result = await createStrategyAction({
+    const input = {
       title,
       mechanic,
       league,
@@ -164,7 +191,11 @@ export function CreateForm() {
       steps,
       scarabs,
       atlasLink,
-    });
+    };
+    const result =
+      props.mode === 'edit'
+        ? await updateStrategyAction(props.slug, input)
+        : await createStrategyAction(input);
     if (result.ok) {
       router.push(`/strategy/${result.slug}`);
     } else {
@@ -491,8 +522,8 @@ export function CreateForm() {
         {/* Action bar */}
         <div className="flex flex-wrap items-center justify-end gap-[12px]">
           {error && <p className="mr-auto text-[13px] text-[#C0392B]">{error}</p>}
-          <button type="button" className="btn btn-primary" onClick={publish} disabled={busy}>
-            {busy ? 'Publishing…' : 'Publish'}
+          <button type="button" className="btn btn-primary" onClick={submit} disabled={busy}>
+            {busy ? (isEdit ? 'Saving…' : 'Publishing…') : isEdit ? 'Save changes' : 'Publish'}
           </button>
         </div>
       </div>

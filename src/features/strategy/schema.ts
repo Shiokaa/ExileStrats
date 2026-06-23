@@ -19,6 +19,8 @@ export const strategySummarySchema = z.object({
   slug: z.string(),
   title: z.string().min(3),
   author: z.string(),
+  /** Author's Discord avatar URL, snapshotted at publish. Null for pre-auth/seeded rows. */
+  authorAvatar: z.string().nullable(),
   league: leagueSchema,
   mechanic: mechanicKeySchema,
   mechanicTags: z.array(mechanicKeySchema).min(1),
