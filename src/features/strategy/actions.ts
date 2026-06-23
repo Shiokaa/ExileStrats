@@ -4,12 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { prisma } from '@/server/db/prisma';
 import { getCurrentUser } from '@/lib/supabase/server';
-import {
-  difficultySchema,
-  leagueSchema,
-  mechanicKeySchema,
-  strategyContentSchema,
-} from './schema';
+import { difficultySchema, leagueSchema, mechanicKeySchema, strategyContentSchema } from './schema';
 
 // Current PoE league version — kept in sync with the seed (Principe V). The Create form
 // captures the league name, not the patch number, so it is filled in here.
