@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { CreateForm } from '@/features/strategy/components/create-form';
 import { getCurrentUser } from '@/lib/supabase/server';
+import { Breadcrumb } from '@/components/layout/breadcrumb';
 
 export const metadata: Metadata = {
   title: 'Create a strategy — ExileStrats',
@@ -16,17 +17,7 @@ export default async function CreatePage() {
 
   return (
     <div className="flex flex-col gap-0 pt-[36px]">
-      {/* Breadcrumb */}
-      <nav
-        className="mb-[18px] flex items-center gap-[6px] text-[13px] text-fg-3"
-        aria-label="Breadcrumb"
-      >
-        <Link href="/" className="text-fg-3 no-underline transition-colors hover:text-fg-2">
-          Home
-        </Link>
-        <span>/</span>
-        <span className="text-fg-2">New strategy</span>
-      </nav>
+      <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'New strategy' }]} />
 
       <header className="mb-[26px]">
         <h1 className="text-[42px] font-bold leading-[1] text-fg">Share your strategy</h1>

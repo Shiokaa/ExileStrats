@@ -1,10 +1,6 @@
 import Link from 'next/link';
 import { Logo } from './logo';
-
-const FOOTER_LINKS = [
-  { href: '/', label: 'Strategies' },
-  { href: '/mechanics', label: 'Mechanics' },
-];
+import { NAV_LINKS } from './nav-links';
 
 export function Footer() {
   return (
@@ -12,7 +8,7 @@ export function Footer() {
       <div className="flex flex-wrap items-center justify-between gap-[14px]">
         <Logo markSize={18} />
         <nav className="flex flex-wrap gap-1.5" aria-label="Footer">
-          {FOOTER_LINKS.map((link) => (
+          {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
               href={link.href}

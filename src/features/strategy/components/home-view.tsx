@@ -1,13 +1,11 @@
 'use client';
 
-import { useMemo, useState, type CSSProperties } from 'react';
+import { useMemo, useState } from 'react';
 import { StrategyCard } from './strategy-card';
 import { MECHANICS, MECHANIC_KEYS, type MechanicKey } from '@/data/game/mechanics';
 import { LEAGUES, type League } from '@/data/game/leagues';
 import type { StrategySummary } from '@/features/strategy/types';
-import { cx } from '@/lib/utils';
-
-const cssVars = (vars: Record<string, string>): CSSProperties => vars as CSSProperties;
+import { cssVars, cx } from '@/lib/utils';
 
 const PAGE_SIZE = 6;
 

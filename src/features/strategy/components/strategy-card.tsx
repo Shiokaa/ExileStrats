@@ -1,11 +1,8 @@
 import Link from 'next/link';
-import type { CSSProperties } from 'react';
 import { MECHANICS } from '@/data/game/mechanics';
 import { DIFFICULTY } from '@/features/strategy/labels';
 import type { StrategySummary } from '@/features/strategy/types';
-import { formatInvest, formatReturn, formatUpdated } from '@/lib/utils';
-
-const cssVars = (vars: Record<string, string>): CSSProperties => vars as CSSProperties;
+import { cssVars, formatInvest, formatReturn, formatUpdated } from '@/lib/utils';
 
 export function StrategyCard({ strategy }: { strategy: StrategySummary }) {
   const mechanic = MECHANICS[strategy.mechanic];

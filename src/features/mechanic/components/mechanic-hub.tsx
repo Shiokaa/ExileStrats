@@ -1,11 +1,9 @@
 import Link from 'next/link';
-import type { CSSProperties } from 'react';
 import { MECHANICS, type MechanicKey } from '@/data/game/mechanics';
 import { StrategyCard } from '@/features/strategy/components/strategy-card';
 import type { StrategySummary } from '@/features/strategy/types';
 import { getMechanicContent } from '@/features/mechanic/content';
-
-const cssVars = (vars: Record<string, string>): CSSProperties => vars as CSSProperties;
+import { cssVars } from '@/lib/utils';
 
 interface MechanicHubProps {
   mechanicKey: MechanicKey;

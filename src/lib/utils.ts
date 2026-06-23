@@ -1,3 +1,10 @@
+import type { CSSProperties } from 'react';
+
+/** Set CSS custom properties as a style object, e.g. cssVars({ '--mech': color }). */
+export function cssVars(vars: Record<string, string>): CSSProperties {
+  return vars as CSSProperties;
+}
+
 /** Join class names, dropping falsy values. */
 export function cx(...parts: Array<string | false | null | undefined>): string {
   return parts.filter(Boolean).join(' ');

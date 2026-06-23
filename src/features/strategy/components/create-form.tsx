@@ -1,16 +1,14 @@
 'use client';
 
-import { useState, type CSSProperties } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { MECHANICS, MECHANIC_KEYS, type MechanicKey } from '@/data/game/mechanics';
 import { LEAGUES, type League } from '@/data/game/leagues';
 import { DIFFICULTY } from '@/features/strategy/labels';
 import type { Difficulty, StrategySummary } from '@/features/strategy/types';
 import { createStrategyAction, updateStrategyAction } from '@/features/strategy/actions';
-import { cx } from '@/lib/utils';
+import { cssVars, cx } from '@/lib/utils';
 import { StrategyCard } from './strategy-card';
-
-const cssVars = (vars: Record<string, string>): CSSProperties => vars as CSSProperties;
 
 const DIFFICULTY_KEYS: Difficulty[] = [1, 2, 3];
 

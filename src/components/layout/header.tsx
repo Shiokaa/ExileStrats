@@ -2,11 +2,8 @@ import Link from 'next/link';
 import { Logo } from './logo';
 import { ThemeToggle } from './theme-toggle';
 import { getCurrentUser } from '@/lib/supabase/server';
-
-const NAV_LINKS = [
-  { href: '/', label: 'Strategies' },
-  { href: '/mechanics', label: 'Mechanics' },
-];
+import { NAV_LINKS } from './nav-links';
+import { UserIcon } from '@/components/ui/icons';
 
 export async function Header() {
   const user = await getCurrentUser();
@@ -32,20 +29,7 @@ export async function Header() {
           <ThemeToggle />
           {user && (
             <Link href="/profile" className="icon-btn" aria-label="Profile">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <circle cx="12" cy="8" r="4" />
-                <path d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7" />
-              </svg>
+              <UserIcon />
             </Link>
           )}
         </div>
