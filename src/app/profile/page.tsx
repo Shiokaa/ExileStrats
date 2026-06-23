@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getCurrentUser } from '@/lib/supabase/server';
+import { avatarUrl, displayName } from '@/lib/supabase/user';
 import { getStrategiesByAuthor } from '@/features/strategy/queries';
 import { StrategyCard } from '@/features/strategy/components/strategy-card';
 import { OwnerActions } from '@/features/strategy/components/owner-actions';
+import { UserIcon } from '@/components/ui/icons';
 
 export const dynamic = 'force-dynamic';
 
@@ -11,14 +13,8 @@ export default async function ProfilePage() {
   const user = await getCurrentUser();
   if (!user) redirect('/');
 
-  const meta = user.user_metadata ?? {};
-  const name =
-    (meta.user_name as string) ??
-    (meta.full_name as string) ??
-    (meta.name as string) ??
-    user.email ??
-    'Account';
-  const avatar = (meta.avatar_url as string) ?? (meta.picture as string) ?? null;
+  const name = displayName(user, 'Account');
+  const avatar = avatarUrl(user);
 
   const strategies = await getStrategiesByAuthor(user.id);
 
@@ -30,20 +26,7 @@ export default async function ProfilePage() {
           <img src={avatar} alt="" className="h-16 w-16 rounded-full object-cover" />
         ) : (
           <span className="flex h-16 w-16 items-center justify-center rounded-full bg-subtle text-fg-2">
-            <svg
-              width="30"
-              height="30"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <circle cx="12" cy="8" r="4" />
-              <path d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7" />
-            </svg>
+            <UserIcon size={30} />
           </span>
         )}
         <h1 className="font-display text-[26px] font-semibold text-fg">{name}</h1>

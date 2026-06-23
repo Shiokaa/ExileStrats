@@ -1,9 +1,9 @@
-import Link from 'next/link';
 import type { Metadata } from 'next';
 import { notFound, redirect } from 'next/navigation';
 import { CreateForm, type CreateFormInitial } from '@/features/strategy/components/create-form';
 import { getStrategyBySlug } from '@/features/strategy/queries';
 import { getCurrentUser } from '@/lib/supabase/server';
+import { Breadcrumb } from '@/components/layout/breadcrumb';
 
 export const metadata: Metadata = { title: 'Edit strategy — ExileStrats' };
 
@@ -44,23 +44,13 @@ export default async function EditStrategyPage({ params }: Params) {
 
   return (
     <div className="flex flex-col gap-0 pt-[36px]">
-      <nav
-        className="mb-[18px] flex items-center gap-[6px] text-[13px] text-fg-3"
-        aria-label="Breadcrumb"
-      >
-        <Link href="/" className="text-fg-3 no-underline transition-colors hover:text-fg-2">
-          Home
-        </Link>
-        <span>/</span>
-        <Link
-          href={`/strategy/${slug}`}
-          className="text-fg-3 no-underline transition-colors hover:text-fg-2"
-        >
-          {summary.title}
-        </Link>
-        <span>/</span>
-        <span className="text-fg-2">Edit</span>
-      </nav>
+      <Breadcrumb
+        items={[
+          { label: 'Home', href: '/' },
+          { label: summary.title, href: `/strategy/${slug}` },
+          { label: 'Edit' },
+        ]}
+      />
 
       <header className="mb-[26px]">
         <h1 className="text-[42px] font-bold leading-[1] text-fg">Edit your strategy</h1>

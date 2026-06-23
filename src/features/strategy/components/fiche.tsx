@@ -1,17 +1,14 @@
 import Link from 'next/link';
-import type { CSSProperties } from 'react';
 import { MECHANICS } from '@/data/game/mechanics';
 import { DIFFICULTY } from '@/features/strategy/labels';
 import { buildDiscordSummary } from '@/features/strategy/discord';
 import type { StrategyDetail, StrategySummary } from '@/features/strategy/types';
-import { formatInvest, formatReturn, formatUpdated } from '@/lib/utils';
+import { cssVars, formatInvest, formatReturn, formatUpdated } from '@/lib/utils';
 import { CopyForDiscord } from './copy-for-discord';
 import { YoutubeEmbed } from './youtube-embed';
 import { StrategyCard } from './strategy-card';
 import { OwnerActions } from './owner-actions';
 import { AuthorAvatar } from './author-avatar';
-
-const cssVars = (vars: Record<string, string>): CSSProperties => vars as CSSProperties;
 
 const TOC = [
   { n: '01', label: 'TL;DR', href: '#tldr' },

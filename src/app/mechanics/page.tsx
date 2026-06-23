@@ -1,16 +1,14 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import type { CSSProperties } from 'react';
 import { MECHANICS, MECHANIC_KEYS } from '@/data/game/mechanics';
 import { getStrategyCountsByMechanic } from '@/features/strategy/queries';
+import { cssVars } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'Mechanics · ExileStrats',
 };
 
 export const dynamic = 'force-dynamic';
-
-const cssVars = (vars: Record<string, string>): CSSProperties => vars as CSSProperties;
 
 export default async function MechanicsIndexPage() {
   const counts = await getStrategyCountsByMechanic();

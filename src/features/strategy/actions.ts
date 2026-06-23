@@ -2,9 +2,9 @@
 
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
-import type { User } from '@supabase/supabase-js';
 import { prisma } from '@/server/db/prisma';
 import { getCurrentUser } from '@/lib/supabase/server';
+import { avatarUrl, displayName } from '@/lib/supabase/user';
 import { difficultySchema, leagueSchema, mechanicKeySchema, strategyContentSchema } from './schema';
 
 // Current PoE league version — kept in sync with the seed (Principe V). The Create form
@@ -96,22 +96,6 @@ function buildStrategyData(data: Validated) {
   };
 }
 
-function authorName(user: User): string {
-  const meta = (user.user_metadata ?? {}) as Record<string, unknown>;
-  return (
-    (meta.user_name as string) ||
-    (meta.full_name as string) ||
-    (meta.name as string) ||
-    user.email ||
-    'Anonymous'
-  );
-}
-
-function authorAvatar(user: User): string | null {
-  const meta = (user.user_metadata ?? {}) as Record<string, unknown>;
-  return (meta.avatar_url as string) || (meta.picture as string) || null;
-}
-
 function revalidateStrategy(slug: string, mechanic: string, prevMechanic?: string) {
   revalidatePath('/');
   revalidatePath('/profile');
@@ -139,9 +123,9 @@ export async function createStrategyAction(raw: CreateStrategyInput): Promise<Re
       data: {
         ...fields,
         slug,
-        author: authorName(user),
+        author: displayName(user),
         authorId: user.id,
-        authorAvatar: authorAvatar(user),
+        authorAvatar: avatarUrl(user),
         visibility: 'public',
       },
     });
