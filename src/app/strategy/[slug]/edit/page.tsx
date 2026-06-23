@@ -35,7 +35,6 @@ export default async function EditStrategyPage({ params }: Params) {
     summary: content.notes ?? '',
     steps: content.steps,
     scarabs: content.mapDevice.scarabs.map((s) => s.name),
-    extras: content.mapDevice.extras ?? [],
     atlasKind: content.atlasTree.kind,
     atlasLink: content.atlasTree.url,
     maps: content.maps.names,

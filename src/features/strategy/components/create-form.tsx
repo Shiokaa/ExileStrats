@@ -27,7 +27,6 @@ export type CreateFormInitial = {
   summary: string;
   steps: string[];
   scarabs: string[];
-  extras: string[];
   atlasKind: 'link' | 'image';
   atlasLink: string;
   maps: string[];
@@ -191,11 +190,10 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
     initial?.steps?.length ? initial.steps : ['', '', ''],
   );
 
-  // §4 Map device — up to 5 scarabs (no fragments in V1) + free modifiers
+  // §4 Map device — up to 5 scarabs (no fragments in V1)
   const [scarabs, setScarabs] = useState<string[]>(
     initial?.scarabs?.length ? initial.scarabs : ['', '', ''],
   );
-  const [extras, setExtras] = useState<string[]>(initial?.extras ?? []);
 
   // §5 Atlas tree (link or image)
   const [atlasKind, setAtlasKind] = useState<'link' | 'image'>(initial?.atlasKind ?? 'link');
@@ -287,7 +285,6 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
       summary,
       steps,
       scarabs,
-      extras,
       atlasKind,
       atlasLink,
       maps,
@@ -613,19 +610,6 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
               Add a scarab
             </button>
           )}
-
-          <div className="mt-[20px]">
-            <Label>Extra modifiers (optional)</Label>
-            <p className="mb-[12px] text-[13px] leading-[1.5] text-fg-3">
-              Free map-device modifiers — sextants, Kirac mods, etc.
-            </p>
-            <SimpleListField
-              items={extras}
-              setItems={setExtras}
-              placeholder={(i) => `Modifier ${i + 1}`}
-              addLabel="Add a modifier"
-            />
-          </div>
         </Section>
 
         {/* §5 Atlas tree — level-0: planner link or image URL (no interactive editor, non-goal V1) */}

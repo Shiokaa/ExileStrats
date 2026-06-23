@@ -23,7 +23,6 @@ const createInputSchema = z.object({
   summary: z.string().trim(),
   steps: z.array(z.string()),
   scarabs: z.array(z.string()),
-  extras: z.array(z.string()),
   atlasKind: z.enum(['link', 'image']),
   atlasLink: z.string().trim().url('Add a valid planner link or image URL.'),
   maps: z.array(z.string()),
@@ -63,7 +62,6 @@ async function uniqueSlug(root: string): Promise<string> {
 function buildStrategyData(data: Validated) {
   const scarabs = data.scarabs.map((s) => s.trim()).filter(Boolean);
   const steps = data.steps.map((s) => s.trim()).filter(Boolean);
-  const extras = data.extras.map((s) => s.trim()).filter(Boolean);
   const mapNames = data.maps.map((s) => s.trim()).filter(Boolean);
 
   // Zod validates the JSON blob before it ever reaches the DB (Principe III/IV).
@@ -75,7 +73,6 @@ function buildStrategyData(data: Validated) {
     },
     mapDevice: {
       scarabs: scarabs.map((name) => ({ id: slugify(name), name, mechanic: data.mechanic })),
-      extras: extras.length ? extras : undefined,
     },
     atlasTree: { kind: data.atlasKind, url: data.atlasLink },
     steps,
