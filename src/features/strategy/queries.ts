@@ -18,6 +18,7 @@ function toSummary(row: Strategy): StrategySummary {
     slug: row.slug,
     title: row.title,
     author: row.author,
+    authorAvatar: row.authorAvatar ?? null,
     league: row.league,
     mechanic: row.mechanic,
     mechanicTags: row.mechanicTags,
@@ -57,11 +58,23 @@ export async function getStrategyCountsByMechanic(): Promise<Record<string, numb
   return counts;
 }
 
-export async function getStrategyBySlug(slug: string): Promise<StrategyDetail | null> {
+/** Detail + the author's UUID (kept server-side for ownership checks — never sent to the client). */
+export async function getStrategyBySlug(
+  slug: string,
+): Promise<(StrategyDetail & { authorId: string | null }) | null> {
   const row = await prisma.strategy.findUnique({ where: { slug } });
   if (!row || row.visibility !== 'public') return null;
   const content = strategyContentSchema.parse(row.content);
-  return { summary: toSummary(row), content };
+  return { summary: toSummary(row), content, authorId: row.authorId };
+}
+
+/** Every strategy authored by `authorId` (all visibilities — it's the owner's own list). */
+export async function getStrategiesByAuthor(authorId: string): Promise<StrategySummary[]> {
+  const rows = await prisma.strategy.findMany({
+    where: { authorId },
+    orderBy: { updatedAt: 'desc' },
+  });
+  return rows.map(toSummary);
 }
 
 /** Up to `limit` other public strategies sharing the mechanic (then any), for the "similar" rail. */

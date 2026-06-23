@@ -21,6 +21,7 @@ model Strategy {
   title         String
   author        String
   authorId      String?
+  authorAvatar  String?
   league        String
   leagueVersion String
   mechanic      String

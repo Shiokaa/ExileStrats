@@ -8,6 +8,8 @@ import { formatInvest, formatReturn, formatUpdated } from '@/lib/utils';
 import { CopyForDiscord } from './copy-for-discord';
 import { YoutubeEmbed } from './youtube-embed';
 import { StrategyCard } from './strategy-card';
+import { OwnerActions } from './owner-actions';
+import { AuthorAvatar } from './author-avatar';
 
 const cssVars = (vars: Record<string, string>): CSSProperties => vars as CSSProperties;
 
@@ -21,7 +23,17 @@ const TOC = [
 
 const sectionTitle = 'font-display text-[14px] font-semibold tracking-[0.01em] text-fg';
 
-export function Fiche({ detail, similar }: { detail: StrategyDetail; similar: StrategySummary[] }) {
+export function Fiche({
+  detail,
+  similar,
+  isOwner,
+  slug,
+}: {
+  detail: StrategyDetail;
+  similar: StrategySummary[];
+  isOwner: boolean;
+  slug: string;
+}) {
   const { summary, content } = detail;
   const mechanic = MECHANICS[summary.mechanic];
   const discord = buildDiscordSummary(detail);
@@ -82,7 +94,10 @@ export function Fiche({ detail, similar }: { detail: StrategyDetail; similar: St
                 <h1 className="font-display text-[30px] font-bold leading-[1.05] tracking-[-0.01em] text-fg">
                   {summary.title}
                 </h1>
-                <div className="mt-1.5 text-[13px] text-fg-2">by {summary.author}</div>
+                <div className="mt-1.5 flex items-center gap-2 text-[13px] text-fg-2">
+                  <AuthorAvatar name={summary.author} src={summary.authorAvatar} size={22} />
+                  <span>by {summary.author}</span>
+                </div>
                 <div className="mt-[13px] flex flex-wrap items-center gap-2">
                   {summary.mechanicTags.map((mk) => (
                     <span
@@ -100,6 +115,7 @@ export function Fiche({ detail, similar }: { detail: StrategyDetail; similar: St
               </div>
               <div className="flex shrink-0 flex-col items-end gap-3">
                 <CopyForDiscord text={discord} />
+                {isOwner && <OwnerActions slug={slug} redirectTo="/profile" />}
                 {content.media?.youtube && <YoutubeEmbed url={content.media.youtube} />}
               </div>
             </div>

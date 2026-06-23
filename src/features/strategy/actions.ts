@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
+import type { User } from '@supabase/supabase-js';
 import { prisma } from '@/server/db/prisma';
 import { getCurrentUser } from '@/lib/supabase/server';
 import { difficultySchema, leagueSchema, mechanicKeySchema, strategyContentSchema } from './schema';
@@ -27,6 +28,7 @@ const createInputSchema = z.object({
 export type CreateStrategyInput = z.input<typeof createInputSchema>;
 
 type Result = { ok: true; slug: string } | { ok: false; error: string };
+type Validated = z.infer<typeof createInputSchema>;
 
 function slugify(value: string): string {
   return value
@@ -48,6 +50,64 @@ async function uniqueSlug(root: string): Promise<string> {
   return slug;
 }
 
+/** Build + Zod-validate the row's stable fields and JSON blob from a validated form input. */
+function buildStrategyData(data: Validated) {
+  const scarabs = data.scarabs.map((s) => s.trim()).filter(Boolean);
+  const steps = data.steps.map((s) => s.trim()).filter(Boolean);
+
+  // Zod validates the JSON blob before it ever reaches the DB (Principe III/IV).
+  const content = strategyContentSchema.parse({
+    schemaVersion: 1,
+    summary: { farms: data.farms, snapshotLeague: data.league },
+    mapDevice: {
+      scarabs: scarabs.map((name) => ({ id: slugify(name), name, mechanic: data.mechanic })),
+    },
+    atlasTree: { kind: 'link', url: data.atlasLink },
+    steps,
+    maps: { names: [] },
+    notes: data.summary || undefined,
+  });
+
+  return {
+    title: data.title,
+    league: data.league,
+    leagueVersion: LEAGUE_VERSION,
+    mechanic: data.mechanic,
+    mechanicTags: [data.mechanic],
+    difficulty: data.difficulty,
+    returnPerHour: data.returnPerHour,
+    investPerMap: data.investPerMap,
+    scarabCount: scarabs.length,
+    schemaVersion: 1,
+    content,
+  };
+}
+
+function authorName(user: User): string {
+  const meta = (user.user_metadata ?? {}) as Record<string, unknown>;
+  return (
+    (meta.user_name as string) ||
+    (meta.full_name as string) ||
+    (meta.name as string) ||
+    user.email ||
+    'Anonymous'
+  );
+}
+
+function authorAvatar(user: User): string | null {
+  const meta = (user.user_metadata ?? {}) as Record<string, unknown>;
+  return (meta.avatar_url as string) || (meta.picture as string) || null;
+}
+
+function revalidateStrategy(slug: string, mechanic: string, prevMechanic?: string) {
+  revalidatePath('/');
+  revalidatePath('/profile');
+  revalidatePath('/mechanics');
+  revalidatePath(`/mechanics/${mechanic}`);
+  revalidatePath(`/strategy/${slug}`);
+  if (prevMechanic && prevMechanic !== mechanic) revalidatePath(`/mechanics/${prevMechanic}`);
+}
+
 export async function createStrategyAction(raw: CreateStrategyInput): Promise<Result> {
   // Defence in depth: the page is auth-gated, but never trust the client.
   const user = await getCurrentUser();
@@ -57,60 +117,75 @@ export async function createStrategyAction(raw: CreateStrategyInput): Promise<Re
   if (!parsed.success) {
     return { ok: false, error: parsed.error.issues[0]?.message ?? 'Please check your inputs.' };
   }
-  const data = parsed.data;
 
   try {
-    const scarabs = data.scarabs.map((s) => s.trim()).filter(Boolean);
-    const steps = data.steps.map((s) => s.trim()).filter(Boolean);
-
-    // Zod validates the JSON blob before it ever reaches the DB (Principe III/IV).
-    const content = strategyContentSchema.parse({
-      schemaVersion: 1,
-      summary: { farms: data.farms, snapshotLeague: data.league },
-      mapDevice: {
-        scarabs: scarabs.map((name) => ({ id: slugify(name), name, mechanic: data.mechanic })),
-      },
-      atlasTree: { kind: 'link', url: data.atlasLink },
-      steps,
-      maps: { names: [] },
-      notes: data.summary || undefined,
-    });
-
-    const meta = (user.user_metadata ?? {}) as Record<string, unknown>;
-    const author =
-      (meta.user_name as string) ||
-      (meta.full_name as string) ||
-      (meta.name as string) ||
-      user.email ||
-      'Anonymous';
-
-    const slug = await uniqueSlug(slugify(data.title));
+    const fields = buildStrategyData(parsed.data);
+    const slug = await uniqueSlug(slugify(parsed.data.title));
 
     await prisma.strategy.create({
       data: {
+        ...fields,
         slug,
-        title: data.title,
-        author,
+        author: authorName(user),
         authorId: user.id,
-        league: data.league,
-        leagueVersion: LEAGUE_VERSION,
-        mechanic: data.mechanic,
-        mechanicTags: [data.mechanic],
-        difficulty: data.difficulty,
-        returnPerHour: data.returnPerHour,
-        investPerMap: data.investPerMap,
-        scarabCount: scarabs.length,
+        authorAvatar: authorAvatar(user),
         visibility: 'public',
-        schemaVersion: 1,
-        content,
       },
     });
 
-    revalidatePath('/');
-    revalidatePath('/mechanics');
-    revalidatePath(`/mechanics/${data.mechanic}`);
+    revalidateStrategy(slug, fields.mechanic);
     return { ok: true, slug };
   } catch {
     return { ok: false, error: 'Could not publish — please check your inputs and try again.' };
   }
+}
+
+export async function updateStrategyAction(
+  slug: string,
+  raw: CreateStrategyInput,
+): Promise<Result> {
+  const user = await getCurrentUser();
+  if (!user) return { ok: false, error: 'You must be signed in.' };
+
+  const existing = await prisma.strategy.findUnique({
+    where: { slug },
+    select: { authorId: true, mechanic: true },
+  });
+  if (!existing) return { ok: false, error: 'Strategy not found.' };
+  if (existing.authorId !== user.id) {
+    return { ok: false, error: 'You can only edit your own strategies.' };
+  }
+
+  const parsed = createInputSchema.safeParse(raw);
+  if (!parsed.success) {
+    return { ok: false, error: parsed.error.issues[0]?.message ?? 'Please check your inputs.' };
+  }
+
+  try {
+    const fields = buildStrategyData(parsed.data);
+    // Slug, author and visibility stay put — links don't break, ownership is unchanged.
+    await prisma.strategy.update({ where: { slug }, data: fields });
+    revalidateStrategy(slug, fields.mechanic, existing.mechanic);
+    return { ok: true, slug };
+  } catch {
+    return { ok: false, error: 'Could not save — please check your inputs and try again.' };
+  }
+}
+
+export async function deleteStrategyAction(slug: string): Promise<Result> {
+  const user = await getCurrentUser();
+  if (!user) return { ok: false, error: 'You must be signed in.' };
+
+  const existing = await prisma.strategy.findUnique({
+    where: { slug },
+    select: { authorId: true, mechanic: true },
+  });
+  if (!existing) return { ok: false, error: 'Strategy not found.' };
+  if (existing.authorId !== user.id) {
+    return { ok: false, error: 'You can only delete your own strategies.' };
+  }
+
+  await prisma.strategy.delete({ where: { slug } });
+  revalidateStrategy(slug, existing.mechanic);
+  return { ok: true, slug };
 }

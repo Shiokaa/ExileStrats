@@ -1,5 +1,9 @@
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getCurrentUser } from '@/lib/supabase/server';
+import { getStrategiesByAuthor } from '@/features/strategy/queries';
+import { StrategyCard } from '@/features/strategy/components/strategy-card';
+import { OwnerActions } from '@/features/strategy/components/owner-actions';
 
 export const dynamic = 'force-dynamic';
 
@@ -16,9 +20,11 @@ export default async function ProfilePage() {
     'Account';
   const avatar = (meta.avatar_url as string) ?? (meta.picture as string) ?? null;
 
+  const strategies = await getStrategiesByAuthor(user.id);
+
   return (
-    <div className="pt-12">
-      <div className="glass-card mx-auto flex max-w-[480px] flex-col items-center gap-4 rounded-panel p-[40px] text-center">
+    <div className="flex flex-col gap-10 pt-12">
+      <div className="glass-card mx-auto flex w-full max-w-[480px] flex-col items-center gap-4 rounded-panel p-[40px] text-center">
         {avatar ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={avatar} alt="" className="h-16 w-16 rounded-full object-cover" />
@@ -48,6 +54,33 @@ export default async function ProfilePage() {
           </button>
         </form>
       </div>
+
+      <section>
+        <div className="mb-[14px] flex items-baseline justify-between gap-3">
+          <h2 className="font-display text-[22px] font-semibold text-fg">My strategies</h2>
+          <span className="text-[13px] text-fg-3">{strategies.length}</span>
+        </div>
+
+        {strategies.length === 0 ? (
+          <div className="glass-card flex flex-col items-center gap-4 rounded-panel p-[40px] text-center">
+            <p className="max-w-[420px] text-[15px] leading-[1.55] text-fg-2">
+              You haven&apos;t published any strategy yet.
+            </p>
+            <Link href="/create" className="btn btn-primary">
+              Create one
+            </Link>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {strategies.map((s) => (
+              <div key={s.id} className="flex flex-col gap-2">
+                <StrategyCard strategy={s} />
+                <OwnerActions slug={s.slug} />
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
     </div>
   );
 }
