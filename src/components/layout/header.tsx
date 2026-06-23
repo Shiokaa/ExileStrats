@@ -26,26 +26,11 @@ export async function Header() {
         ))}
       </nav>
 
-      <div className="flex items-center gap-[10px] justify-self-end">
-        <Link href="/create" className="btn btn-primary gap-[6px]">
-          <svg
-            width="15"
-            height="15"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.4"
-            strokeLinecap="round"
-            aria-hidden="true"
-          >
-            <line x1="12" y1="5" x2="12" y2="19" />
-            <line x1="5" y1="12" x2="19" y2="12" />
-          </svg>
-          <span className="hidden sm:inline">Create</span>
-        </Link>
-        <ThemeToggle />
-        {user ? (
-          <>
+      <div className="flex items-center gap-[18px] justify-self-end">
+        {/* Icons */}
+        <div className="flex items-center gap-[10px]">
+          <ThemeToggle />
+          {user && (
             <Link href="/profile" className="icon-btn" aria-label="Profile">
               <svg
                 width="18"
@@ -62,17 +47,39 @@ export async function Header() {
                 <path d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7" />
               </svg>
             </Link>
+          )}
+        </div>
+
+        {/* Buttons */}
+        <div className="flex items-center gap-[10px]">
+          <Link href="/create" className="btn btn-primary gap-[6px]">
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.4"
+              strokeLinecap="round"
+              aria-hidden="true"
+            >
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+            <span className="hidden sm:inline">Create</span>
+          </Link>
+          {user ? (
             <form action="/auth/signout" method="post">
               <button type="submit" className="btn btn-ghost">
                 Logout
               </button>
             </form>
-          </>
-        ) : (
-          <Link href="/auth" className="btn btn-ghost">
-            Sign in
-          </Link>
-        )}
+          ) : (
+            <Link href="/auth" className="btn btn-ghost">
+              Sign in
+            </Link>
+          )}
+        </div>
       </div>
     </header>
   );
