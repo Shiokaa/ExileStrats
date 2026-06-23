@@ -209,10 +209,17 @@ h3 {
     background: var(--accent);
     color: #fff;
   }
+  .btn-primary:hover {
+    background: color-mix(in srgb, var(--accent) 86%, #000);
+  }
   .btn-ghost {
     background: var(--subtle-bg);
     color: var(--text);
     border-color: var(--subtle-border);
+  }
+  .btn-ghost:hover {
+    background: color-mix(in srgb, var(--text) 9%, transparent);
+    border-color: var(--text-3);
   }
 
   .icon-btn {
@@ -226,6 +233,13 @@ h3 {
     border: 1px solid var(--subtle-border);
     color: var(--text-2);
     cursor: pointer;
+    transition:
+      color 0.15s ease,
+      background 0.15s ease;
+  }
+  .icon-btn:hover {
+    color: var(--text);
+    background: color-mix(in srgb, var(--text) 9%, transparent);
   }
   .theme-icon--moon {
     display: none;
