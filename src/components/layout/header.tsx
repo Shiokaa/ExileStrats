@@ -55,7 +55,7 @@ export async function Header() {
           </Button>
           {user ? (
             <form action="/auth/signout" method="post">
-              <Button type="submit">Logout</Button>
+              <Button type="submit">Sign out</Button>
             </form>
           ) : (
             <Button href="/auth">Sign in</Button>

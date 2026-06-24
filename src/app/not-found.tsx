@@ -2,10 +2,10 @@ import { Button } from '@/components/ui/button';
 
 export default function NotFound() {
   return (
-    <div style={{ padding: '80px 0', textAlign: 'center' }}>
-      <h1 style={{ fontSize: 42 }}>404</h1>
-      <p style={{ color: 'var(--text-2)', marginTop: 8 }}>This page doesn&apos;t exist.</p>
-      <Button href="/" style={{ marginTop: 20 }}>
+    <div className="py-20 text-center">
+      <h1 className="font-display text-[42px] font-bold text-fg">404</h1>
+      <p className="mt-2 text-[15px] text-fg-2">This page doesn&apos;t exist.</p>
+      <Button href="/" className="mt-5">
         Back to strategies
       </Button>
     </div>
