@@ -1,6 +1,7 @@
 'use client';
 
 import { useTheme } from 'next-themes';
+import { IconButton } from '@/components/ui/button';
 
 /**
  * Both icons are rendered; CSS picks the right one from `[data-theme]` on <html>
@@ -10,9 +11,8 @@ export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
 
   return (
-    <button
+    <IconButton
       type="button"
-      className="icon-btn"
       aria-label="Toggle theme"
       onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
     >
@@ -52,6 +52,6 @@ export function ThemeToggle() {
       >
         <path d="M20.5 14.2A8.3 8.3 0 1 1 10 3.6a6.6 6.6 0 0 0 10.5 10.6z" />
       </svg>
-    </button>
+    </IconButton>
   );
 }

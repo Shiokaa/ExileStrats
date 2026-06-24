@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getCurrentUser } from '@/lib/supabase/server';
 import { avatarUrl, displayName } from '@/lib/supabase/user';
@@ -6,6 +5,7 @@ import { getStrategiesByAuthor } from '@/features/strategy/queries';
 import { StrategyCard } from '@/features/strategy/components/strategy-card';
 import { OwnerActions } from '@/features/strategy/components/owner-actions';
 import { UserIcon } from '@/components/ui/icons';
+import { Button } from '@/components/ui/button';
 
 export const dynamic = 'force-dynamic';
 
@@ -32,9 +32,7 @@ export default async function ProfilePage() {
         <h1 className="font-display text-[26px] font-semibold text-fg">{name}</h1>
         {user.email && <p className="text-[13px] text-fg-3">{user.email}</p>}
         <form action="/auth/signout" method="post" className="mt-2">
-          <button type="submit" className="btn btn-ghost">
-            Sign out
-          </button>
+          <Button type="submit">Sign out</Button>
         </form>
       </div>
 
@@ -49,9 +47,9 @@ export default async function ProfilePage() {
             <p className="max-w-[420px] text-[15px] leading-[1.55] text-fg-2">
               You haven&apos;t published any strategy yet.
             </p>
-            <Link href="/create" className="btn btn-primary">
+            <Button href="/create" variant="primary">
               Create one
-            </Link>
+            </Button>
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

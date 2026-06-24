@@ -9,6 +9,7 @@ import { YoutubeEmbed } from './youtube-embed';
 import { StrategyCard } from './strategy-card';
 import { OwnerActions } from './owner-actions';
 import { AuthorAvatar } from './author-avatar';
+import { Button } from '@/components/ui/button';
 
 const TOC = [
   { n: '01', label: 'TL;DR', href: '#tldr' },
@@ -217,14 +218,9 @@ export function Fiche({
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={content.atlasTree.url} alt="Atlas tree" className="w-full rounded-xl" />
                 ) : (
-                  <a
-                    className="btn btn-ghost"
-                    href={content.atlasTree.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <Button href={content.atlasTree.url} target="_blank" rel="noopener noreferrer">
                     Open atlas planner ↗
-                  </a>
+                  </Button>
                 )}
               </section>
 

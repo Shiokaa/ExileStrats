@@ -4,6 +4,7 @@ import { StrategyCard } from '@/features/strategy/components/strategy-card';
 import type { StrategySummary } from '@/features/strategy/types';
 import { getMechanicContent } from '@/features/mechanic/content';
 import { cssVars } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 
 interface MechanicHubProps {
   mechanicKey: MechanicKey;
@@ -112,9 +113,7 @@ export function MechanicHub({ mechanicKey, strategies }: MechanicHubProps) {
             ) : (
               <div className="glass-panel flex flex-col items-center gap-3 rounded-panel py-12 text-center">
                 <p className="text-[15px] text-fg-2">No strategies yet for {mechanic.name}.</p>
-                <Link href="/" className="btn btn-ghost">
-                  Browse all strategies
-                </Link>
+                <Button href="/">Browse all strategies</Button>
               </div>
             )}
           </section>
