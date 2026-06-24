@@ -86,19 +86,25 @@ function TextInput({
   );
 }
 
-/** Optional add/remove list of plain text inputs (map-device extras, recommended maps). */
+/** Add/remove list of text inputs with an optional leading decoration (steps, scarabs, maps…). */
 function SimpleListField({
   items,
   setItems,
   placeholder,
   addLabel,
+  removeLabel = 'Remove',
   max,
+  min = 0,
+  leading,
 }: {
   items: string[];
   setItems: React.Dispatch<React.SetStateAction<string[]>>;
   placeholder: (i: number) => string;
   addLabel: string;
+  removeLabel?: string;
   max?: number;
+  min?: number;
+  leading?: (i: number) => React.ReactNode;
 }) {
   const update = (i: number, v: string) =>
     setItems((prev) => prev.map((x, idx) => (idx === i ? v : x)));
@@ -111,6 +117,7 @@ function SimpleListField({
         <div className="mb-[12px] flex flex-col gap-[10px]">
           {items.map((item, i) => (
             <div key={i} className="flex items-center gap-[10px]">
+              {leading?.(i)}
               <input
                 type="text"
                 value={item}
@@ -118,14 +125,16 @@ function SimpleListField({
                 placeholder={placeholder(i)}
                 className="h-[44px] min-w-0 flex-1 rounded-[11px] border border-border bg-input px-[14px] text-[14px] text-fg outline-none placeholder:text-fg-3"
               />
-              <IconButton
-                type="button"
-                aria-label="Remove"
-                onClick={() => remove(i)}
-                className="flex-shrink-0"
-              >
-                <XIcon />
-              </IconButton>
+              {items.length > min && (
+                <IconButton
+                  type="button"
+                  aria-label={removeLabel}
+                  onClick={() => remove(i)}
+                  className="flex-shrink-0"
+                >
+                  <XIcon />
+                </IconButton>
+              )}
             </div>
           ))}
         </div>
@@ -218,48 +227,8 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
     updatedDaysAgo: 0,
   };
 
-  // Step handlers
-  const updateStep = (index: number, value: string) => {
-    setSteps((prev) => {
-      const next = [...prev];
-      next[index] = value;
-      return next;
-    });
-  };
-
-  const removeStep = (index: number) => {
-    setSteps((prev) => prev.filter((_, i) => i !== index));
-  };
-
-  const addStep = () => {
-    if (steps.length >= 8) return;
-    setSteps((prev) => [...prev, '']);
-  };
-
-  // Scarab handlers (map device — max 5)
-  const updateScarab = (index: number, value: string) => {
-    setScarabs((prev) => {
-      const next = [...prev];
-      next[index] = value;
-      return next;
-    });
-  };
-
-  const removeScarab = (index: number) => {
-    setScarabs((prev) => prev.filter((_, i) => i !== index));
-  };
-
-  const addScarab = () => {
-    if (scarabs.length >= 5) return;
-    setScarabs((prev) => [...prev, '']);
-  };
-
   const submit = async () => {
     setError(null);
-    if (title.trim().length < 3) {
-      setError('Title must be at least 3 characters.');
-      return;
-    }
     setBusy(true);
     const input = {
       title,
@@ -468,54 +437,20 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
 
           <div className="mt-[18px]">
             <Label>Steps</Label>
-            <div className="flex flex-col gap-[10px]">
-              {steps.map((step, i) => (
-                <div key={i} className="flex items-center gap-[10px]">
-                  <span className="flex h-[28px] w-[28px] flex-shrink-0 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] font-display text-[14px] font-bold text-accent">
-                    {i + 1}
-                  </span>
-                  <input
-                    type="text"
-                    value={step}
-                    onChange={(e) => updateStep(i, e.target.value)}
-                    placeholder={`Step ${i + 1}`}
-                    className="h-[44px] min-w-0 flex-1 rounded-[11px] border border-border bg-input px-[14px] text-[14px] text-fg outline-none placeholder:text-fg-3"
-                  />
-                  {steps.length > 1 && (
-                    <IconButton
-                      type="button"
-                      aria-label="Remove step"
-                      onClick={() => removeStep(i)}
-                      className="flex-shrink-0"
-                    >
-                      <XIcon />
-                    </IconButton>
-                  )}
-                </div>
-              ))}
-            </div>
-            {steps.length < 8 && (
-              <button
-                type="button"
-                onClick={addStep}
-                className="mt-[12px] inline-flex items-center gap-[7px] rounded-[11px] border border-dashed border-border bg-transparent px-[15px] py-[9px] text-[13px] font-semibold text-fg-2 cursor-pointer hover:text-fg"
-              >
-                <svg
-                  width="15"
-                  height="15"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  aria-hidden="true"
-                >
-                  <line x1="12" y1="5" x2="12" y2="19" />
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                </svg>
-                Add a step
-              </button>
-            )}
+            <SimpleListField
+              items={steps}
+              setItems={setSteps}
+              min={1}
+              max={8}
+              placeholder={(i) => `Step ${i + 1}`}
+              addLabel="Add a step"
+              removeLabel="Remove step"
+              leading={(i) => (
+                <span className="flex h-[28px] w-[28px] flex-shrink-0 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] font-display text-[14px] font-bold text-accent">
+                  {i + 1}
+                </span>
+              )}
+            />
           </div>
         </Section>
 
@@ -525,55 +460,21 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
           <p className="mb-[16px] text-[13px] leading-[1.5] text-fg-3">
             Up to 5 scarabs. No fragments in V1.
           </p>
-          <div className="flex flex-col gap-[10px]">
-            {scarabs.map((scarab, i) => (
-              <div key={i} className="flex items-center gap-[10px]">
-                <span
-                  className="h-[10px] w-[10px] flex-shrink-0 rounded-full"
-                  style={{ background: MECHANICS[mechanic].color }}
-                />
-                <input
-                  type="text"
-                  value={scarab}
-                  onChange={(e) => updateScarab(i, e.target.value)}
-                  placeholder={`Scarab ${i + 1}`}
-                  className="h-[44px] min-w-0 flex-1 rounded-[11px] border border-border bg-input px-[14px] text-[14px] text-fg outline-none placeholder:text-fg-3"
-                />
-                {scarabs.length > 1 && (
-                  <IconButton
-                    type="button"
-                    aria-label="Remove scarab"
-                    onClick={() => removeScarab(i)}
-                    className="flex-shrink-0"
-                  >
-                    <XIcon />
-                  </IconButton>
-                )}
-              </div>
-            ))}
-          </div>
-          {scarabs.length < 5 && (
-            <button
-              type="button"
-              onClick={addScarab}
-              className="mt-[12px] inline-flex cursor-pointer items-center gap-[7px] rounded-[11px] border border-dashed border-border bg-transparent px-[15px] py-[9px] text-[13px] font-semibold text-fg-2 hover:text-fg"
-            >
-              <svg
-                width="15"
-                height="15"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                aria-hidden="true"
-              >
-                <line x1="12" y1="5" x2="12" y2="19" />
-                <line x1="5" y1="12" x2="19" y2="12" />
-              </svg>
-              Add a scarab
-            </button>
-          )}
+          <SimpleListField
+            items={scarabs}
+            setItems={setScarabs}
+            min={1}
+            max={5}
+            placeholder={(i) => `Scarab ${i + 1}`}
+            addLabel="Add a scarab"
+            removeLabel="Remove scarab"
+            leading={() => (
+              <span
+                className="h-[10px] w-[10px] flex-shrink-0 rounded-full"
+                style={{ background: MECHANICS[mechanic].color }}
+              />
+            )}
+          />
         </Section>
 
         {/* §5 Atlas tree — level-0: planner link or image URL (no interactive editor, non-goal V1) */}
