@@ -39,8 +39,7 @@ export function AuthForm() {
         type="button"
         onClick={signInWithDiscord}
         disabled={busy}
-        className="flex h-12 w-full items-center justify-center gap-2.5 rounded-input text-[14px] font-semibold text-white transition-[transform,filter] hover:-translate-y-px hover:brightness-110 disabled:opacity-60"
-        style={{ background: '#5865F2' }}
+        className="flex h-12 w-full items-center justify-center gap-2.5 rounded-input bg-[#5865F2] text-[14px] font-semibold text-white transition-[transform,filter] hover:-translate-y-px hover:brightness-110 disabled:opacity-60"
       >
         <DiscordIcon />
         {busy ? 'Redirecting…' : 'Continue with Discord'}

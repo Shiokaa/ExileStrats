@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { getCurrentUser } from '@/lib/supabase/server';
 import { avatarUrl, displayName } from '@/lib/supabase/user';
@@ -6,6 +7,8 @@ import { StrategyCard } from '@/features/strategy/components/strategy-card';
 import { OwnerActions } from '@/features/strategy/components/owner-actions';
 import { UserIcon } from '@/components/ui/icons';
 import { Button } from '@/components/ui/button';
+
+export const metadata: Metadata = { title: 'Profile — ExileStrats' };
 
 export const dynamic = 'force-dynamic';
 

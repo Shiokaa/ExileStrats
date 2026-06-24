@@ -10,6 +10,9 @@ export default function PrivacyPage() {
         {/* ponytail: placeholder — real policy to be written before public launch. */}
         Placeholder. The privacy policy will be published here before launch.
       </p>
+      <p className="mt-4 text-[13px] leading-[1.6] text-fg-3">
+        This product isn&apos;t affiliated with or endorsed by Grinding Gear Games in any way.
+      </p>
     </div>
   );
 }
