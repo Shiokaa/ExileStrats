@@ -1,9 +1,9 @@
 'use client';
 
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { deleteStrategyAction } from '@/features/strategy/actions';
+import { Button } from '@/components/ui/button';
 
 /**
  * Edit + Delete controls shown only to a strategy's author. `redirectTo` navigates after a
@@ -30,18 +30,11 @@ export function OwnerActions({ slug, redirectTo }: { slug: string; redirectTo?: 
 
   return (
     <div className="flex items-center gap-2">
-      <Link href={`/strategy/${slug}/edit`} className="btn btn-ghost">
-        Edit
-      </Link>
-      <button
-        type="button"
-        onClick={onDelete}
-        disabled={busy}
-        className="btn btn-ghost text-[#C0392B] disabled:opacity-60"
-      >
+      <Button href={`/strategy/${slug}/edit`}>Edit</Button>
+      <Button type="button" onClick={onDelete} disabled={busy} className="text-danger">
         {busy ? 'Deleting…' : 'Delete'}
-      </button>
-      {error && <span className="text-[12px] text-[#C0392B]">{error}</span>}
+      </Button>
+      {error && <span className="text-[12px] text-danger">{error}</span>}
     </div>
   );
 }

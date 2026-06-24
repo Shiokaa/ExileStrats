@@ -46,7 +46,7 @@ export function AuthForm() {
         {busy ? 'Redirecting…' : 'Continue with Discord'}
       </button>
 
-      {error && <p className="mt-4 text-[13px] text-[#C0392B]">{error}</p>}
+      {error && <p className="mt-4 text-[13px] text-danger">{error}</p>}
     </div>
   );
 }

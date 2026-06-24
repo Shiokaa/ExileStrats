@@ -8,6 +8,8 @@ import { DIFFICULTY } from '@/features/strategy/labels';
 import type { Difficulty, StrategySummary } from '@/features/strategy/types';
 import { createStrategyAction, updateStrategyAction } from '@/features/strategy/actions';
 import { cssVars, cx } from '@/lib/utils';
+import { Button, IconButton } from '@/components/ui/button';
+import { XIcon } from '@/components/ui/icons';
 import { StrategyCard } from './strategy-card';
 
 const DIFFICULTY_KEYS: Difficulty[] = [1, 2, 3];
@@ -79,7 +81,7 @@ function TextInput({
       inputMode={inputMode}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="h-[46px] w-full rounded-input border border-border bg-[var(--input-bg)] px-[15px] text-[15px] text-fg outline-none placeholder:text-fg-3"
+      className="h-[46px] w-full rounded-input border border-border bg-input px-[15px] text-[15px] text-fg outline-none placeholder:text-fg-3"
     />
   );
 }
@@ -114,28 +116,16 @@ function SimpleListField({
                 value={item}
                 onChange={(e) => update(i, e.target.value)}
                 placeholder={placeholder(i)}
-                className="h-[44px] min-w-0 flex-1 rounded-[11px] border border-border bg-[var(--input-bg)] px-[14px] text-[14px] text-fg outline-none placeholder:text-fg-3"
+                className="h-[44px] min-w-0 flex-1 rounded-[11px] border border-border bg-input px-[14px] text-[14px] text-fg outline-none placeholder:text-fg-3"
               />
-              <button
+              <IconButton
                 type="button"
                 aria-label="Remove"
                 onClick={() => remove(i)}
-                className="icon-btn flex-shrink-0"
+                className="flex-shrink-0"
               >
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  aria-hidden="true"
-                >
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                </svg>
-              </button>
+                <XIcon />
+              </IconButton>
             </div>
           ))}
         </div>
@@ -472,7 +462,7 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
               onChange={(e) => setSummary(e.target.value)}
               rows={3}
               placeholder="In one or two sentences, what is the strategy and who is it for."
-              className="w-full rounded-input border border-border bg-[var(--input-bg)] px-[15px] py-[13px] text-[14px] leading-[1.5] text-fg outline-none placeholder:text-fg-3 resize-y"
+              className="w-full rounded-input border border-border bg-input px-[15px] py-[13px] text-[14px] leading-[1.5] text-fg outline-none placeholder:text-fg-3 resize-y"
             />
           </div>
 
@@ -489,29 +479,17 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
                     value={step}
                     onChange={(e) => updateStep(i, e.target.value)}
                     placeholder={`Step ${i + 1}`}
-                    className="h-[44px] min-w-0 flex-1 rounded-[11px] border border-border bg-[var(--input-bg)] px-[14px] text-[14px] text-fg outline-none placeholder:text-fg-3"
+                    className="h-[44px] min-w-0 flex-1 rounded-[11px] border border-border bg-input px-[14px] text-[14px] text-fg outline-none placeholder:text-fg-3"
                   />
                   {steps.length > 1 && (
-                    <button
+                    <IconButton
                       type="button"
                       aria-label="Remove step"
                       onClick={() => removeStep(i)}
-                      className="icon-btn flex-shrink-0"
+                      className="flex-shrink-0"
                     >
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.2"
-                        strokeLinecap="round"
-                        aria-hidden="true"
-                      >
-                        <line x1="6" y1="6" x2="18" y2="18" />
-                        <line x1="18" y1="6" x2="6" y2="18" />
-                      </svg>
-                    </button>
+                      <XIcon />
+                    </IconButton>
                   )}
                 </div>
               ))}
@@ -559,29 +537,17 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
                   value={scarab}
                   onChange={(e) => updateScarab(i, e.target.value)}
                   placeholder={`Scarab ${i + 1}`}
-                  className="h-[44px] min-w-0 flex-1 rounded-[11px] border border-border bg-[var(--input-bg)] px-[14px] text-[14px] text-fg outline-none placeholder:text-fg-3"
+                  className="h-[44px] min-w-0 flex-1 rounded-[11px] border border-border bg-input px-[14px] text-[14px] text-fg outline-none placeholder:text-fg-3"
                 />
                 {scarabs.length > 1 && (
-                  <button
+                  <IconButton
                     type="button"
                     aria-label="Remove scarab"
                     onClick={() => removeScarab(i)}
-                    className="icon-btn flex-shrink-0"
+                    className="flex-shrink-0"
                   >
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      aria-hidden="true"
-                    >
-                      <line x1="6" y1="6" x2="18" y2="18" />
-                      <line x1="18" y1="6" x2="6" y2="18" />
-                    </svg>
-                  </button>
+                    <XIcon />
+                  </IconButton>
                 )}
               </div>
             ))}
@@ -660,7 +626,7 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
               onChange={(e) => setMapNote(e.target.value)}
               rows={2}
               placeholder="Anything to know about map choice, sustain, etc."
-              className="w-full resize-y rounded-input border border-border bg-[var(--input-bg)] px-[15px] py-[13px] text-[14px] leading-[1.5] text-fg outline-none placeholder:text-fg-3"
+              className="w-full resize-y rounded-input border border-border bg-input px-[15px] py-[13px] text-[14px] leading-[1.5] text-fg outline-none placeholder:text-fg-3"
             />
           </div>
         </Section>
@@ -678,10 +644,10 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
 
         {/* Action bar */}
         <div className="flex flex-wrap items-center justify-end gap-[12px]">
-          {error && <p className="mr-auto text-[13px] text-[#C0392B]">{error}</p>}
-          <button type="button" className="btn btn-primary" onClick={submit} disabled={busy}>
+          {error && <p className="mr-auto text-[13px] text-danger">{error}</p>}
+          <Button type="button" variant="primary" onClick={submit} disabled={busy}>
             {busy ? (isEdit ? 'Saving…' : 'Publishing…') : isEdit ? 'Save changes' : 'Publish'}
-          </button>
+          </Button>
         </div>
       </div>
 

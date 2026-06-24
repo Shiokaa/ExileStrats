@@ -6,6 +6,7 @@ import { MECHANICS, MECHANIC_KEYS, type MechanicKey } from '@/data/game/mechanic
 import { LEAGUES, type League } from '@/data/game/leagues';
 import type { StrategySummary } from '@/features/strategy/types';
 import { cssVars, cx } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 
 const PAGE_SIZE = 6;
 
@@ -264,9 +265,9 @@ export function HomeView({ strategies }: { strategies: StrategySummary[] }) {
       ) : (
         <div className="flex flex-col items-center gap-[14px] py-14 text-fg-2">
           <p>No strategy matches your filters.</p>
-          <button type="button" className="btn btn-ghost" onClick={reset}>
+          <Button type="button" onClick={reset}>
             Reset filters
-          </button>
+          </Button>
         </div>
       )}
     </div>

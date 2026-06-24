@@ -4,6 +4,7 @@ import { ThemeToggle } from './theme-toggle';
 import { getCurrentUser } from '@/lib/supabase/server';
 import { NAV_LINKS } from './nav-links';
 import { UserIcon } from '@/components/ui/icons';
+import { Button, IconButton } from '@/components/ui/button';
 
 export async function Header() {
   const user = await getCurrentUser();
@@ -28,15 +29,15 @@ export async function Header() {
         <div className="flex items-center gap-[10px]">
           <ThemeToggle />
           {user && (
-            <Link href="/profile" className="icon-btn" aria-label="Profile">
+            <IconButton href="/profile" aria-label="Profile">
               <UserIcon />
-            </Link>
+            </IconButton>
           )}
         </div>
 
         {/* Buttons */}
         <div className="flex items-center gap-[10px]">
-          <Link href="/create" className="btn btn-primary gap-[6px]">
+          <Button href="/create" variant="primary" className="gap-[6px]">
             <svg
               width="15"
               height="15"
@@ -51,17 +52,13 @@ export async function Header() {
               <line x1="5" y1="12" x2="19" y2="12" />
             </svg>
             <span className="hidden sm:inline">Create</span>
-          </Link>
+          </Button>
           {user ? (
             <form action="/auth/signout" method="post">
-              <button type="submit" className="btn btn-ghost">
-                Logout
-              </button>
+              <Button type="submit">Logout</Button>
             </form>
           ) : (
-            <Link href="/auth" className="btn btn-ghost">
-              Sign in
-            </Link>
+            <Button href="/auth">Sign in</Button>
           )}
         </div>
       </div>
