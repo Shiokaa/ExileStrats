@@ -26,7 +26,9 @@ export function MechanicHub({ mechanicKey, strategies }: MechanicHubProps) {
           Strategies
         </Link>
         <span>/</span>
-        <span className="text-fg">{mechanic.name}</span>
+        <span className="text-fg" aria-current="page">
+          {mechanic.name}
+        </span>
       </nav>
 
       {/* Hero */}

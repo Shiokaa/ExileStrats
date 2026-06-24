@@ -56,18 +56,24 @@ function Section({ children }: { children: React.ReactNode }) {
 }
 
 /** Shared label style. */
-function Label({ children }: { children: React.ReactNode }) {
-  return <label className="mb-[7px] block text-[13px] font-semibold text-fg-2">{children}</label>;
+function Label({ children, htmlFor }: { children: React.ReactNode; htmlFor?: string }) {
+  return (
+    <label htmlFor={htmlFor} className="mb-[7px] block text-[13px] font-semibold text-fg-2">
+      {children}
+    </label>
+  );
 }
 
 /** Shared text/number input style. */
 function TextInput({
+  id,
   value,
   onChange,
   placeholder,
   type = 'text',
   inputMode,
 }: {
+  id?: string;
   value: string;
   onChange: (v: string) => void;
   placeholder?: string;
@@ -76,6 +82,7 @@ function TextInput({
 }) {
   return (
     <input
+      id={id}
       type={type}
       value={value}
       inputMode={inputMode}
@@ -277,8 +284,9 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
         <Section>
           <SectionHeader n={1} title="The essentials" />
 
-          <Label>Strategy title</Label>
+          <Label htmlFor="title">Strategy title</Label>
           <TextInput
+            id="title"
             value={title}
             onChange={setTitle}
             placeholder="e.g. Harvest Lifeforce Juicing"
@@ -380,8 +388,9 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
           </div>
 
           <div className="mt-[18px]">
-            <Label>Snapshot label (optional)</Label>
+            <Label htmlFor="snapshot">Snapshot label (optional)</Label>
             <TextInput
+              id="snapshot"
               value={snapshotLabel}
               onChange={setSnapshotLabel}
               placeholder="e.g. est. 3.25 — defaults to the league"
@@ -417,16 +426,18 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
         <Section>
           <SectionHeader n={3} title="The method" />
 
-          <Label>What you farm</Label>
+          <Label htmlFor="farms">What you farm</Label>
           <TextInput
+            id="farms"
             value={farms}
             onChange={setFarms}
             placeholder="e.g. Harvest Lifeforce, Yellow crops"
           />
 
           <div className="mt-[18px]">
-            <Label>Summary</Label>
+            <Label htmlFor="summary">Summary</Label>
             <textarea
+              id="summary"
               value={summary}
               onChange={(e) => setSummary(e.target.value)}
               rows={3}
@@ -498,8 +509,9 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
             ))}
           </div>
 
-          <Label>{atlasKind === 'image' ? 'Image URL' : 'Planner link'}</Label>
+          <Label htmlFor="atlas">{atlasKind === 'image' ? 'Image URL' : 'Planner link'}</Label>
           <TextInput
+            id="atlas"
             value={atlasLink}
             onChange={setAtlasLink}
             placeholder={
@@ -521,8 +533,9 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
             addLabel="Add a map"
           />
           <div className="mt-[18px]">
-            <Label>Map note (optional)</Label>
+            <Label htmlFor="mapNote">Map note (optional)</Label>
             <textarea
+              id="mapNote"
               value={mapNote}
               onChange={(e) => setMapNote(e.target.value)}
               rows={2}
@@ -535,8 +548,9 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
         {/* §7 Video */}
         <Section>
           <SectionHeader n={7} title="Video" />
-          <Label>YouTube link (optional)</Label>
+          <Label htmlFor="youtube">YouTube link (optional)</Label>
           <TextInput
+            id="youtube"
             value={youtube}
             onChange={setYoutube}
             placeholder="https://www.youtube.com/watch?v=…"

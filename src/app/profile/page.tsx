@@ -23,7 +23,7 @@ export default async function ProfilePage() {
       <div className="glass-card mx-auto flex w-full max-w-[480px] flex-col items-center gap-4 rounded-panel p-[40px] text-center">
         {avatar ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={avatar} alt="" className="h-16 w-16 rounded-full object-cover" />
+          <img src={avatar} alt={name} className="h-16 w-16 rounded-full object-cover" />
         ) : (
           <span className="flex h-16 w-16 items-center justify-center rounded-full bg-subtle text-fg-2">
             <UserIcon size={30} />

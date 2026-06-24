@@ -13,7 +13,7 @@ export function ThemeToggle() {
   return (
     <IconButton
       type="button"
-      aria-label="Toggle theme"
+      aria-label={resolvedTheme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
       onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
     >
       <svg

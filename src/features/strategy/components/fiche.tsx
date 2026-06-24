@@ -124,7 +124,7 @@ export function Fiche({
             <div className="flex flex-col gap-6 p-[22px_26px_26px]">
               {/* 1 — TL;DR */}
               <section id="tldr" className="scroll-mt-[100px]">
-                <div className="mb-[10px] text-xs font-semibold text-fg-3">TL;DR</div>
+                <h2 className="mb-[10px] text-xs font-semibold text-fg-3">TL;DR</h2>
                 <div className="flex flex-col gap-3">
                   {/* What you farm — full-width headline, tinted with the main mechanic */}
                   <div
@@ -181,7 +181,7 @@ export function Fiche({
 
               {/* 2 — Map device */}
               <section id="map-device" className="scroll-mt-[100px]">
-                <div className="mb-[10px] text-xs font-semibold text-fg-3">Map device</div>
+                <h2 className="mb-[10px] text-xs font-semibold text-fg-3">Map device</h2>
                 <div className="grid grid-cols-3 gap-3 sm:grid-cols-5">
                   {content.mapDevice.scarabs.map((s) => (
                     <div key={s.id} className="flex flex-col items-center gap-2">
@@ -232,7 +232,7 @@ export function Fiche({
                 <h2 className={`${sectionTitle} mb-[14px]`}>How to play</h2>
                 <ol className="flex flex-col gap-3">
                   {content.steps.map((step, i) => (
-                    <li key={step} className="flex items-start gap-3">
+                    <li key={i} className="flex items-start gap-3">
                       <span className="flex h-[25px] w-[25px] shrink-0 items-center justify-center rounded-full border border-border bg-subtle font-display text-[13px] font-semibold text-fg-2">
                         {i + 1}
                       </span>
@@ -248,7 +248,7 @@ export function Fiche({
                 className="grid scroll-mt-[100px] grid-cols-1 gap-[18px] sm:grid-cols-2"
               >
                 <div>
-                  <div className="mb-[10px] text-xs font-semibold text-fg-3">Recommended maps</div>
+                  <h2 className="mb-[10px] text-xs font-semibold text-fg-3">Recommended maps</h2>
                   <div className="flex flex-wrap gap-2">
                     {content.maps.names.map((m) => (
                       <span
@@ -265,7 +265,7 @@ export function Fiche({
                 </div>
                 {content.notes && (
                   <div>
-                    <div className="mb-[10px] text-xs font-semibold text-fg-3">Notes</div>
+                    <h2 className="mb-[10px] text-xs font-semibold text-fg-3">Notes</h2>
                     <p className="text-[14px] leading-[1.55] text-fg-2">{content.notes}</p>
                   </div>
                 )}
