@@ -3,6 +3,15 @@
 > Idées et chantiers **reportés** (non-goals V1 ou améliorations futures). Rien ici n'est engagé :
 > à promouvoir via une ADR dans `DECISIONS.md` le jour où on décide de le faire.
 
+## Favoris (localStorage)
+
+Marquer des stratégies en **favori**, stocké côté client en **`localStorage`** — **pas de lien au compte
+utilisateur**, pas de table DB, pas de sync multi-appareil (assumé personnel/local).
+
+- Implémentation pressentie : clé `localStorage['exilestrats-favorites']` = liste de slugs ; un toggle
+  « ★ » sur `StrategyCard` + la fiche (composant client) ; une vue « Mes favoris » qui filtre la liste.
+- Pas de DB ni de `Favorite` Prisma en V1. Un favori lié au compte (sync) = ADR ultérieure si besoin.
+
 ## Éditeur d'arbre d'Atlas interactif
 
 Permettre de **construire / personnaliser un arbre d'Atlas cliquable directement sur le site** (plateau
