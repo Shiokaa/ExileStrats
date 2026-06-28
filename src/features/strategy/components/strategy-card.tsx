@@ -1,20 +1,40 @@
 import Link from 'next/link';
-import { MECHANICS } from '@/data/game/mechanics';
+import { MECHANICS, type MechanicKey } from '@/data/game/mechanics';
 import { DIFFICULTY } from '@/features/strategy/labels';
 import type { StrategySummary } from '@/features/strategy/types';
 import { cssVars, formatInvest, formatReturn, formatUpdated } from '@/lib/utils';
 
+// Mechanics that ship a background photo in /public/poe1_cards_background.
+// Add a key here when its <mechanic>.jpeg is added — cards then get the photo treatment.
+const MECHANIC_PHOTOS = new Set<MechanicKey>(['harvest']);
+
 export function StrategyCard({ strategy }: { strategy: StrategySummary }) {
   const mechanic = MECHANICS[strategy.mechanic];
+  const hasPhoto = MECHANIC_PHOTOS.has(strategy.mechanic);
 
   return (
     <Link
       href={`/strategy/${strategy.slug}`}
-      className="glass-card relative flex flex-col overflow-hidden rounded-card no-underline transition-transform hover:-translate-y-[3px]"
+      data-photo-card={hasPhoto || undefined}
+      className="relative flex flex-col overflow-hidden rounded-card no-underline transition-transform hover:-translate-y-[3px]"
       style={cssVars({ '--mech': mechanic.color })}
     >
-      <span className="absolute inset-x-0 top-0 h-1 bg-[var(--mech)]" aria-hidden="true" />
-      <div className="flex flex-col gap-[13px] p-[18px]">
+      {/* Mechanic photo, behind the glass — only when an image exists for this mechanic. */}
+      {hasPhoto && (
+        <span
+          aria-hidden="true"
+          data-card-photo
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(/poe1_cards_background/${strategy.mechanic}.jpeg)` }}
+        />
+      )}
+      {/* Glass sheet (over the photo when present). */}
+      <div className="glass-card relative flex flex-col gap-[13px] p-[18px]">
+        <span
+          data-mech-bar
+          className="absolute inset-x-0 top-0 h-1 bg-[var(--mech)]"
+          aria-hidden="true"
+        />
         <div className="flex items-center justify-between">
           <span className="mech-tint inline-flex items-center gap-[7px] rounded-pill px-[11px] py-[5px] text-xs font-semibold">
             <span className="h-1.5 w-1.5 rounded-full bg-[var(--mech)]" />

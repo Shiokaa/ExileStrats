@@ -19,6 +19,16 @@
   --glass-card-blur: blur(26px) saturate(150%);
   --glass-card-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 22px 60px -30px rgba(20, 24, 45, 0.4);
+  /* Premium glass highlight (sheen/halo/rim) — used by photo cards. */
+  --glass-rim-bottom: rgba(0, 0, 0, 0.06);
+  /* Sheen/halo are white — kept low in light mode so they don't veil text. */
+  --glass-sheen: rgba(255, 255, 255, 0.3);
+  --glass-halo: rgba(255, 255, 255, 0.22);
+  /* Photo cards stay dark-treated in BOTH themes — dark scrim + white text is
+     the most reliable text-over-image combo (NN/g, Smashing, WCAG). */
+  --glass-photo-scrim: linear-gradient(180deg, rgba(8, 10, 16, 0.48) 0%, rgba(8, 10, 16, 0.7) 100%);
+  --glass-photo-blur: blur(40px) saturate(125%);
+  --glass-photo-text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
   --glass-panel-bg: rgba(255, 255, 255, 0.5);
   --glass-panel-border: rgba(255, 255, 255, 0.62);
   --glass-nav-bg: rgba(255, 255, 255, 0.62);
@@ -69,6 +79,14 @@
   --glass-card-blur: blur(28px) saturate(150%);
   --glass-card-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.13), 0 26px 66px -32px rgba(0, 0, 0, 0.7);
+  /* Premium glass highlight (sheen/halo/rim) — used by photo cards. */
+  --glass-rim-bottom: rgba(0, 0, 0, 0.3);
+  --glass-sheen: rgba(255, 255, 255, 0.16);
+  --glass-halo: rgba(255, 255, 255, 0.1);
+  /* Photo cards: dark scrim (uniform) + stronger blur + text-shadow. */
+  --glass-photo-scrim: linear-gradient(180deg, rgba(8, 10, 16, 0.48) 0%, rgba(8, 10, 16, 0.7) 100%);
+  --glass-photo-blur: blur(40px) saturate(120%);
+  --glass-photo-text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
   --glass-panel-bg: rgba(255, 255, 255, 0.045);
   --glass-panel-border: rgba(255, 255, 255, 0.085);
   --glass-nav-bg: rgba(15, 17, 24, 0.6);
@@ -163,6 +181,78 @@ h3 {
   border: 1px solid var(--glass-nav-border);
   backdrop-filter: var(--glass-nav-blur);
   -webkit-backdrop-filter: var(--glass-nav-blur);
+}
+
+/* ===== Photo cards — premium glass over a mechanic photo =====
+   Applied to StrategyCards that have a background image ([data-photo-card]).
+   Recipe (NN/g, Smashing, WCAG): dark scrim + white text + clean text-shadow +
+   dimmed photo + glass blur. Sheen (::before) and halo (::after) add the premium
+   highlight. Works in both themes; blur is lightened on small screens for perf. */
+
+/* Dim the photo so it reads as ambiance, not a competing screenshot. */
+[data-photo-card] [data-card-photo] {
+  filter: brightness(0.7);
+}
+/* With a photo, the floating mechanic colour bar looks disconnected — drop it. */
+[data-photo-card] [data-mech-bar] {
+  display: none;
+}
+[data-photo-card] .glass-card {
+  background: var(--glass-photo-scrim);
+  backdrop-filter: var(--glass-photo-blur);
+  -webkit-backdrop-filter: var(--glass-photo-blur);
+  box-shadow:
+    var(--glass-card-shadow),
+    inset 0 -1px 0 var(--glass-rim-bottom);
+  text-shadow: var(--glass-photo-text-shadow);
+  /* Dark scrim in both themes → force white-based text for reliable contrast.
+     These override --text* locally so every text-fg* utility inside follows. */
+  --text: #f4f6fb;
+  --text-2: rgba(244, 246, 251, 0.82);
+  --text-3: rgba(244, 246, 251, 0.62);
+  /* Borders/dividers also follow the dark treatment (light value is invisible). */
+  --subtle-border: rgba(255, 255, 255, 0.18);
+}
+[data-photo-card] .glass-card::before,
+[data-photo-card] .glass-card::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  border-radius: inherit;
+}
+/* diagonal specular streak */
+[data-photo-card] .glass-card::before {
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    var(--glass-sheen) 0%,
+    transparent 32%,
+    transparent 66%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+}
+/* soft halo, top-left corner */
+[data-photo-card] .glass-card::after {
+  top: -40%;
+  left: -20%;
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--glass-halo) 0%, transparent 70%);
+  opacity: 0.4;
+  filter: blur(8px);
+}
+/* keep real content above the pseudo light layers */
+[data-photo-card] .glass-card > * {
+  position: relative;
+  z-index: 1;
+}
+/* Lighter blur on small screens — backdrop-filter is the main perf cost. */
+@media (max-width: 640px) {
+  [data-photo-card] .glass-card {
+    backdrop-filter: blur(18px) saturate(120%);
+    -webkit-backdrop-filter: blur(18px) saturate(120%);
+  }
 }
 
 /* Mechanic tint pill — reads --mech set inline on the element. */
