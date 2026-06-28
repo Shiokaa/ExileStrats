@@ -85,7 +85,7 @@ export function Fiche({
 
         {/* Main column */}
         <main className="flex min-w-0 flex-col gap-[30px]">
-          <article className="glass-card relative overflow-hidden rounded-[22px]">
+          <article className="glass-card glass-premium relative overflow-hidden rounded-[22px]">
             {/* Header */}
             <div className="flex flex-wrap items-start justify-between gap-[18px] p-[24px_26px_18px]">
               <div className="min-w-0">
@@ -212,7 +212,10 @@ export function Fiche({
               </section>
 
               {/* 3 — Atlas tree */}
-              <section id="atlas" className="glass-panel scroll-mt-[100px] rounded-[15px] p-[18px]">
+              <section
+                id="atlas"
+                className="glass-panel glass-premium scroll-mt-[100px] rounded-[15px] p-[18px]"
+              >
                 <h2 className={`${sectionTitle} mb-3`}>Atlas tree</h2>
                 {content.atlasTree.kind === 'image' ? (
                   // eslint-disable-next-line @next/next/no-img-element
@@ -227,7 +230,7 @@ export function Fiche({
               {/* 4 — How to play */}
               <section
                 id="how-to-play"
-                className="glass-panel scroll-mt-[100px] rounded-[15px] p-[18px]"
+                className="glass-panel glass-premium scroll-mt-[100px] rounded-[15px] p-[18px]"
               >
                 <h2 className={`${sectionTitle} mb-[14px]`}>How to play</h2>
                 <ol className="flex flex-col gap-3">

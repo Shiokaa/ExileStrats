@@ -9,7 +9,7 @@ import { Button, IconButton } from '@/components/ui/button';
 export async function Header() {
   const user = await getCurrentUser();
   return (
-    <header className="glass-nav sticky top-[14px] z-20 mt-[14px] grid grid-cols-[1fr_auto] items-center rounded-pill py-[9px] pl-[14px] pr-3 md:grid-cols-[1fr_auto_1fr]">
+    <header className="glass-nav glass-premium sticky top-[14px] z-20 mt-[14px] grid grid-cols-[1fr_auto] items-center rounded-pill py-[9px] pl-[14px] pr-3 md:grid-cols-[1fr_auto_1fr]">
       <Logo />
 
       <nav className="hidden items-center gap-1 justify-self-center md:flex" aria-label="Primary">

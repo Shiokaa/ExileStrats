@@ -23,7 +23,7 @@ export default async function ProfilePage() {
 
   return (
     <div className="flex flex-col gap-10 pt-12">
-      <div className="glass-card mx-auto flex w-full max-w-[480px] flex-col items-center gap-4 rounded-panel p-[40px] text-center">
+      <div className="glass-card glass-premium mx-auto flex w-full max-w-[480px] flex-col items-center gap-4 rounded-panel p-[40px] text-center">
         {avatar ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={avatar} alt={name} className="h-16 w-16 rounded-full object-cover" />
@@ -46,7 +46,7 @@ export default async function ProfilePage() {
         </div>
 
         {strategies.length === 0 ? (
-          <div className="glass-card flex flex-col items-center gap-4 rounded-panel p-[40px] text-center">
+          <div className="glass-card glass-premium flex flex-col items-center gap-4 rounded-panel p-[40px] text-center">
             <p className="max-w-[420px] text-[15px] leading-[1.55] text-fg-2">
               You haven&apos;t published any strategy yet.
             </p>

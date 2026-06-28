@@ -29,7 +29,7 @@ export default async function MechanicsIndexPage() {
             <Link
               key={key}
               href={`/mechanics/${key}`}
-              className="glass-card relative flex items-center gap-[14px] overflow-hidden rounded-card p-[18px] no-underline transition-transform hover:-translate-y-[3px]"
+              className="glass-card glass-premium relative flex items-center gap-[14px] overflow-hidden rounded-card p-[18px] no-underline transition-transform hover:-translate-y-[3px]"
               style={cssVars({ '--mech': m.color })}
             >
               <span className="absolute inset-x-0 top-0 h-1 bg-[var(--mech)]" aria-hidden="true" />

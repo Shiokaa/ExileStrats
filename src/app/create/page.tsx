@@ -30,7 +30,7 @@ export default async function CreatePage() {
       {user ? (
         <CreateForm />
       ) : (
-        <div className="glass-card flex flex-col items-center gap-4 rounded-panel p-[40px] text-center">
+        <div className="glass-card glass-premium flex flex-col items-center gap-4 rounded-panel p-[40px] text-center">
           <p className="max-w-[420px] text-[15px] leading-[1.55] text-fg-2">
             Sign in to compose and publish a strategy.
           </p>

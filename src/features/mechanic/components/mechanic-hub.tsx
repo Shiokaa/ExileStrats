@@ -71,7 +71,7 @@ export function MechanicHub({ mechanicKey, strategies }: MechanicHubProps) {
         {/* Main column */}
         <div className="flex min-w-0 flex-col gap-[22px]">
           {/* How it works */}
-          <section className="glass-card rounded-panel p-6">
+          <section className="glass-card glass-premium rounded-panel p-6">
             <h2 className="mb-[18px] font-display text-2xl font-semibold text-fg">How it works</h2>
             <div className="flex flex-col gap-4">
               {content.howItWorks.map((step, i) => (
@@ -113,7 +113,7 @@ export function MechanicHub({ mechanicKey, strategies }: MechanicHubProps) {
                 ))}
               </div>
             ) : (
-              <div className="glass-panel flex flex-col items-center gap-3 rounded-panel py-12 text-center">
+              <div className="glass-panel glass-premium flex flex-col items-center gap-3 rounded-panel py-12 text-center">
                 <p className="text-[15px] text-fg-2">No strategies yet for {mechanic.name}.</p>
                 <Button href="/">Browse all strategies</Button>
               </div>
@@ -124,7 +124,7 @@ export function MechanicHub({ mechanicKey, strategies }: MechanicHubProps) {
         {/* Sidebar */}
         <aside className="flex flex-col gap-[18px]">
           {/* In brief */}
-          <div className="glass-card rounded-panel p-5">
+          <div className="glass-card glass-premium rounded-panel p-5">
             <h3 className="mb-[14px] font-display text-[17px] font-semibold text-fg">In brief</h3>
             <div className="flex flex-col">
               {content.inBrief.map((fact) => (
@@ -141,7 +141,7 @@ export function MechanicHub({ mechanicKey, strategies }: MechanicHubProps) {
           </div>
 
           {/* Recommended scarabs */}
-          <div className="glass-card rounded-panel p-5">
+          <div className="glass-card glass-premium rounded-panel p-5">
             <h3 className="mb-[14px] font-display text-[17px] font-semibold text-fg">
               Recommended scarabs
             </h3>
@@ -162,7 +162,7 @@ export function MechanicHub({ mechanicKey, strategies }: MechanicHubProps) {
           </div>
 
           {/* Key atlas passives */}
-          <div className="glass-card rounded-panel p-5">
+          <div className="glass-card glass-premium rounded-panel p-5">
             <h3 className="mb-[14px] font-display text-[17px] font-semibold text-fg">
               Key atlas passives
             </h3>

@@ -29,7 +29,7 @@ export function StrategyCard({ strategy }: { strategy: StrategySummary }) {
         />
       )}
       {/* Glass sheet (over the photo when present). */}
-      <div className="glass-card relative flex flex-col gap-[13px] p-[18px]">
+      <div className="glass-card glass-premium flex flex-col gap-[13px] p-[18px]">
         <span
           data-mech-bar
           className="absolute inset-x-0 top-0 h-1 bg-[var(--mech)]"

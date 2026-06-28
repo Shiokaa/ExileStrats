@@ -52,7 +52,7 @@ function SectionHeader({ n, title }: { n: number; title: string }) {
 
 /** Glass-panel section wrapper. */
 function Section({ children }: { children: React.ReactNode }) {
-  return <section className="glass-card rounded-panel p-[24px]">{children}</section>;
+  return <section className="glass-card glass-premium rounded-panel p-[24px]">{children}</section>;
 }
 
 /** Shared label style. */
