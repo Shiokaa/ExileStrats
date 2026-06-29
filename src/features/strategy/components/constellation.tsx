@@ -18,13 +18,13 @@ export function Constellation({
   onSelect: (next: Selection) => void;
 }) {
   return (
-    <div className="relative mx-auto mt-8 max-w-5xl px-2 pt-6">
+    <div className="relative mx-auto mt-8 max-w-4xl px-2 pt-6">
       {/* connecting line, centred on the node discs (hairline) */}
       <span
         aria-hidden="true"
         className="absolute inset-x-[7%] top-12 h-px -translate-y-1/2 bg-[linear-gradient(90deg,transparent,var(--brass-dim)_10%,var(--brass-dim)_90%,transparent)] opacity-90"
       />
-      <div className="relative flex items-start justify-between">
+      <div className="relative flex items-start justify-between gap-6">
         {MECHANIC_KEYS.map((key) => {
           const m = MECHANICS[key];
           const on = active === key;
