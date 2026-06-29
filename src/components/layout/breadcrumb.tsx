@@ -7,7 +7,7 @@ export type Crumb = { label: string; href?: string };
 export function Breadcrumb({ items }: { items: Crumb[] }) {
   return (
     <nav
-      className="mb-[18px] flex items-center gap-[6px] text-[13px] text-fg-3"
+      className="mb-4.5 flex items-center gap-1.5 text-[0.8125rem] text-fg-3"
       aria-label="Breadcrumb"
     >
       {items.map((item, i) => (

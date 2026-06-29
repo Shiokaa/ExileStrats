@@ -29,10 +29,10 @@ export function AuthForm() {
   }
 
   return (
-    <div className="glass-card w-full max-w-[420px] rounded-panel p-[34px]">
-      <p className="eyebrow mb-[12px]">Authentication</p>
-      <h1 className="font-display text-[26px] font-bold text-fg">Sign in</h1>
-      <p className="mt-[8px] mb-[24px] text-[14px] leading-[1.5] text-fg-2">
+    <div className="glass-card w-full max-w-[26.25rem] rounded-panel p-8.5">
+      <p className="eyebrow mb-3">Authentication</p>
+      <h1 className="font-display text-[1.625rem] font-bold text-fg">Sign in</h1>
+      <p className="mt-2 mb-6 text-sm leading-[1.5] text-fg-2">
         Use your Discord account to compose and share strategies.
       </p>
 
@@ -40,13 +40,13 @@ export function AuthForm() {
         type="button"
         onClick={signInWithDiscord}
         disabled={busy}
-        className="flex h-12 w-full items-center justify-center gap-2.5 rounded-input bg-[#5865F2] text-[14px] font-semibold text-white transition-[transform,filter] hover:-translate-y-px hover:brightness-110 disabled:opacity-60"
+        className="flex h-12 w-full items-center justify-center gap-2.5 rounded-input bg-[#5865F2] text-sm font-semibold text-white transition-[transform,filter] hover:-translate-y-px hover:brightness-110 disabled:opacity-60"
       >
         <DiscordIcon />
         {busy ? 'Redirecting…' : 'Continue with Discord'}
       </button>
 
-      {error && <p className="mt-4 text-[13px] text-danger">{error}</p>}
+      {error && <p className="mt-4 text-[0.8125rem] text-danger">{error}</p>}
     </div>
   );
 }

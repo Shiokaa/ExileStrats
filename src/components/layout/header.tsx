@@ -8,7 +8,7 @@ import { Button, IconButton } from '@/components/ui/button';
 export async function Header() {
   const user = await getCurrentUser();
   return (
-    <header className="glass-nav sticky top-[14px] z-20 mt-[14px] grid grid-cols-[1fr_auto] items-center rounded-pill py-[9px] pl-[14px] pr-3 md:grid-cols-[1fr_auto_1fr]">
+    <header className="glass-nav sticky top-3.5 z-20 mt-3.5 grid grid-cols-[1fr_auto] items-center rounded-pill py-2.25 pl-3.5 pr-3 md:grid-cols-[1fr_auto_1fr]">
       <Logo />
 
       <nav className="hidden items-center gap-1 justify-self-center md:flex" aria-label="Primary">
@@ -16,16 +16,16 @@ export async function Header() {
           <Link
             key={link.href}
             href={link.href}
-            className="rounded-pill px-[14px] py-2 text-[13.5px] font-semibold text-fg-2 no-underline transition-colors hover:bg-subtle hover:text-fg"
+            className="rounded-pill px-3.5 py-2 text-[0.84375rem] font-semibold text-fg-2 no-underline transition-colors hover:bg-subtle hover:text-fg"
           >
             {link.label}
           </Link>
         ))}
       </nav>
 
-      <div className="flex items-center gap-[18px] justify-self-end">
+      <div className="flex items-center gap-4.5 justify-self-end">
         {/* Icons */}
-        <div className="flex items-center gap-[10px]">
+        <div className="flex items-center gap-2.5">
           {user && (
             <IconButton href="/profile" aria-label="Profile">
               <UserIcon />
@@ -34,8 +34,8 @@ export async function Header() {
         </div>
 
         {/* Buttons */}
-        <div className="flex items-center gap-[10px]">
-          <Button href="/create" variant="primary" className="gap-[6px]">
+        <div className="flex items-center gap-2.5">
+          <Button href="/create" variant="primary" className="gap-1.5">
             <svg
               width="15"
               height="15"
