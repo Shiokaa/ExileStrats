@@ -32,11 +32,11 @@ export function StrategyCard({ strategy }: { strategy: StrategySummary }) {
       {/* zone 1 — mechanic icon identity */}
       <div className="relative z-[1] flex w-[70px] flex-col items-center gap-2">
         <span
-          className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--mech)] bg-void-2"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--mech)] bg-void-2"
           style={{ boxShadow: '0 0 14px -3px var(--mech)' }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={mechanic.icon} alt="" className="h-[22px] w-[22px] object-contain" />
+          <img src={mechanic.icon} alt="" className="h-[26px] w-[26px] object-contain" />
         </span>
         <span className="font-display text-xs font-semibold uppercase tracking-[1.5px] text-[var(--mech)]">
           {mechanic.name}
