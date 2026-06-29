@@ -22,7 +22,7 @@ export function Constellation({
       {/* connecting line behind the nodes */}
       <span
         aria-hidden="true"
-        className="absolute inset-x-[5%] top-[47px] h-px bg-[linear-gradient(90deg,transparent,var(--brass-dim)_12%,var(--brass-dim)_88%,transparent)] opacity-60"
+        className="absolute inset-x-[7%] top-[47px] h-[1.5px] bg-[linear-gradient(90deg,transparent,var(--brass-dim)_10%,var(--brass-dim)_90%,transparent)] opacity-90"
       />
       <div className="relative flex items-start justify-between">
         {MECHANIC_KEYS.map((key) => {
@@ -36,7 +36,7 @@ export function Constellation({
               aria-pressed={on}
               style={cssVars({ '--mc': m.color })}
               className={cx(
-                'group flex cursor-pointer flex-col items-center gap-[9px] whitespace-nowrap border-0 bg-transparent px-1 font-display text-[11px] font-semibold uppercase tracking-[0.8px] transition-colors',
+                'group flex flex-1 cursor-pointer flex-col items-center gap-[9px] whitespace-nowrap border-0 bg-transparent px-1 font-display text-[11px] font-semibold uppercase tracking-[0.8px] transition-colors',
                 on ? 'text-fg' : 'text-fg-3 hover:text-fg',
               )}
             >
