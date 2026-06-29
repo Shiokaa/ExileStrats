@@ -19,7 +19,7 @@ const TOC = [
   { n: '05', label: 'Maps & notes', href: '#maps' },
 ];
 
-const sectionTitle = 'font-display text-[14px] font-semibold tracking-[0.01em] text-fg';
+const sectionTitle = 'eyebrow';
 
 export function Fiche({
   detail,
@@ -56,7 +56,7 @@ export function Fiche({
         {/* Sidebar */}
         <aside className="sticky top-[84px] hidden flex-col gap-[22px] lg:flex">
           <div>
-            <div className="mb-[10px] px-1 text-xs font-semibold text-fg-3">On this page</div>
+            <div className="eyebrow mb-[10px] px-1">On this page</div>
             <div className="flex flex-col gap-0.5">
               {TOC.map((item) => (
                 <a
@@ -64,7 +64,7 @@ export function Fiche({
                   href={item.href}
                   className="flex items-center gap-[11px] rounded-[9px] px-[10px] py-2 text-[14px] font-medium text-fg-2 no-underline hover:bg-subtle hover:text-fg"
                 >
-                  <span className="w-[18px] shrink-0 font-display text-[13px] font-semibold text-fg-3">
+                  <span className="w-[18px] shrink-0 font-mono text-[12px] font-semibold text-brass">
                     {item.n}
                   </span>
                   {item.label}
@@ -74,7 +74,7 @@ export function Fiche({
           </div>
           <div className="glass-panel rounded-tile p-4">
             <div className="flex items-center gap-2">
-              <span className="h-[7px] w-[7px] rounded-full bg-profit" />
+              <span className="h-[7px] w-[7px] rounded-full bg-brass" />
               <span className="font-display text-[15px] font-semibold text-fg">Active league</span>
             </div>
             <div className="mt-[7px] text-[13px] text-fg-2">
@@ -106,7 +106,7 @@ export function Fiche({
                       {MECHANICS[mk].name}
                     </span>
                   ))}
-                  <span className="inline-flex items-center rounded-pill border border-border bg-subtle px-[11px] py-[5px] text-xs font-medium leading-none text-fg-2">
+                  <span className="inline-flex items-center rounded-pill border border-line bg-surface-2 px-[11px] py-[5px] text-xs font-medium leading-none text-fg-2">
                     {summary.league} league
                   </span>
                 </div>
@@ -118,13 +118,13 @@ export function Fiche({
               </div>
             </div>
 
-            <div className="h-px bg-border" />
+            <div className="h-px bg-line" />
 
             {/* Body */}
             <div className="flex flex-col gap-6 p-[22px_26px_26px]">
               {/* 1 — TL;DR */}
               <section id="tldr" className="scroll-mt-[100px]">
-                <h2 className="mb-[10px] text-xs font-semibold text-fg-3">TL;DR</h2>
+                <h2 className="eyebrow mb-[10px]">TL;DR</h2>
                 <div className="flex flex-col gap-3">
                   {/* What you farm — full-width headline, tinted with the main mechanic */}
                   <div
@@ -140,14 +140,14 @@ export function Fiche({
                   <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
                     <div className="glass-panel rounded-[13px] p-[15px_16px]">
                       <div className="text-xs font-medium text-fg-3">Invest / map</div>
-                      <div className="mt-[7px] font-display text-[24px] font-semibold leading-none text-fg">
+                      <div className="mt-[7px] font-mono text-[24px] font-semibold leading-none text-fg">
                         {formatInvest(summary.investPerMap)}
                       </div>
                     </div>
                     {/* Neutral colour — never green (anti-hype, Principe IX). */}
                     <div className="glass-panel rounded-[13px] p-[15px_16px]">
                       <div className="text-xs font-medium text-fg-3">Est. return</div>
-                      <div className="mt-[7px] font-display text-[24px] font-semibold leading-none text-fg">
+                      <div className="mt-[7px] font-mono text-[24px] font-semibold leading-none text-fg">
                         {formatReturn(summary.returnPerHour)}
                       </div>
                     </div>
@@ -162,8 +162,7 @@ export function Fiche({
                             key={i}
                             className="h-1.5 w-[22px] rounded-[3px]"
                             style={{
-                              background:
-                                i <= summary.difficulty ? 'var(--diff-c)' : 'var(--subtle-border)',
+                              background: i <= summary.difficulty ? 'var(--diff-c)' : 'var(--line)',
                             }}
                           />
                         ))}
@@ -181,14 +180,17 @@ export function Fiche({
 
               {/* 2 — Map device */}
               <section id="map-device" className="scroll-mt-[100px]">
-                <h2 className="mb-[10px] text-xs font-semibold text-fg-3">Map device</h2>
+                <h2 className="eyebrow mb-[10px]">Map device</h2>
                 <div className="grid grid-cols-3 gap-3 sm:grid-cols-5">
                   {content.mapDevice.scarabs.map((s) => (
                     <div key={s.id} className="flex flex-col items-center gap-2">
                       <div className="glass-panel flex aspect-square w-full items-center justify-center rounded-[13px]">
                         <span
-                          className="h-11 w-11 rounded-full shadow-[inset_0_0_0_1px_rgba(0,0,0,.14),inset_0_6px_10px_rgba(255,255,255,.2)]"
-                          style={{ background: MECHANICS[s.mechanic].color }}
+                          className="h-11 w-11 rounded-full"
+                          style={{
+                            background: MECHANICS[s.mechanic].color,
+                            boxShadow: `0 0 14px -2px ${MECHANICS[s.mechanic].color}`,
+                          }}
                         />
                       </div>
                       <span className="text-center text-[11px] leading-tight text-fg-2">
@@ -202,7 +204,7 @@ export function Fiche({
                     {content.mapDevice.extras.map((extra) => (
                       <span
                         key={extra}
-                        className="rounded-pill border border-border bg-subtle px-3 py-1.5 text-[12.5px] font-semibold text-fg-2"
+                        className="rounded-pill border border-line bg-surface-2 px-3 py-1.5 text-[12.5px] font-semibold text-fg-2"
                       >
                         {extra}
                       </span>
@@ -233,7 +235,7 @@ export function Fiche({
                 <ol className="flex flex-col gap-3">
                   {content.steps.map((step, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <span className="flex h-[25px] w-[25px] shrink-0 items-center justify-center rounded-full border border-border bg-subtle font-display text-[13px] font-semibold text-fg-2">
+                      <span className="flex h-[25px] w-[25px] shrink-0 items-center justify-center rounded-full border border-line bg-surface-2 font-mono text-[13px] font-semibold text-fg-3">
                         {i + 1}
                       </span>
                       <span className="text-[14px] leading-[1.5] text-fg">{step}</span>
@@ -248,12 +250,12 @@ export function Fiche({
                 className="grid scroll-mt-[100px] grid-cols-1 gap-[18px] sm:grid-cols-2"
               >
                 <div>
-                  <h2 className="mb-[10px] text-xs font-semibold text-fg-3">Recommended maps</h2>
+                  <h2 className="eyebrow mb-[10px]">Recommended maps</h2>
                   <div className="flex flex-wrap gap-2">
                     {content.maps.names.map((m) => (
                       <span
                         key={m}
-                        className="inline-flex items-center rounded-pill border border-border bg-subtle px-3 py-1.5 text-[13px] text-fg"
+                        className="inline-flex items-center rounded-pill border border-line bg-surface-2 px-3 py-1.5 text-[13px] text-fg"
                       >
                         {m}
                       </span>
@@ -265,7 +267,7 @@ export function Fiche({
                 </div>
                 {content.notes && (
                   <div>
-                    <h2 className="mb-[10px] text-xs font-semibold text-fg-3">Notes</h2>
+                    <h2 className="eyebrow mb-[10px]">Notes</h2>
                     <p className="text-[14px] leading-[1.55] text-fg-2">{content.notes}</p>
                   </div>
                 )}
@@ -276,9 +278,7 @@ export function Fiche({
           {/* Similar strategies */}
           {similar.length > 0 && (
             <section>
-              <h2 className="mb-[14px] font-display text-[19px] font-semibold tracking-[0.01em] text-fg">
-                Similar strategies
-              </h2>
+              <h2 className="eyebrow mb-[14px]">Similar strategies</h2>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {similar.map((s) => (
                   <StrategyCard key={s.id} strategy={s} />
