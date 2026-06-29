@@ -55,6 +55,13 @@ personnel d'abord (pas l'adoption de masse).
   3 niveaux, logique de thème `localStorage['mapstrat-theme']`). Le README ne fait que résumer.
 - Les maquettes `design_handoff/design_files/*.dc.html` sont des **références** (runtime maison
   `support.js` à NE PAS porter) — lire structure/tokens/logique, réimplémenter proprement.
+- **Unités : échelle Tailwind / `rem`, pas de px fixes.** Utiliser l'échelle native
+  (`gap-4`, `p-5`, `text-sm`, `size-12`, `max-w-4xl`, `rounded-card`…) plutôt que des valeurs
+  arbitraires en pixels (`gap-[14px]`, `text-[13px]`, `size-[50px]`). Le `rem` respecte le zoom
+  et les préférences d'accessibilité ; l'échelle est plus lisible et maintenable. **Exceptions
+  tolérées** : hairlines (`border`, `h-px`), et le rare cas où aucune valeur d'échelle ne convient
+  (le justifier). Le code legacy en px est migré au fil des passages, pas en bloc. *(Le code du
+  redesign D35 part propre sur cette règle.)*
 
 ## Git & CI — autorisation & workflow
 
