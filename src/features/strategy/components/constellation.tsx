@@ -36,7 +36,7 @@ export function Constellation({
               aria-pressed={on}
               style={cssVars({ '--mc': m.color })}
               className={cx(
-                'group flex flex-1 cursor-pointer flex-col items-center gap-[9px] border-0 bg-transparent font-display text-xs font-semibold uppercase tracking-[1px] transition-colors',
+                'group flex cursor-pointer flex-col items-center gap-[9px] whitespace-nowrap border-0 bg-transparent px-1 font-display text-[11px] font-semibold uppercase tracking-[0.8px] transition-colors',
                 on ? 'text-fg' : 'text-fg-3 hover:text-fg',
               )}
             >

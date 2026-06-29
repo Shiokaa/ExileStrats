@@ -279,7 +279,7 @@ export function Fiche({
           {similar.length > 0 && (
             <section>
               <h2 className="eyebrow mb-[14px]">Similar strategies</h2>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="flex flex-col gap-3">
                 {similar.map((s) => (
                   <StrategyCard key={s.id} strategy={s} />
                 ))}
