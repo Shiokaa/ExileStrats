@@ -277,8 +277,17 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
     );
 
   return (
-    <div className="grid grid-cols-1 items-start gap-[24px] lg:grid-cols-[1fr_360px]">
-      {/* ===== LEFT: FORM ===== */}
+    <div className="flex flex-col gap-[24px]">
+      {/* ===== LIVE PREVIEW (full width — shows exactly as in listings) ===== */}
+      <div className="flex flex-col gap-[10px]">
+        <div className="eyebrow">Card preview</div>
+        <StrategyCard strategy={preview} />
+        <p className="text-[12px] leading-[1.5] text-fg-3">
+          Updates as you fill in the form — exactly how your strategy appears in listings.
+        </p>
+      </div>
+
+      {/* ===== FORM ===== */}
       <div className="flex flex-col gap-[18px] min-w-0">
         {/* §1 Essentials */}
         <Section>
@@ -565,16 +574,6 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
           </Button>
         </div>
       </div>
-
-      {/* ===== RIGHT: LIVE PREVIEW ===== */}
-      <aside className="sticky top-[92px] flex flex-col gap-[13px]">
-        <div className="eyebrow">Card preview</div>
-        <StrategyCard strategy={preview} />
-        <p className="mt-[2px] text-[12px] leading-[1.5] text-fg-3">
-          The preview updates as you fill in the form — this is exactly how your strategy will
-          appear in listings.
-        </p>
-      </aside>
     </div>
   );
 }
