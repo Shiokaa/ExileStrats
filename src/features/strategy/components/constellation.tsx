@@ -18,7 +18,7 @@ export function Constellation({
   onSelect: (next: Selection) => void;
 }) {
   return (
-    <div className="relative mx-auto mt-8 max-w-4xl px-2 pt-6">
+    <div className="relative mx-auto mt-8 max-w-5xl px-2 pt-6">
       {/* connecting line, centred on the node discs (hairline) */}
       <span
         aria-hidden="true"
