@@ -36,11 +36,11 @@ export function MechanicHub({ mechanicKey, strategies }: MechanicHubProps) {
         <div className="flex flex-wrap items-center gap-[18px]">
           {/* 64px mechanic pastille */}
           <div
-            className="mech-tint flex h-16 w-16 shrink-0 items-center justify-center rounded-[18px]"
+            className="mech-tint flex h-16 w-16 shrink-0 items-center justify-center rounded-[18px] border border-[var(--mech)]"
             style={cssVars({ '--mech': mechanic.color })}
           >
             <span
-              className="h-[22px] w-[22px] rounded-full shadow-[inset_0_0_0_2px_rgba(255,255,255,.25),inset_0_4px_7px_rgba(255,255,255,.3)]"
+              className="h-[22px] w-[22px] rounded-full"
               style={{ background: mechanic.color }}
             />
           </div>
@@ -54,7 +54,7 @@ export function MechanicHub({ mechanicKey, strategies }: MechanicHubProps) {
               {content.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-pill border border-border bg-subtle px-[11px] py-[4px] text-xs font-semibold leading-none text-fg-2"
+                  className="rounded-pill border border-line bg-surface-2 px-[11px] py-[4px] text-xs font-semibold leading-none text-fg-2"
                 >
                   {tag}
                 </span>
@@ -72,12 +72,12 @@ export function MechanicHub({ mechanicKey, strategies }: MechanicHubProps) {
         <div className="flex min-w-0 flex-col gap-[22px]">
           {/* How it works */}
           <section className="glass-card rounded-panel p-6">
-            <h2 className="mb-[18px] font-display text-2xl font-semibold text-fg">How it works</h2>
+            <h2 className="eyebrow mb-[18px]">How it works</h2>
             <div className="flex flex-col gap-4">
               {content.howItWorks.map((step, i) => (
                 <div key={step.title} className="flex gap-[14px]">
                   <span
-                    className="mech-tint flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-full font-display text-base font-bold"
+                    className="font-mono flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-full border border-[var(--mech)] text-[var(--mech)] text-base font-bold"
                     style={cssVars({ '--mech': mechanic.color })}
                   >
                     {i + 1}
@@ -107,7 +107,7 @@ export function MechanicHub({ mechanicKey, strategies }: MechanicHubProps) {
             </div>
 
             {strategies.length > 0 ? (
-              <div className="grid grid-cols-1 gap-[14px] sm:grid-cols-2">
+              <div className="flex flex-col gap-[14px]">
                 {strategies.map((s) => (
                   <StrategyCard key={s.id} strategy={s} />
                 ))}
@@ -125,16 +125,18 @@ export function MechanicHub({ mechanicKey, strategies }: MechanicHubProps) {
         <aside className="flex flex-col gap-[18px]">
           {/* In brief */}
           <div className="glass-card rounded-panel p-5">
-            <h3 className="mb-[14px] font-display text-[17px] font-semibold text-fg">In brief</h3>
+            <h3 className="eyebrow mb-[14px]">In brief</h3>
             <div className="flex flex-col">
               {content.inBrief.map((fact) => (
                 <div
                   key={fact.label}
-                  className="flex items-center justify-between gap-[10px] border-t border-border py-[10px]"
+                  className="flex items-center justify-between gap-[10px] border-t border-line py-[10px]"
                 >
                   <span className="text-[13px] text-fg-2">{fact.label}</span>
                   {/* Neutral colour for return — never green (anti-hype, Principe IX). */}
-                  <span className="text-right text-[13px] font-semibold text-fg">{fact.value}</span>
+                  <span className="text-right font-mono text-[13px] font-semibold text-fg">
+                    {fact.value}
+                  </span>
                 </div>
               ))}
             </div>
@@ -142,14 +144,12 @@ export function MechanicHub({ mechanicKey, strategies }: MechanicHubProps) {
 
           {/* Recommended scarabs */}
           <div className="glass-card rounded-panel p-5">
-            <h3 className="mb-[14px] font-display text-[17px] font-semibold text-fg">
-              Recommended scarabs
-            </h3>
+            <h3 className="eyebrow mb-[14px]">Recommended scarabs</h3>
             <div className="flex flex-col gap-[11px]">
               {content.scarabs.map((scarab) => (
                 <div key={scarab.name} className="flex items-center gap-[11px]">
                   <span
-                    className="h-5 w-5 shrink-0 rounded-full shadow-[inset_0_0_0_1px_rgba(0,0,0,.14),inset_0_3px_5px_rgba(255,255,255,.22)]"
+                    className="h-5 w-5 shrink-0 rounded-full"
                     style={{ background: mechanic.color }}
                   />
                   <div className="min-w-0">
@@ -163,14 +163,12 @@ export function MechanicHub({ mechanicKey, strategies }: MechanicHubProps) {
 
           {/* Key atlas passives */}
           <div className="glass-card rounded-panel p-5">
-            <h3 className="mb-[14px] font-display text-[17px] font-semibold text-fg">
-              Key atlas passives
-            </h3>
+            <h3 className="eyebrow mb-[14px]">Key atlas passives</h3>
             <div className="flex flex-wrap gap-2">
               {content.keyPassives.map((passive) => (
                 <span
                   key={passive}
-                  className="rounded-tile border border-border bg-subtle px-3 py-[7px] text-[13px] font-semibold text-fg"
+                  className="rounded-tile border border-line bg-surface-2 px-3 py-[7px] text-[13px] font-semibold text-fg"
                 >
                   {passive}
                 </span>

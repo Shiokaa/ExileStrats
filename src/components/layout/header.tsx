@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { Logo } from './logo';
-import { ThemeToggle } from './theme-toggle';
 import { getCurrentUser } from '@/lib/supabase/server';
 import { NAV_LINKS } from './nav-links';
 import { UserIcon } from '@/components/ui/icons';
@@ -27,7 +26,6 @@ export async function Header() {
       <div className="flex items-center gap-[18px] justify-self-end">
         {/* Icons */}
         <div className="flex items-center gap-[10px]">
-          <ThemeToggle />
           {user && (
             <IconButton href="/profile" aria-label="Profile">
               <UserIcon />

@@ -45,7 +45,7 @@ function SectionHeader({ n, title }: { n: number; title: string }) {
       <span className="flex h-[26px] w-[26px] flex-shrink-0 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] font-display text-[14px] font-bold text-accent">
         {n}
       </span>
-      <h2 className="text-[22px] font-semibold text-fg">{title}</h2>
+      <h2 className="font-display text-[22px] font-semibold text-fg">{title}</h2>
     </div>
   );
 }
@@ -88,7 +88,7 @@ function TextInput({
       inputMode={inputMode}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="h-[46px] w-full rounded-input border border-border bg-input px-[15px] text-[15px] text-fg outline-none placeholder:text-fg-3"
+      className="h-[46px] w-full rounded-input border border-line bg-surface-2 px-[15px] text-[15px] text-fg outline-none placeholder:text-fg-3"
     />
   );
 }
@@ -130,7 +130,7 @@ function SimpleListField({
                 value={item}
                 onChange={(e) => update(i, e.target.value)}
                 placeholder={placeholder(i)}
-                className="h-[44px] min-w-0 flex-1 rounded-[11px] border border-border bg-input px-[14px] text-[14px] text-fg outline-none placeholder:text-fg-3"
+                className="h-[44px] min-w-0 flex-1 rounded-input border border-line bg-surface-2 px-[14px] text-[14px] text-fg outline-none placeholder:text-fg-3"
               />
               {items.length > min && (
                 <IconButton
@@ -150,7 +150,7 @@ function SimpleListField({
         <button
           type="button"
           onClick={add}
-          className="inline-flex cursor-pointer items-center gap-[7px] rounded-[11px] border border-dashed border-border bg-transparent px-[15px] py-[9px] text-[13px] font-semibold text-fg-2 hover:text-fg"
+          className="inline-flex cursor-pointer items-center gap-[7px] rounded-input border border-dashed border-line bg-transparent px-[15px] py-[9px] text-[13px] font-semibold text-fg-2 hover:text-fg"
         >
           <svg
             width="15"
@@ -267,7 +267,7 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
     }
   };
 
-  const segmentActive = 'glass-card text-fg';
+  const segmentActive = 'bg-surface-2 text-fg';
   const segmentInactive = 'text-fg-2';
 
   const segmentBtn = (active: boolean) =>
@@ -277,8 +277,17 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
     );
 
   return (
-    <div className="grid grid-cols-1 items-start gap-[24px] lg:grid-cols-[1fr_360px]">
-      {/* ===== LEFT: FORM ===== */}
+    <div className="flex flex-col gap-[24px]">
+      {/* ===== LIVE PREVIEW (full width — shows exactly as in listings) ===== */}
+      <div className="flex flex-col gap-[10px]">
+        <div className="eyebrow">Card preview</div>
+        <StrategyCard strategy={preview} />
+        <p className="text-[12px] leading-[1.5] text-fg-3">
+          Updates as you fill in the form — exactly how your strategy appears in listings.
+        </p>
+      </div>
+
+      {/* ===== FORM ===== */}
       <div className="flex flex-col gap-[18px] min-w-0">
         {/* §1 Essentials */}
         <Section>
@@ -306,7 +315,7 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
                       'inline-flex cursor-pointer items-center gap-[8px] rounded-pill border px-[14px] py-[8px] text-[13px] font-semibold transition-colors',
                       active
                         ? 'mech-tint border-transparent'
-                        : 'border-border text-fg-2 hover:bg-subtle hover:text-fg',
+                        : 'border-line text-fg-2 hover:bg-surface-2 hover:text-fg',
                     )}
                     style={cssVars({ '--mech': m.color })}
                     onClick={() => setMechanic(key)}
@@ -323,7 +332,7 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
             <div>
               <Label>League</Label>
               <div
-                className="inline-flex w-full rounded-pill border border-border bg-subtle-2 p-[3px]"
+                className="inline-flex w-full rounded-pill border border-line bg-void-2 p-[3px]"
                 role="group"
                 aria-label="League"
               >
@@ -342,7 +351,7 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
             <div>
               <Label>Difficulty</Label>
               <div
-                className="inline-flex w-full rounded-pill border border-border bg-subtle-2 p-[3px]"
+                className="inline-flex w-full rounded-pill border border-line bg-void-2 p-[3px]"
                 role="group"
                 aria-label="Difficulty"
               >
@@ -398,7 +407,7 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
           </div>
 
           {/* Anti-hype note (hard requirement per Principle IX) */}
-          <div className="mt-[14px] flex gap-[10px] rounded-input bg-subtle p-[12px_14px]">
+          <div className="mt-[14px] flex gap-[10px] rounded-input bg-surface-2 p-[12px_14px]">
             <svg
               width="16"
               height="16"
@@ -442,7 +451,7 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
               onChange={(e) => setSummary(e.target.value)}
               rows={3}
               placeholder="In one or two sentences, what is the strategy and who is it for."
-              className="w-full rounded-input border border-border bg-input px-[15px] py-[13px] text-[14px] leading-[1.5] text-fg outline-none placeholder:text-fg-3 resize-y"
+              className="w-full rounded-input border border-line bg-surface-2 px-[15px] py-[13px] text-[14px] leading-[1.5] text-fg outline-none placeholder:text-fg-3 resize-y"
             />
           </div>
 
@@ -496,7 +505,7 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
             V1.
           </p>
 
-          <div className="mb-[14px] inline-flex rounded-pill border border-border bg-subtle-2 p-[3px]">
+          <div className="mb-[14px] inline-flex rounded-pill border border-line bg-void-2 p-[3px]">
             {(['link', 'image'] as const).map((k) => (
               <button
                 key={k}
@@ -540,7 +549,7 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
               onChange={(e) => setMapNote(e.target.value)}
               rows={2}
               placeholder="Anything to know about map choice, sustain, etc."
-              className="w-full resize-y rounded-input border border-border bg-input px-[15px] py-[13px] text-[14px] leading-[1.5] text-fg outline-none placeholder:text-fg-3"
+              className="w-full resize-y rounded-input border border-line bg-surface-2 px-[15px] py-[13px] text-[14px] leading-[1.5] text-fg outline-none placeholder:text-fg-3"
             />
           </div>
         </Section>
@@ -565,18 +574,6 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
           </Button>
         </div>
       </div>
-
-      {/* ===== RIGHT: LIVE PREVIEW ===== */}
-      <aside className="sticky top-[92px] flex flex-col gap-[13px]">
-        <div className="text-[12px] font-semibold uppercase tracking-[0.04em] text-fg-3">
-          Card preview
-        </div>
-        <StrategyCard strategy={preview} />
-        <p className="mt-[2px] text-[12px] leading-[1.5] text-fg-3">
-          The preview updates as you fill in the form — this is exactly how your strategy will
-          appear in listings.
-        </p>
-      </aside>
     </div>
   );
 }

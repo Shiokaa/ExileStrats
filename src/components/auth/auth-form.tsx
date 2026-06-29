@@ -30,8 +30,9 @@ export function AuthForm() {
 
   return (
     <div className="glass-card w-full max-w-[420px] rounded-panel p-[34px]">
-      <h1 className="font-display text-[26px] font-semibold text-fg">Sign in</h1>
-      <p className="mt-2 mb-6 text-[14px] leading-[1.5] text-fg-2">
+      <p className="eyebrow mb-[12px]">Authentication</p>
+      <h1 className="font-display text-[26px] font-bold text-fg">Sign in</h1>
+      <p className="mt-[8px] mb-[24px] text-[14px] leading-[1.5] text-fg-2">
         Use your Discord account to compose and share strategies.
       </p>
 

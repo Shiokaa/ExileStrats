@@ -1,115 +1,71 @@
 @import 'tailwindcss';
 
-/* ===== Raw design tokens — source of truth: design_handoff/ =====
-   Semantic values redefined per theme; Tailwind utilities reference them
-   inline (see @theme inline below) so utilities stay theme-aware. */
+/* ===== Atlas / cartography design tokens (dark-only) — see DECISIONS.md D35 =====
+   Legacy token names (--text, --accent, --subtle-*, --diff-*, --tint-*) are kept
+   with new values so existing utilities/components keep rendering while pages are
+   migrated to the new design. */
 :root {
-  color-scheme: light;
-
-  --bg-page: #e4e8f0;
-  --text: #15161b;
-  --text-2: #5a5d69;
-  --text-3: #9396a2;
-  --accent: #2f7fe0;
-  --profit: #0f9d58;
-  --danger: #c0392b;
-
-  --glass-card-bg: rgba(255, 255, 255, 0.58);
-  --glass-card-border: rgba(255, 255, 255, 0.72);
-  --glass-card-blur: blur(26px) saturate(150%);
-  --glass-card-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 22px 60px -30px rgba(20, 24, 45, 0.4);
-  --glass-panel-bg: rgba(255, 255, 255, 0.5);
-  --glass-panel-border: rgba(255, 255, 255, 0.62);
-  --glass-nav-bg: rgba(255, 255, 255, 0.62);
-  --glass-nav-border: rgba(255, 255, 255, 0.6);
-  --glass-nav-blur: blur(22px) saturate(150%);
-
-  --subtle-bg: rgba(20, 24, 40, 0.05);
-  --subtle-bg-2: rgba(20, 24, 40, 0.04);
-  --subtle-border: rgba(20, 24, 40, 0.08);
-  --input-bg: rgba(255, 255, 255, 0.7);
-
-  --diff-1: #0f9d58;
-  --diff-2: #b7860b;
-  --diff-3: #c05a36;
-
-  /* tint(base) — désaturation des fonds de pastille (color-mix, par thème) */
-  --tint-bg-pct: 14%;
-  --tint-bg-base: #ffffff;
-  --tint-text-pct: 54%;
-  --tint-text-base: #000000;
-
-  --ambient-field: radial-gradient(
-    1400px 820px at 50% -24%,
-    rgba(255, 255, 255, 0.95),
-    transparent 60%
-  );
-  --ambient-wash: linear-gradient(
-    155deg,
-    rgba(120, 148, 205, 0.2) 0%,
-    rgba(150, 168, 210, 0.08) 40%,
-    transparent 66%
-  );
-  --grain-opacity: 0.05;
-}
-
-[data-theme='dark'] {
   color-scheme: dark;
 
-  --bg-page: #0b0d14;
-  --text: #eef0f5;
-  --text-2: #a8acb8;
-  --text-3: #71757f;
-  --profit: #34d399;
-  --danger: #c0392b;
+  /* surfaces — "Atlas void" */
+  --void: #0b0e16;
+  --void-2: #090b12;
+  --surface: #131826;
+  --surface-2: #1a2030;
+  --line: #2a3450;
+  --line-soft: #1f2738;
 
-  --glass-card-bg: rgba(255, 255, 255, 0.065);
-  --glass-card-border: rgba(255, 255, 255, 0.11);
-  --glass-card-blur: blur(28px) saturate(150%);
-  --glass-card-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.13), 0 26px 66px -32px rgba(0, 0, 0, 0.7);
-  --glass-panel-bg: rgba(255, 255, 255, 0.045);
-  --glass-panel-border: rgba(255, 255, 255, 0.085);
-  --glass-nav-bg: rgba(15, 17, 24, 0.6);
-  --glass-nav-border: rgba(255, 255, 255, 0.09);
-  --glass-nav-blur: blur(24px) saturate(150%);
+  /* ink */
+  --ink: #e9ecf4;
+  --ink-dim: #969db2;
+  --ink-faint: #626a80;
 
-  --subtle-bg: rgba(255, 255, 255, 0.08);
-  --subtle-bg-2: rgba(255, 255, 255, 0.05);
-  --subtle-border: rgba(255, 255, 255, 0.12);
-  --input-bg: rgba(0, 0, 0, 0.22);
+  /* cartography accent — used sparingly */
+  --brass: #c8a24a;
+  --brass-dim: #8a7333;
 
-  --diff-1: #34d399;
+  /* functional colour */
+  --profit: #e9ecf4; /* neutral — never green (anti-hype, Principe IX) */
+  --danger: #d9554f;
+  --diff-1: #7fb069;
   --diff-2: #e0b341;
   --diff-3: #e0734f;
 
-  --tint-bg-pct: 18%;
+  /* legacy aliases (kept so current utilities/components keep working) */
+  --bg-page: var(--void);
+  --text: var(--ink);
+  --text-2: var(--ink-dim);
+  --text-3: var(--ink-faint);
+  --accent: var(--brass);
+  --subtle-bg: rgba(255, 255, 255, 0.06);
+  --subtle-bg-2: rgba(255, 255, 255, 0.04);
+  --subtle-border: var(--line);
+  --input-bg: rgba(255, 255, 255, 0.04);
+
+  /* mechanic tint (mech-tint utility, reads inline --mech) */
+  --tint-bg-pct: 20%;
   --tint-bg-base: #101218;
-  --tint-text-pct: 48%;
+  --tint-text-pct: 52%;
   --tint-text-base: #ffffff;
 
-  --ambient-field: radial-gradient(
-    1400px 820px at 50% -24%,
-    rgba(150, 180, 235, 0.1),
-    transparent 60%
-  );
-  --ambient-wash: linear-gradient(
-    155deg,
-    rgba(64, 92, 150, 0.22) 0%,
-    rgba(40, 52, 84, 0.1) 38%,
-    transparent 66%
-  );
-  --grain-opacity: 0.06;
+  --grain-opacity: 0.5;
 }
 
 /* ===== Tailwind theme mapping (inline = utilities reference the live vars) ===== */
 @theme inline {
   --color-page: var(--bg-page);
-  --color-fg: var(--text);
-  --color-fg-2: var(--text-2);
-  --color-fg-3: var(--text-3);
-  --color-accent: var(--accent);
+  --color-void-2: var(--void-2);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
+
+  --color-fg: var(--ink);
+  --color-fg-2: var(--ink-dim);
+  --color-fg-3: var(--ink-faint);
+  --color-accent: var(--brass);
+  --color-brass: var(--brass);
+  --color-brass-dim: var(--brass-dim);
   --color-profit: var(--profit);
   --color-subtle: var(--subtle-bg);
   --color-subtle-2: var(--subtle-bg-2);
@@ -122,20 +78,21 @@
   --color-diff-3: var(--diff-3);
 
   --radius-pill: 999px;
-  --radius-card: 18px;
-  --radius-panel: 20px;
-  --radius-input: 12px;
-  --radius-tile: 14px;
-  --radius-board: 16px;
+  --radius-card: 14px;
+  --radius-panel: 16px;
+  --radius-input: 10px;
+  --radius-tile: 12px;
+  --radius-board: 14px;
 
   --font-display: var(--font-saira);
   --font-body: var(--font-hanken);
+  --font-mono: var(--font-jetbrains);
 }
 
 /* ===== Base ===== */
 body {
-  background: var(--bg-page);
-  color: var(--text);
+  background: var(--void);
+  color: var(--ink);
   font-family: var(--font-hanken), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
@@ -146,23 +103,33 @@ h3 {
   margin: 0;
 }
 
-/* ===== Design-system primitives (multi-property, reused) ===== */
+/* ===== Surfaces — solid (ex-"glass" names kept for compatibility) ===== */
 @utility glass-card {
-  background: var(--glass-card-bg);
-  border: 1px solid var(--glass-card-border);
-  box-shadow: var(--glass-card-shadow);
-  backdrop-filter: var(--glass-card-blur);
-  -webkit-backdrop-filter: var(--glass-card-blur);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
 }
 @utility glass-panel {
-  background: var(--glass-panel-bg);
-  border: 1px solid var(--glass-panel-border);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
 }
+/* The nav keeps a light frosted blur (accent only — blur, no SVG filter). */
 @utility glass-nav {
-  background: var(--glass-nav-bg);
-  border: 1px solid var(--glass-nav-border);
-  backdrop-filter: var(--glass-nav-blur);
-  -webkit-backdrop-filter: var(--glass-nav-blur);
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Eyebrow — Saira condensed, tracked caps (map-coordinate label). */
+@utility eyebrow {
+  font-family: var(--font-saira), sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--brass);
 }
 
 /* Mechanic tint pill — reads --mech set inline on the element. */
@@ -172,23 +139,27 @@ h3 {
 }
 
 @layer components {
-  .ambient {
+  /* Atlas-line ambient (rendered by AmbientBackground). */
+  .atlas-bg {
     position: fixed;
     inset: 0;
     z-index: 0;
     pointer-events: none;
+    background: radial-gradient(1200px 700px at 70% -10%, rgba(80, 110, 180, 0.1), transparent 60%);
   }
-  .ambient--field {
-    background: var(--ambient-field);
+  .atlas-bg svg {
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
   }
-  .ambient--wash {
-    background: var(--ambient-wash);
+  .atlas-bg line {
+    stroke: var(--brass);
+    stroke-width: 0.5;
+    opacity: 0.1;
   }
-  .ambient--grain {
-    opacity: var(--grain-opacity);
-    mix-blend-mode: overlay;
-    background-size: 180px 180px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  .atlas-bg circle {
+    fill: var(--brass);
+    opacity: 0.16;
   }
 
   .btn {
@@ -204,7 +175,8 @@ h3 {
     cursor: pointer;
     transition:
       transform 0.12s ease,
-      background 0.15s ease;
+      background 0.15s ease,
+      border-color 0.15s ease;
   }
   .btn:active {
     transform: translateY(1px);
@@ -217,24 +189,24 @@ h3 {
   }
   .btn:focus-visible,
   .icon-btn:focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--brass);
     outline-offset: 2px;
   }
   .btn-primary {
-    background: var(--accent);
-    color: #fff;
+    background: var(--brass);
+    color: #1a1407;
   }
   .btn-primary:hover {
-    background: color-mix(in srgb, var(--accent) 86%, #000);
+    background: color-mix(in srgb, var(--brass) 88%, #fff);
   }
   .btn-ghost {
-    background: var(--subtle-bg);
-    color: var(--text);
-    border-color: var(--subtle-border);
+    background: var(--surface-2);
+    color: var(--ink);
+    border-color: var(--line);
   }
   .btn-ghost:hover {
-    background: color-mix(in srgb, var(--text) 9%, transparent);
-    border-color: var(--text-3);
+    background: color-mix(in srgb, var(--ink) 8%, var(--surface-2));
+    border-color: var(--ink-faint);
   }
 
   .icon-btn {
@@ -244,25 +216,16 @@ h3 {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: var(--subtle-bg);
-    border: 1px solid var(--subtle-border);
-    color: var(--text-2);
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    color: var(--ink-dim);
     cursor: pointer;
     transition:
       color 0.15s ease,
       background 0.15s ease;
   }
   .icon-btn:hover {
-    color: var(--text);
-    background: color-mix(in srgb, var(--text) 9%, transparent);
-  }
-  .theme-icon--moon {
-    display: none;
-  }
-  [data-theme='dark'] .theme-icon--sun {
-    display: none;
-  }
-  [data-theme='dark'] .theme-icon--moon {
-    display: inline;
+    color: var(--ink);
+    background: color-mix(in srgb, var(--ink) 8%, var(--surface-2));
   }
 }
