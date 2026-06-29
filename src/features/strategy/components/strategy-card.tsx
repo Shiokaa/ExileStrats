@@ -29,9 +29,15 @@ export function StrategyCard({ strategy }: { strategy: StrategySummary }) {
         className="absolute inset-0 z-0 bg-[linear-gradient(90deg,rgba(9,11,18,0.93)_0%,rgba(9,11,18,0.72)_58%,rgba(9,11,18,0.86)_100%)]"
       />
 
-      {/* zone 1 — mechanic node identity */}
+      {/* zone 1 — mechanic icon identity */}
       <div className="relative z-[1] flex w-[70px] flex-col items-center gap-2">
-        <span className="h-[13px] w-[13px] rounded-full bg-[var(--mech)] [box-shadow:0_0_12px_-1px_var(--mech)]" />
+        <span
+          className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--mech)] bg-void-2"
+          style={{ boxShadow: '0 0 14px -3px var(--mech)' }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={mechanic.icon} alt="" className="h-[22px] w-[22px] object-contain" />
+        </span>
         <span className="font-display text-xs font-semibold uppercase tracking-[1.5px] text-[var(--mech)]">
           {mechanic.name}
         </span>
