@@ -2,72 +2,85 @@ import Link from 'next/link';
 import { MECHANICS } from '@/data/game/mechanics';
 import { DIFFICULTY } from '@/features/strategy/labels';
 import type { StrategySummary } from '@/features/strategy/types';
-import { cssVars, formatInvest, formatReturn, formatUpdated } from '@/lib/utils';
+import { cssVars, formatInvest, formatReturn } from '@/lib/utils';
 
+/**
+ * Long single-column strategy card (atlas direction): mechanic image as the card
+ * background + a dark scrim for legibility (no backdrop-filter), a mechanic-coloured
+ * node + accent rail, title/meta on the left, mono stats + difficulty on the right.
+ * Per-mechanic images live in /public/poe1_cards_background/<mechanic>.jpg; when one
+ * is missing the solid surface shows through.
+ */
 export function StrategyCard({ strategy }: { strategy: StrategySummary }) {
   const mechanic = MECHANICS[strategy.mechanic];
 
   return (
     <Link
       href={`/strategy/${strategy.slug}`}
-      className="glass-card relative flex flex-col overflow-hidden rounded-card no-underline transition-transform hover:-translate-y-[3px]"
-      style={cssVars({ '--mech': mechanic.color })}
+      style={{
+        ...cssVars({ '--mech': mechanic.color, '--dc': `var(--diff-${strategy.difficulty})` }),
+        backgroundImage: `url(/poe1_cards_background/${strategy.mechanic}.jpg)`,
+      }}
+      className="group relative grid grid-cols-[auto_1fr_auto] items-center gap-[22px] overflow-hidden rounded-card border border-l-[3px] border-line border-l-[var(--mech)] bg-surface bg-cover bg-center p-5 no-underline [text-shadow:0_1px_3px_rgba(0,0,0,0.7)] transition-transform hover:-translate-y-[2px]"
     >
-      <span className="absolute inset-x-0 top-0 h-1 bg-[var(--mech)]" aria-hidden="true" />
-      <div className="flex flex-col gap-[13px] p-[18px]">
-        <div className="flex items-center justify-between">
-          <span className="mech-tint inline-flex items-center gap-[7px] rounded-pill px-[11px] py-[5px] text-xs font-semibold">
-            <span className="h-1.5 w-1.5 rounded-full bg-[var(--mech)]" />
-            {mechanic.name}
+      {/* dark scrim over the image — keeps text readable */}
+      <span
+        aria-hidden="true"
+        className="absolute inset-0 z-0 bg-[linear-gradient(90deg,rgba(9,11,18,0.93)_0%,rgba(9,11,18,0.72)_58%,rgba(9,11,18,0.86)_100%)]"
+      />
+
+      {/* zone 1 — mechanic node identity */}
+      <div className="relative z-[1] flex w-[70px] flex-col items-center gap-2">
+        <span className="h-[13px] w-[13px] rounded-full bg-[var(--mech)] [box-shadow:0_0_12px_-1px_var(--mech)]" />
+        <span className="font-display text-xs font-semibold uppercase tracking-[1.5px] text-[var(--mech)]">
+          {mechanic.name}
+        </span>
+      </div>
+
+      {/* zone 2 — title + meta */}
+      <div className="relative z-[1] min-w-0">
+        <h3 className="font-display text-[23px] font-bold leading-[1.05] text-fg">
+          {strategy.title}
+        </h3>
+        <p className="mt-1 text-[13px] text-fg-2">
+          by {strategy.author} · {strategy.league} · {strategy.scarabCount} scarabs
+        </p>
+      </div>
+
+      {/* zone 3 — stats (mono) + difficulty */}
+      <div className="relative z-[1] flex items-center gap-[26px]">
+        <div className="text-right">
+          <span className="block font-display text-[10.5px] font-semibold uppercase tracking-[1.5px] text-fg-3">
+            Return
           </span>
-          <span className="text-[11px] text-fg-3">{formatUpdated(strategy.updatedDaysAgo)}</span>
-        </div>
-
-        <div>
-          <h3 className="text-[21px] font-semibold leading-[1.1] text-fg">{strategy.title}</h3>
-          <p className="mt-1 text-xs text-fg-3">
-            by {strategy.author} · {strategy.league} · {strategy.scarabCount} scarabs
-          </p>
-        </div>
-
-        <div
-          className="flex items-center justify-between"
-          style={cssVars({ '--diff-c': `var(--diff-${strategy.difficulty})` })}
-        >
-          <span className="text-[11px] text-fg-3">Difficulty</span>
-          <span className="inline-flex items-center gap-2">
-            <span className="inline-flex gap-1">
-              {[1, 2, 3].map((i) => (
-                <span
-                  key={i}
-                  className="h-[5px] w-5 rounded-[3px]"
-                  style={{
-                    background: i <= strategy.difficulty ? 'var(--diff-c)' : 'var(--subtle-border)',
-                  }}
-                />
-              ))}
-            </span>
-            <span className="text-xs font-semibold text-[var(--diff-c)]">
-              {DIFFICULTY[strategy.difficulty]}
-            </span>
+          {/* Neutral colour — never green (anti-hype, Principe IX). */}
+          <span className="font-mono text-[17px] font-semibold text-fg">
+            {formatReturn(strategy.returnPerHour)}
           </span>
         </div>
-
-        <div className="flex items-end justify-between border-t border-border pt-[13px]">
-          <div>
-            <span className="block text-[11px] text-fg-3">Est. return</span>
-            {/* Neutral colour — never green (anti-hype, Principe IX). */}
-            <span className="mt-1 block font-display text-[18px] font-semibold text-fg">
-              {formatReturn(strategy.returnPerHour)}
-            </span>
-          </div>
-          <div className="text-right">
-            <span className="block text-[11px] text-fg-3">Invest / map</span>
-            <span className="mt-1 block font-display text-[18px] font-semibold text-fg-2">
-              {formatInvest(strategy.investPerMap)}
-            </span>
-          </div>
+        <div className="hidden text-right sm:block">
+          <span className="block font-display text-[10.5px] font-semibold uppercase tracking-[1.5px] text-fg-3">
+            Invest
+          </span>
+          <span className="font-mono text-[17px] font-semibold text-fg-2">
+            {formatInvest(strategy.investPerMap)}
+          </span>
         </div>
+        <div className="hidden text-right md:block">
+          <span className="inline-flex gap-[3px]">
+            {[1, 2, 3].map((i) => (
+              <span
+                key={i}
+                className="h-[5px] w-[18px] rounded-[2px]"
+                style={{ background: i <= strategy.difficulty ? 'var(--dc)' : 'var(--line)' }}
+              />
+            ))}
+          </span>
+          <span className="mt-1.5 block text-xs font-bold text-[var(--dc)]">
+            {DIFFICULTY[strategy.difficulty]}
+          </span>
+        </div>
+        <span className="text-xl text-fg-3 transition-colors group-hover:text-brass">→</span>
       </div>
     </Link>
   );

@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
-import { Saira_Condensed, Hanken_Grotesk } from 'next/font/google';
+import { Saira_Condensed, Hanken_Grotesk, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
-import { ThemeProvider } from '@/components/layout/theme-provider';
 import { AmbientBackground } from '@/components/layout/ambient-background';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
@@ -18,6 +17,12 @@ const hanken = Hanken_Grotesk({
   variable: '--font-hanken',
 });
 
+const jetbrains = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['500', '600'],
+  variable: '--font-jetbrains',
+});
+
 export const metadata: Metadata = {
   title: 'ExileStrats',
   description: 'Path of Exile mapping strategies as clean, scannable fiches.',
@@ -25,16 +30,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${saira.variable} ${hanken.variable}`}>
+    <html
+      lang="en"
+      data-theme="dark"
+      className={`${saira.variable} ${hanken.variable} ${jetbrains.variable}`}
+    >
       <body>
-        <ThemeProvider>
-          <AmbientBackground />
-          <div className="relative z-[1] mx-auto flex min-h-screen max-w-[1180px] flex-col px-6">
-            <Header />
-            <main className="flex-1 pb-16">{children}</main>
-            <Footer />
-          </div>
-        </ThemeProvider>
+        <AmbientBackground />
+        <div className="relative z-[1] mx-auto flex min-h-screen max-w-[1080px] flex-col px-6">
+          <Header />
+          <main className="flex-1 pb-16">{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );
