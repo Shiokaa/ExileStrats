@@ -2,11 +2,14 @@
 
 > Primer du projet pour le dev assisté par IA. Lire ce fichier, puis interroger `graphify-out/` pour le détail.
 > **Loi du projet** : `.specify/memory/constitution.md` (elle prime). **Journal ADR** : `DECISIONS.md`.
-> **Référence design** : `design_handoff/` (high-fidelity, fait foi).
+> **Référence design** : `design_handoff/` (high-fidelity) pour la **structure/anatomie** des écrans ;
+> sa **direction visuelle** (glass, thèmes light+dark) est **superseded par D35** (dark-only, identité
+> Atlas). Tokens vivants = `src/app/globals.css`.
 >
 > **Précédence des sources** : la maquette `design_handoff/` a été faite **après** le plan initial.
 > En cas de conflit entre une ancienne décision de plan et la maquette, **la maquette gagne** — sauf
-> décision explicite postérieure consignée dans `DECISIONS.md` (ex. stack Next.js, D26).
+> décision explicite postérieure consignée dans `DECISIONS.md` (ex. stack Next.js D26 ; refonte
+> visuelle **D35** dark-only / sans glass, qui supersede l'esthétique verre+light/dark de la maquette).
 
 ## En une phrase
 
@@ -42,17 +45,25 @@ personnel d'abord (pas l'adoption de masse).
 
 ## Design (réf. canonique : `design_handoff/`)
 
-- **Liquid glass** assumé : surfaces translucides (`--glass-card/panel/nav`), `backdrop-filter`
-  (blur + saturate). *(Revirement : l'ancienne consigne « pas de glass » est superseded — DECISIONS.md D20.)*
-- **Thèmes light + dark** de première classe ; persistance `localStorage['mapstrat-theme']` (clé
-  conservée) + fallback `prefers-color-scheme`.
-- **Couleur fonctionnelle** (mécanique / difficulté / action), jamais déco. Accent par mécanique =
-  valeurs fixes de `design_handoff` (identiques light/dark).
-- Polices : **Saira Condensed** (display/titres/chiffres) / **Hanken Grotesk** (corps).
-- **Source de vérité des tokens** : `design_handoff/design_files/ExileStrats Design System.dc.html`
-  (valeurs exactes : variables CSS `--text/-accent/-profit/-glass-*/-r-*/-font-*`, échelle typo
-  `--text-h1…-meta`, helpers `tint()`/`mix()`, maps des 9 mécaniques / tiers S-A-B-C / difficulté
-  3 niveaux, logique de thème `localStorage['mapstrat-theme']`). Le README ne fait que résumer.
+- **Pas de liquid glass.** Surfaces **solides** (palette « void »). Les utilities `glass-card/panel/nav`
+  de `globals.css` sont conservées **par compatibilité de nom mais rendent du solide** (plus de
+  `backdrop-filter`). *(D35 supersede D20 : le verre — réfraction CSS — souffrait d'un bug moteur
+  Chromium et jurait pour un outil de contenu.)*
+- **Dark-only.** Un seul thème (identité Atlas/void, sombre par essence). **Pas de toggle**, dépendance
+  `next-themes` retirée, plus de clé `localStorage['mapstrat-theme']` ni de `prefers-color-scheme`.
+  *(D35 supersede D17.)*
+- **Identité « Atlas / cartography »** : palette void (`--void`, `--surface`, `--line`, `--ink`) +
+  accent **brass** (`--brass`) parcimonieux + les **9 couleurs de mécaniques** (fonctionnelles) +
+  profit neutre (Principe IX). Élément signature : la **constellation** (filtre de mécaniques en nœuds
+  reliés). *(Détail : DECISIONS.md D35.)*
+- **Couleur fonctionnelle** (mécanique / difficulté / action), jamais déco. Couleurs de mécaniques =
+  palette fixe canonique (9 valeurs, D27).
+- Polices : **Saira Condensed** (display/titres) / **Hanken Grotesk** (corps) / **JetBrains Mono**
+  (chiffres/stats, effet « instrument »).
+- **Source de vérité des tokens** : `src/app/globals.css` — bloc `@theme inline` + variables `:root`
+  (palette void/brass, `--radius-*`, `--font-*`, les 9 couleurs de mécaniques, tiers, difficulté).
+  La maquette `design_handoff/design_files/*.dc.html` reste une référence de **structure** mais son
+  design system (glass, light/dark, échelle `--text-h1…-meta`) est **superseded par D35**.
 - Les maquettes `design_handoff/design_files/*.dc.html` sont des **références** (runtime maison
   `support.js` à NE PAS porter) — lire structure/tokens/logique, réimplémenter proprement.
 - **Unités : échelle Tailwind / `rem`, pas de px fixes.** Utiliser l'échelle native
