@@ -18,7 +18,7 @@ export function AuthorAvatar({
   return (
     <span
       style={style}
-      className="inline-flex items-center justify-center rounded-full bg-subtle font-display text-[11px] font-semibold text-fg-2"
+      className="inline-flex items-center justify-center rounded-full bg-subtle font-display text-[0.6875rem] font-semibold text-fg-2"
       aria-hidden="true"
     >
       {(name.trim()[0] ?? '?').toUpperCase()}

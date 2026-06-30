@@ -21,7 +21,7 @@ export function StrategyCard({ strategy }: { strategy: StrategySummary }) {
         ...cssVars({ '--mech': mechanic.color, '--dc': `var(--diff-${strategy.difficulty})` }),
         backgroundImage: `url(/poe1_cards_background/${strategy.mechanic}.jpeg)`,
       }}
-      className="group @container relative grid grid-cols-[auto_1fr_auto] items-center gap-[22px] overflow-hidden rounded-card border border-l-[3px] border-line border-l-[var(--mech)] bg-surface bg-cover bg-center p-5 no-underline [text-shadow:0_1px_3px_rgba(0,0,0,0.7)] transition-transform hover:-translate-y-[2px]"
+      className="group @container relative grid grid-cols-[auto_1fr_auto] items-center gap-5.5 overflow-hidden rounded-card border border-l-[0.1875rem] border-line border-l-[var(--mech)] bg-surface bg-cover bg-center p-5 no-underline [text-shadow:0_1px_3px_rgba(0,0,0,0.7)] transition-transform hover:-translate-y-[2px]"
     >
       {/* dark scrim over the image — keeps text readable */}
       <span
@@ -30,13 +30,13 @@ export function StrategyCard({ strategy }: { strategy: StrategySummary }) {
       />
 
       {/* zone 1 — mechanic icon identity */}
-      <div className="relative z-[1] flex w-[70px] flex-col items-center gap-2">
+      <div className="relative z-[1] flex w-17.5 flex-col items-center gap-2">
         <span
           className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--mech)] bg-void-2"
           style={{ boxShadow: '0 0 14px -3px var(--mech)' }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={mechanic.icon} alt="" className="h-[26px] w-[26px] object-contain" />
+          <img src={mechanic.icon} alt="" className="h-6.5 w-6.5 object-contain" />
         </span>
         <span className="font-display text-xs font-semibold uppercase tracking-[1.5px] text-[var(--mech)]">
           {mechanic.name}
@@ -45,35 +45,35 @@ export function StrategyCard({ strategy }: { strategy: StrategySummary }) {
 
       {/* zone 2 — title + meta */}
       <div className="relative z-[1] min-w-0">
-        <h3 className="font-display text-[23px] font-bold leading-[1.05] text-fg">
+        <h3 className="font-display text-[1.4375rem] font-bold leading-[1.05] text-fg">
           {strategy.title}
         </h3>
-        <p className="mt-1 text-[13px] text-fg-2">
+        <p className="mt-1 text-[0.8125rem] text-fg-2">
           by {strategy.author} · {strategy.league} · {strategy.scarabCount} scarabs
         </p>
       </div>
 
       {/* zone 3 — stats (mono) + difficulty */}
-      <div className="relative z-[1] flex items-center gap-[26px]">
+      <div className="relative z-[1] flex items-center gap-6.5">
         <div className="text-right">
-          <span className="block font-display text-[10.5px] font-semibold uppercase tracking-[1.5px] text-fg-3">
+          <span className="block font-display text-[0.65625rem] font-semibold uppercase tracking-[1.5px] text-fg-3">
             Return
           </span>
           {/* Neutral colour — never green (anti-hype, Principe IX). */}
-          <span className="font-mono text-[17px] font-semibold text-fg">
+          <span className="font-mono text-[1.0625rem] font-semibold text-fg">
             {formatReturn(strategy.returnPerHour)}
           </span>
         </div>
         <div className="hidden text-right @md:block">
-          <span className="block font-display text-[10.5px] font-semibold uppercase tracking-[1.5px] text-fg-3">
+          <span className="block font-display text-[0.65625rem] font-semibold uppercase tracking-[1.5px] text-fg-3">
             Invest
           </span>
-          <span className="font-mono text-[17px] font-semibold text-fg-2">
+          <span className="font-mono text-[1.0625rem] font-semibold text-fg-2">
             {formatInvest(strategy.investPerMap)}
           </span>
         </div>
         <div className="hidden text-right @lg:block">
-          <span className="inline-flex gap-[3px]">
+          <span className="inline-flex gap-0.75">
             {[1, 2, 3].map((i) => (
               <span
                 key={i}

@@ -11,7 +11,7 @@ export function YoutubeEmbed({ url }: { url: string }) {
 
   if (playing) {
     return (
-      <div className="relative aspect-video w-[260px] max-w-full overflow-hidden rounded-[11px] border border-border bg-black">
+      <div className="relative aspect-video w-[16.25rem] max-w-full overflow-hidden rounded-[0.6875rem] border border-border bg-black">
         <iframe
           src={youtubeEmbedUrl(id)}
           title="Strategy video"
@@ -28,14 +28,14 @@ export function YoutubeEmbed({ url }: { url: string }) {
       type="button"
       onClick={() => setPlaying(true)}
       aria-label="Play video"
-      className="relative block aspect-video w-[260px] max-w-full cursor-pointer overflow-hidden rounded-[11px] border border-border bg-black bg-cover bg-center"
+      className="relative block aspect-video w-[16.25rem] max-w-full cursor-pointer overflow-hidden rounded-[0.6875rem] border border-border bg-black bg-cover bg-center"
       style={{ backgroundImage: `url('${youtubeThumbUrl(id)}')` }}
     >
       <span className="absolute inset-0 bg-black/30" />
-      <span className="absolute left-1/2 top-1/2 flex h-[42px] w-[42px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#E11D2A]">
-        <span className="ml-[2px] h-0 w-0 border-y-[7px] border-l-[12px] border-y-transparent border-l-white" />
+      <span className="absolute left-1/2 top-1/2 flex h-10.5 w-10.5 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#E11D2A]">
+        <span className="ml-0.5 h-0 w-0 border-y-1.75 border-l-3 border-y-transparent border-l-white" />
       </span>
-      <span className="absolute bottom-[7px] left-2 inline-flex items-center gap-1.5 rounded-[6px] bg-black/60 px-2 py-[3px] text-[10px] font-semibold text-white">
+      <span className="absolute bottom-1.75 left-2 inline-flex items-center gap-1.5 rounded-[0.375rem] bg-black/60 px-2 py-0.75 text-[0.625rem] font-semibold text-white">
         YouTube
       </span>
     </button>
