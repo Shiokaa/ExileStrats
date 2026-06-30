@@ -86,7 +86,7 @@ export function HomeView({ strategies }: { strategies: StrategySummary[] }) {
   return (
     <div className="flex flex-col gap-6.5">
       {/* Hero */}
-      <section className="flex flex-col items-center pb-2 pt-14 text-center">
+      <section className="flex flex-col items-center pb-2 pt-8 sm:pt-14 text-center">
         <span className="eyebrow">Strategies · {LEAGUES[0]} league</span>
         <h1 className="mt-3 text-[clamp(36px,5vw,54px)] font-bold leading-[1.02] text-fg">
           Path of Exile mapping strategies

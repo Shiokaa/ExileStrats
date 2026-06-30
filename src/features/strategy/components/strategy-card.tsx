@@ -21,7 +21,7 @@ export function StrategyCard({ strategy }: { strategy: StrategySummary }) {
         ...cssVars({ '--mech': mechanic.color, '--dc': `var(--diff-${strategy.difficulty})` }),
         backgroundImage: `url(/poe1_cards_background/${strategy.mechanic}.jpeg)`,
       }}
-      className="group @container relative grid grid-cols-[auto_1fr_auto] items-center gap-5.5 overflow-hidden rounded-card border border-l-[0.1875rem] border-line border-l-[var(--mech)] bg-surface bg-cover bg-center p-5 no-underline [text-shadow:0_1px_3px_rgba(0,0,0,0.7)] transition-transform hover:-translate-y-[2px]"
+      className="group @container relative grid grid-cols-[auto_1fr_auto] items-center gap-3 @sm:gap-5.5 overflow-hidden rounded-card border border-l-[0.1875rem] border-line border-l-[var(--mech)] bg-surface bg-cover bg-center p-5 no-underline [text-shadow:0_1px_3px_rgba(0,0,0,0.7)] transition-transform hover:-translate-y-[2px]"
     >
       {/* dark scrim over the image — keeps text readable */}
       <span
@@ -55,7 +55,7 @@ export function StrategyCard({ strategy }: { strategy: StrategySummary }) {
 
       {/* zone 3 — stats (mono) + difficulty */}
       <div className="relative z-[1] flex items-center gap-6.5">
-        <div className="text-right">
+        <div className="hidden text-right @sm:block">
           <span className="block font-display text-[0.65625rem] font-semibold uppercase tracking-[0.09375rem] text-fg-3">
             Return
           </span>
