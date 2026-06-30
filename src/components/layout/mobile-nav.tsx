@@ -2,18 +2,16 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import type { NavLink } from './nav-links';
 import { Button } from '@/components/ui/button';
 
 export function MobileNav({ links, isAuthed }: { links: readonly NavLink[]; isAuthed: boolean }) {
   const [open, setOpen] = useState(false);
-  const pathname = usePathname();
 
-  // Close on route change.
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+  // The header (and this island) persists across navigations, so close the drawer
+  // on click of any navigational item rather than reacting to the pathname in an
+  // effect (the project avoids setState-in-effect).
+  const close = () => setOpen(false);
 
   // Close on Escape.
   useEffect(() => {
@@ -88,13 +86,19 @@ export function MobileNav({ links, isAuthed }: { links: readonly NavLink[]; isAu
               <Link
                 key={link.href}
                 href={link.href}
+                onClick={close}
                 className="rounded-pill px-3.5 py-2.5 text-sm font-semibold text-fg-2 no-underline transition-colors hover:bg-subtle hover:text-fg"
               >
                 {link.label}
               </Link>
             ))}
             <div className="mt-1 flex gap-2 border-t border-line pt-3">
-              <Button href="/create" variant="primary" className="flex-1 justify-center">
+              <Button
+                href="/create"
+                variant="primary"
+                onClick={close}
+                className="flex-1 justify-center"
+              >
                 Create
               </Button>
               {isAuthed ? (
@@ -104,7 +108,7 @@ export function MobileNav({ links, isAuthed }: { links: readonly NavLink[]; isAu
                   </Button>
                 </form>
               ) : (
-                <Button href="/auth" className="flex-1 justify-center">
+                <Button href="/auth" onClick={close} className="flex-1 justify-center">
                   Sign in
                 </Button>
               )}
