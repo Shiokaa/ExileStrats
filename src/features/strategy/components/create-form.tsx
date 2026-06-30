@@ -41,24 +41,24 @@ type CreateFormProps =
 /** Numbered section header (circle badge + title). */
 function SectionHeader({ n, title }: { n: number; title: string }) {
   return (
-    <div className="mb-[18px] flex items-center gap-[10px]">
-      <span className="flex h-[26px] w-[26px] flex-shrink-0 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] font-display text-[14px] font-bold text-accent">
+    <div className="mb-4.5 flex items-center gap-2.5">
+      <span className="flex h-6.5 w-6.5 flex-shrink-0 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] font-display text-sm font-bold text-accent">
         {n}
       </span>
-      <h2 className="font-display text-[22px] font-semibold text-fg">{title}</h2>
+      <h2 className="font-display text-[1.375rem] font-semibold text-fg">{title}</h2>
     </div>
   );
 }
 
 /** Glass-panel section wrapper. */
 function Section({ children }: { children: React.ReactNode }) {
-  return <section className="glass-card rounded-panel p-[24px]">{children}</section>;
+  return <section className="glass-card rounded-panel p-6">{children}</section>;
 }
 
 /** Shared label style. */
 function Label({ children, htmlFor }: { children: React.ReactNode; htmlFor?: string }) {
   return (
-    <label htmlFor={htmlFor} className="mb-[7px] block text-[13px] font-semibold text-fg-2">
+    <label htmlFor={htmlFor} className="mb-1.75 block text-[0.8125rem] font-semibold text-fg-2">
       {children}
     </label>
   );
@@ -88,7 +88,7 @@ function TextInput({
       inputMode={inputMode}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="h-[46px] w-full rounded-input border border-line bg-surface-2 px-[15px] text-[15px] text-fg outline-none placeholder:text-fg-3"
+      className="h-11.5 w-full rounded-input border border-line bg-surface-2 px-3.75 text-[0.9375rem] text-fg outline-none placeholder:text-fg-3"
     />
   );
 }
@@ -121,16 +121,16 @@ function SimpleListField({
   return (
     <div>
       {items.length > 0 && (
-        <div className="mb-[12px] flex flex-col gap-[10px]">
+        <div className="mb-3 flex flex-col gap-2.5">
           {items.map((item, i) => (
-            <div key={i} className="flex items-center gap-[10px]">
+            <div key={i} className="flex items-center gap-2.5">
               {leading?.(i)}
               <input
                 type="text"
                 value={item}
                 onChange={(e) => update(i, e.target.value)}
                 placeholder={placeholder(i)}
-                className="h-[44px] min-w-0 flex-1 rounded-input border border-line bg-surface-2 px-[14px] text-[14px] text-fg outline-none placeholder:text-fg-3"
+                className="h-11 min-w-0 flex-1 rounded-input border border-line bg-surface-2 px-3.5 text-sm text-fg outline-none placeholder:text-fg-3"
               />
               {items.length > min && (
                 <IconButton
@@ -150,7 +150,7 @@ function SimpleListField({
         <button
           type="button"
           onClick={add}
-          className="inline-flex cursor-pointer items-center gap-[7px] rounded-input border border-dashed border-line bg-transparent px-[15px] py-[9px] text-[13px] font-semibold text-fg-2 hover:text-fg"
+          className="inline-flex cursor-pointer items-center gap-1.75 rounded-input border border-dashed border-line bg-transparent px-3.75 py-2.25 text-[0.8125rem] font-semibold text-fg-2 hover:text-fg"
         >
           <svg
             width="15"
@@ -272,23 +272,23 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
 
   const segmentBtn = (active: boolean) =>
     cx(
-      'flex-1 cursor-pointer rounded-pill border-none px-[6px] py-[8px] text-[13px] font-semibold transition-colors',
+      'flex-1 cursor-pointer rounded-pill border-none px-1.5 py-2 text-[0.8125rem] font-semibold transition-colors',
       active ? segmentActive : segmentInactive,
     );
 
   return (
-    <div className="flex flex-col gap-[24px]">
+    <div className="flex flex-col gap-6">
       {/* ===== LIVE PREVIEW (full width — shows exactly as in listings) ===== */}
-      <div className="flex flex-col gap-[10px]">
+      <div className="flex flex-col gap-2.5">
         <div className="eyebrow">Card preview</div>
         <StrategyCard strategy={preview} />
-        <p className="text-[12px] leading-[1.5] text-fg-3">
+        <p className="text-xs leading-[1.5] text-fg-3">
           Updates as you fill in the form — exactly how your strategy appears in listings.
         </p>
       </div>
 
       {/* ===== FORM ===== */}
-      <div className="flex flex-col gap-[18px] min-w-0">
+      <div className="flex flex-col gap-4.5 min-w-0">
         {/* §1 Essentials */}
         <Section>
           <SectionHeader n={1} title="The essentials" />
@@ -301,9 +301,9 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
             placeholder="e.g. Harvest Lifeforce Juicing"
           />
 
-          <div className="mt-[18px]">
+          <div className="mt-4.5">
             <Label>Main mechanic</Label>
-            <div className="flex flex-wrap gap-[8px]">
+            <div className="flex flex-wrap gap-2">
               {MECHANIC_KEYS.map((key) => {
                 const m = MECHANICS[key];
                 const active = mechanic === key;
@@ -312,7 +312,7 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
                     key={key}
                     type="button"
                     className={cx(
-                      'inline-flex cursor-pointer items-center gap-[8px] rounded-pill border px-[14px] py-[8px] text-[13px] font-semibold transition-colors',
+                      'inline-flex cursor-pointer items-center gap-2 rounded-pill border px-3.5 py-2 text-[0.8125rem] font-semibold transition-colors',
                       active
                         ? 'mech-tint border-transparent'
                         : 'border-line text-fg-2 hover:bg-surface-2 hover:text-fg',
@@ -328,11 +328,11 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
             </div>
           </div>
 
-          <div className="mt-[18px] grid grid-cols-2 gap-[14px]">
+          <div className="mt-4.5 grid grid-cols-2 gap-3.5">
             <div>
               <Label>League</Label>
               <div
-                className="inline-flex w-full rounded-pill border border-line bg-void-2 p-[3px]"
+                className="inline-flex w-full rounded-pill border border-line bg-void-2 p-0.75"
                 role="group"
                 aria-label="League"
               >
@@ -351,7 +351,7 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
             <div>
               <Label>Difficulty</Label>
               <div
-                className="inline-flex w-full rounded-pill border border-line bg-void-2 p-[3px]"
+                className="inline-flex w-full rounded-pill border border-line bg-void-2 p-0.75"
                 role="group"
                 aria-label="Difficulty"
               >
@@ -375,7 +375,7 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
         <Section>
           <SectionHeader n={2} title="Measured numbers" />
 
-          <div className="grid grid-cols-2 gap-[14px]">
+          <div className="grid grid-cols-2 gap-3.5">
             <div>
               <Label>Est. return (div / h)</Label>
               <TextInput
@@ -396,7 +396,7 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
             </div>
           </div>
 
-          <div className="mt-[18px]">
+          <div className="mt-4.5">
             <Label htmlFor="snapshot">Snapshot label (optional)</Label>
             <TextInput
               id="snapshot"
@@ -407,7 +407,7 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
           </div>
 
           {/* Anti-hype note (hard requirement per Principle IX) */}
-          <div className="mt-[14px] flex gap-[10px] rounded-input bg-surface-2 p-[12px_14px]">
+          <div className="mt-3.5 flex gap-2.5 rounded-input bg-surface-2 py-3 px-3.5">
             <svg
               width="16"
               height="16"
@@ -417,14 +417,14 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="mt-[1px] flex-shrink-0 text-fg-3"
+              className="mt-px flex-shrink-0 text-fg-3"
               aria-hidden="true"
             >
               <circle cx="12" cy="12" r="9" />
               <line x1="12" y1="11" x2="12" y2="16.5" />
               <circle cx="12" cy="7.8" r="0.4" />
             </svg>
-            <span className="text-[12.5px] leading-[1.5] text-fg-2">
+            <span className="text-[0.78125rem] leading-[1.5] text-fg-2">
               Enter numbers you actually measured over at least 20 maps. Return is an estimate
               balanced by difficulty — it is never the headline.
             </span>
@@ -443,7 +443,7 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
             placeholder="e.g. Harvest Lifeforce, Yellow crops"
           />
 
-          <div className="mt-[18px]">
+          <div className="mt-4.5">
             <Label htmlFor="summary">Summary</Label>
             <textarea
               id="summary"
@@ -451,11 +451,11 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
               onChange={(e) => setSummary(e.target.value)}
               rows={3}
               placeholder="In one or two sentences, what is the strategy and who is it for."
-              className="w-full rounded-input border border-line bg-surface-2 px-[15px] py-[13px] text-[14px] leading-[1.5] text-fg outline-none placeholder:text-fg-3 resize-y"
+              className="w-full rounded-input border border-line bg-surface-2 px-3.75 py-3.25 text-sm leading-[1.5] text-fg outline-none placeholder:text-fg-3 resize-y"
             />
           </div>
 
-          <div className="mt-[18px]">
+          <div className="mt-4.5">
             <Label>Steps</Label>
             <SimpleListField
               items={steps}
@@ -466,7 +466,7 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
               addLabel="Add a step"
               removeLabel="Remove step"
               leading={(i) => (
-                <span className="flex h-[28px] w-[28px] flex-shrink-0 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] font-display text-[14px] font-bold text-accent">
+                <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] font-display text-sm font-bold text-accent">
                   {i + 1}
                 </span>
               )}
@@ -477,7 +477,7 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
         {/* §4 Map device — up to 5 scarabs */}
         <Section>
           <SectionHeader n={4} title="Map device" />
-          <p className="mb-[16px] text-[13px] leading-[1.5] text-fg-3">
+          <p className="mb-4 text-[0.8125rem] leading-[1.5] text-fg-3">
             Up to 5 scarabs. No fragments in V1.
           </p>
           <SimpleListField
@@ -500,17 +500,17 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
         {/* §5 Atlas tree — level-0: planner link or image URL (no interactive editor, non-goal V1) */}
         <Section>
           <SectionHeader n={5} title="Atlas tree" />
-          <p className="mb-[16px] text-[13px] leading-[1.5] text-fg-3">
+          <p className="mb-4 text-[0.8125rem] leading-[1.5] text-fg-3">
             Link a planner or an image of the tree. The interactive atlas editor is not available in
             V1.
           </p>
 
-          <div className="mb-[14px] inline-flex rounded-pill border border-line bg-void-2 p-[3px]">
+          <div className="mb-3.5 inline-flex rounded-pill border border-line bg-void-2 p-0.75">
             {(['link', 'image'] as const).map((k) => (
               <button
                 key={k}
                 type="button"
-                className={cx(segmentBtn(atlasKind === k), 'px-[18px] capitalize')}
+                className={cx(segmentBtn(atlasKind === k), 'px-4.5 capitalize')}
                 onClick={() => setAtlasKind(k)}
               >
                 {k}
@@ -532,7 +532,7 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
         {/* §6 Recommended maps */}
         <Section>
           <SectionHeader n={6} title="Recommended maps" />
-          <p className="mb-[12px] text-[13px] leading-[1.5] text-fg-3">
+          <p className="mb-3 text-[0.8125rem] leading-[1.5] text-fg-3">
             Maps that suit this strategy (optional).
           </p>
           <SimpleListField
@@ -541,7 +541,7 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
             placeholder={(i) => `Map ${i + 1}`}
             addLabel="Add a map"
           />
-          <div className="mt-[18px]">
+          <div className="mt-4.5">
             <Label htmlFor="mapNote">Map note (optional)</Label>
             <textarea
               id="mapNote"
@@ -549,7 +549,7 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
               onChange={(e) => setMapNote(e.target.value)}
               rows={2}
               placeholder="Anything to know about map choice, sustain, etc."
-              className="w-full resize-y rounded-input border border-line bg-surface-2 px-[15px] py-[13px] text-[14px] leading-[1.5] text-fg outline-none placeholder:text-fg-3"
+              className="w-full resize-y rounded-input border border-line bg-surface-2 px-3.75 py-3.25 text-sm leading-[1.5] text-fg outline-none placeholder:text-fg-3"
             />
           </div>
         </Section>
@@ -567,8 +567,8 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
         </Section>
 
         {/* Action bar */}
-        <div className="flex flex-wrap items-center justify-end gap-[12px]">
-          {error && <p className="mr-auto text-[13px] text-danger">{error}</p>}
+        <div className="flex flex-wrap items-center justify-end gap-3">
+          {error && <p className="mr-auto text-[0.8125rem] text-danger">{error}</p>}
           <Button type="button" variant="primary" onClick={submit} disabled={busy}>
             {busy ? (isEdit ? 'Saving…' : 'Publishing…') : isEdit ? 'Save changes' : 'Publish'}
           </Button>

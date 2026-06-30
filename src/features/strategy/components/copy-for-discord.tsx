@@ -19,7 +19,7 @@ export function CopyForDiscord({ text }: { text: string }) {
     <button
       type="button"
       onClick={handleCopy}
-      className="inline-flex h-9 items-center gap-2 rounded-[10px] bg-[#5865F2] px-3 text-[12.5px] font-semibold text-white transition-colors hover:bg-[#4752c4]"
+      className="inline-flex h-9 items-center gap-2 rounded-[0.625rem] bg-[#5865F2] px-3 text-[0.78125rem] font-semibold text-white transition-colors hover:bg-[#4752c4]"
     >
       {copied ? (
         <svg

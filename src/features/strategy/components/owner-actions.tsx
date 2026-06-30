@@ -34,7 +34,7 @@ export function OwnerActions({ slug, redirectTo }: { slug: string; redirectTo?: 
       <Button type="button" onClick={onDelete} disabled={busy} className="text-danger">
         {busy ? 'Deleting…' : 'Delete'}
       </Button>
-      {error && <span className="text-[12px] text-danger">{error}</span>}
+      {error && <span className="text-xs text-danger">{error}</span>}
     </div>
   );
 }

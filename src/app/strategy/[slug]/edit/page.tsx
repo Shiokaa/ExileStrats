@@ -43,7 +43,7 @@ export default async function EditStrategyPage({ params }: Params) {
   };
 
   return (
-    <div className="flex flex-col gap-0 pt-[36px]">
+    <div className="flex flex-col gap-0 pt-9">
       <Breadcrumb
         items={[
           { label: 'Home', href: '/' },
@@ -52,9 +52,9 @@ export default async function EditStrategyPage({ params }: Params) {
         ]}
       />
 
-      <header className="mb-[26px]">
-        <h1 className="text-[42px] font-bold leading-[1] text-fg">Edit your strategy</h1>
-        <p className="mt-[12px] max-w-[600px] text-[15px] leading-[1.55] text-fg-2">
+      <header className="mb-6.5">
+        <h1 className="text-[2.625rem] font-bold leading-[1] text-fg">Edit your strategy</h1>
+        <p className="mt-3 max-w-[37.5rem] text-[0.9375rem] leading-[1.55] text-fg-2">
           Update the numbers and method. The link to this strategy stays the same.
         </p>
       </header>

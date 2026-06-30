@@ -14,17 +14,17 @@ export default async function MechanicsIndexPage() {
   const counts = await getStrategyCountsByMechanic();
   return (
     <div className="pt-12">
-      <section className="mb-8 flex flex-col items-center gap-[14px] text-center">
+      <section className="mb-8 flex flex-col items-center gap-3.5 text-center">
         <span className="eyebrow">Atlas · Mechanics</span>
         <h1 className="font-display text-[clamp(34px,5vw,50px)] font-bold leading-[1.02] text-fg">
           Mechanics
         </h1>
-        <p className="m-0 max-w-[540px] text-base leading-[1.6] text-fg-2">
+        <p className="m-0 max-w-[33.75rem] text-base leading-[1.6] text-fg-2">
           Pick a mechanic to see how it works and the strategies built around it.
         </p>
       </section>
 
-      <div className="flex flex-col gap-[10px]">
+      <div className="flex flex-col gap-2.5">
         {MECHANIC_KEYS.map((key) => {
           const m = MECHANICS[key];
           const count = counts[key] ?? 0;
@@ -32,7 +32,7 @@ export default async function MechanicsIndexPage() {
             <Link
               key={key}
               href={`/mechanics/${key}`}
-              className="group relative flex items-center gap-4 overflow-hidden rounded-card border border-l-[3px] border-line border-l-[var(--mech)] bg-surface p-[18px] no-underline transition-transform hover:-translate-y-[2px]"
+              className="group relative flex items-center gap-4 overflow-hidden rounded-card border border-l-[0.1875rem] border-line border-l-[var(--mech)] bg-surface p-4.5 no-underline transition-transform hover:-translate-y-[2px]"
               style={cssVars({ '--mech': m.color })}
             >
               {/* mechanic node dot */}
@@ -43,12 +43,12 @@ export default async function MechanicsIndexPage() {
               />
               {/* name */}
               <span className="min-w-0 flex-1">
-                <span className="block font-display text-[20px] font-bold leading-tight text-fg">
+                <span className="block font-display text-xl font-bold leading-tight text-fg">
                   {m.name}
                 </span>
               </span>
               {/* strategy count */}
-              <span className="font-mono text-[12px] text-fg-3">
+              <span className="font-mono text-xs text-fg-3">
                 {count} {count === 1 ? 'strategy' : 'strategies'}
               </span>
               {/* chevron */}

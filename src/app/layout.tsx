@@ -37,7 +37,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     >
       <body>
         <AmbientBackground />
-        <div className="relative z-[1] mx-auto flex min-h-screen max-w-[1080px] flex-col px-6">
+        <div className="relative z-[1] mx-auto flex min-h-screen max-w-[67.5rem] flex-col px-6">
           <Header />
           <main className="flex-1 pb-16">{children}</main>
           <Footer />
