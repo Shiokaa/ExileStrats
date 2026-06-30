@@ -25,15 +25,25 @@ export function MobileNav({ links, isAuthed }: { links: readonly NavLink[]; isAu
     return () => window.removeEventListener('keydown', onKey);
   }, [open]);
 
+  // Scroll-lock while drawer is open.
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
+
   return (
     <div className="md:hidden">
       <button
         type="button"
-        aria-label="Menu"
+        aria-label={open ? 'Close menu' : 'Menu'}
         aria-expanded={open}
         aria-controls="mobile-nav-drawer"
         onClick={() => setOpen((v) => !v)}
-        className="flex size-10 items-center justify-center rounded-pill text-fg-2 transition-colors hover:bg-subtle hover:text-fg"
+        className="relative z-40 flex size-10 items-center justify-center rounded-pill text-fg-2 transition-colors hover:bg-subtle hover:text-fg"
       >
         <svg
           width="20"
@@ -71,7 +81,7 @@ export function MobileNav({ links, isAuthed }: { links: readonly NavLink[]; isAu
           />
           <nav
             id="mobile-nav-drawer"
-            aria-label="Primary"
+            aria-label="Mobile navigation"
             className="glass-panel fixed inset-x-3 top-20 z-40 flex flex-col gap-1 rounded-panel p-3"
           >
             {links.map((link) => (
