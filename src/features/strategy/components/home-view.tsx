@@ -127,7 +127,7 @@ export function HomeView({ strategies }: { strategies: StrategySummary[] }) {
 
       {/* Toolbar */}
       <div className="flex flex-col items-start justify-between gap-3 border-b border-line-soft pb-3.5 sm:flex-row sm:items-center">
-        <span className="font-display text-[0.8125rem] font-semibold uppercase tracking-[1px] text-fg-2">
+        <span className="font-display text-[0.8125rem] font-semibold uppercase tracking-[0.0625rem] text-fg-2">
           <b className="text-fg">{results.length}</b>{' '}
           {results.length === 1 ? 'strategy' : 'strategies'}
         </span>

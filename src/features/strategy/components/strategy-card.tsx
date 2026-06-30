@@ -38,7 +38,7 @@ export function StrategyCard({ strategy }: { strategy: StrategySummary }) {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={mechanic.icon} alt="" className="h-6.5 w-6.5 object-contain" />
         </span>
-        <span className="font-display text-xs font-semibold uppercase tracking-[1.5px] text-[var(--mech)]">
+        <span className="font-display text-xs font-semibold uppercase tracking-[0.09375rem] text-[var(--mech)]">
           {mechanic.name}
         </span>
       </div>
@@ -56,7 +56,7 @@ export function StrategyCard({ strategy }: { strategy: StrategySummary }) {
       {/* zone 3 — stats (mono) + difficulty */}
       <div className="relative z-[1] flex items-center gap-6.5">
         <div className="text-right">
-          <span className="block font-display text-[0.65625rem] font-semibold uppercase tracking-[1.5px] text-fg-3">
+          <span className="block font-display text-[0.65625rem] font-semibold uppercase tracking-[0.09375rem] text-fg-3">
             Return
           </span>
           {/* Neutral colour — never green (anti-hype, Principe IX). */}
@@ -65,7 +65,7 @@ export function StrategyCard({ strategy }: { strategy: StrategySummary }) {
           </span>
         </div>
         <div className="hidden text-right @md:block">
-          <span className="block font-display text-[0.65625rem] font-semibold uppercase tracking-[1.5px] text-fg-3">
+          <span className="block font-display text-[0.65625rem] font-semibold uppercase tracking-[0.09375rem] text-fg-3">
             Invest
           </span>
           <span className="font-mono text-[1.0625rem] font-semibold text-fg-2">

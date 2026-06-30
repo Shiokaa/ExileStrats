@@ -24,7 +24,7 @@ export default async function ProfilePage() {
   return (
     <div className="flex flex-col gap-10 pt-12">
       {/* User panel — solid surface */}
-      <div className="mx-auto flex w-full max-w-[480px] flex-col items-center gap-4 rounded-panel border border-line bg-surface p-[40px] text-center">
+      <div className="mx-auto flex w-full max-w-[30rem] flex-col items-center gap-4 rounded-panel border border-line bg-surface p-10 text-center">
         <span className="eyebrow mb-2">Exile · Profile</span>
         {avatar ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -38,8 +38,8 @@ export default async function ProfilePage() {
             <UserIcon size={30} />
           </span>
         )}
-        <h1 className="font-display text-[26px] font-bold text-fg">{name}</h1>
-        {user.email && <p className="text-[13px] text-fg-3">{user.email}</p>}
+        <h1 className="font-display text-[1.625rem] font-bold text-fg">{name}</h1>
+        {user.email && <p className="text-[0.8125rem] text-fg-3">{user.email}</p>}
         <form action="/auth/signout" method="post" className="mt-2">
           <Button type="submit">Sign out</Button>
         </form>
@@ -47,14 +47,14 @@ export default async function ProfilePage() {
 
       {/* My strategies */}
       <section>
-        <div className="mb-[14px] flex items-center justify-between gap-3 border-b border-line-soft pb-[14px]">
+        <div className="mb-3.5 flex items-center justify-between gap-3 border-b border-line-soft pb-3.5">
           <span className="eyebrow">My Strategies</span>
-          <span className="font-mono text-[13px] text-fg-3">{strategies.length}</span>
+          <span className="font-mono text-[0.8125rem] text-fg-3">{strategies.length}</span>
         </div>
 
         {strategies.length === 0 ? (
-          <div className="flex flex-col items-center gap-4 rounded-panel border border-line bg-surface p-[40px] text-center">
-            <p className="max-w-[420px] text-[15px] leading-[1.55] text-fg-2">
+          <div className="flex flex-col items-center gap-4 rounded-panel border border-line bg-surface p-10 text-center">
+            <p className="max-w-[26.25rem] text-[0.9375rem] leading-[1.55] text-fg-2">
               You haven&apos;t published any strategy yet.
             </p>
             <Button href="/create" variant="primary">
@@ -62,7 +62,7 @@ export default async function ProfilePage() {
             </Button>
           </div>
         ) : (
-          <div className="flex flex-col gap-[14px]">
+          <div className="flex flex-col gap-3.5">
             {strategies.map((s) => (
               <div key={s.id} className="flex flex-col gap-2">
                 <StrategyCard strategy={s} />
