@@ -328,7 +328,7 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
             </div>
           </div>
 
-          <div className="mt-4.5 grid grid-cols-2 gap-3.5">
+          <div className="mt-4.5 grid grid-cols-1 gap-3.5 sm:grid-cols-2">
             <div>
               <Label>League</Label>
               <div
@@ -375,7 +375,7 @@ export function CreateForm(props: CreateFormProps = { mode: 'create' }) {
         <Section>
           <SectionHeader n={2} title="Measured numbers" />
 
-          <div className="grid grid-cols-2 gap-3.5">
+          <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
             <div>
               <Label>Est. return (div / h)</Label>
               <TextInput

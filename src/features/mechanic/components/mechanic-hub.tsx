@@ -32,7 +32,7 @@ export function MechanicHub({ mechanicKey, strategies }: MechanicHubProps) {
       </nav>
 
       {/* Hero */}
-      <header className="mb-8">
+      <header className="mb-5 sm:mb-8">
         <div className="flex flex-wrap items-center gap-4.5">
           {/* 64px mechanic pastille */}
           <div

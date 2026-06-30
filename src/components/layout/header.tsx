@@ -4,6 +4,7 @@ import { getCurrentUser } from '@/lib/supabase/server';
 import { NAV_LINKS } from './nav-links';
 import { UserIcon } from '@/components/ui/icons';
 import { Button, IconButton } from '@/components/ui/button';
+import { MobileNav } from './mobile-nav';
 
 export async function Header() {
   const user = await getCurrentUser();
@@ -34,7 +35,7 @@ export async function Header() {
         </div>
 
         {/* Buttons */}
-        <div className="flex items-center gap-2.5">
+        <div className="hidden items-center gap-2.5 md:flex">
           <Button href="/create" variant="primary" className="gap-1.5">
             <svg
               width="15"
@@ -59,6 +60,8 @@ export async function Header() {
             <Button href="/auth">Sign in</Button>
           )}
         </div>
+
+        <MobileNav links={NAV_LINKS} isAuthed={!!user} />
       </div>
     </header>
   );
